@@ -72,7 +72,7 @@ export default function Home() {
   useEffect(() => {
     const renderTurnstile = () => {
       if (window.turnstile && turnstileRef.current) {
-        const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+        const siteKey = process.env.TURNSTILE_SITE_KEY;
         console.log('Rendering Turnstile with site key:', siteKey);
         
         try {
