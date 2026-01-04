@@ -2,7 +2,7 @@
 
 ![Next.js Portfolio for System Admins](public/share.webp)
 
-A premium, fully responsive portfolio website built with Next.js 15, featuring a working contact form, SEO optimization, and modern design principles.
+A premium, fully responsive portfolio website built with Next.js 16, featuring a working contact form, SEO optimization, and modern design principles.
 
 ## 🚀 Features
 
@@ -154,10 +154,6 @@ npm run start
 
 ## 🛡️ Security
 
-- **XSS Protection**: Cross-site scripting prevention
-- **Frame Options**: Clickjacking protection
-- **Content Security Policy**: Resource loading restrictions
-- **HTTPS**: SSL/TLS encryption
 - **Input Validation**: Form sanitization
 - **Bot Protection**: Cloudflare Turnstile integration
 - **Rate Limiting**: Form submission protection
