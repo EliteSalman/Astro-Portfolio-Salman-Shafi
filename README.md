@@ -7,7 +7,7 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
 ## 🚀 Features
 
 ### 🎨 Design & UI
-- **Premium Glass Morphism**: Modern glass effects and gradients
+- **Modern Red & Black Theme**: Modern glass effects and gradients
 - **Fully Responsive**: Mobile-first design with perfect mobile optimization
 - **Smooth Animations**: Framer Motion animations and transitions
 - **Premium Typography**: Geist font with optimized readability
@@ -15,8 +15,8 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
 
 ### 📧 Contact System
 - **Working Contact Form**: Fully functional with validation
-- **Cloudflare Turnstile**: Bot protection and security verification
-- **Email Integration**: AWS SES SMTP configuration
+- **Cloudflare Turnstile Captcha**: Bot Protection on Contact Form.
+- **Email Integration**: You can use any E-Mail provider that supports SMTP
 - **Premium Email Templates**: Beautiful HTML email styling
 - **Loading States**: Smooth form submission experience
 - **Error Handling**: Comprehensive error management
@@ -29,37 +29,33 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
 - **Performance Optimized**: 99.7kB first load with optimal loading
 
 ### 🛡️ Security & Performance
-- **Security Headers**: XSS protection, frame options, CSP
 - **Image Optimization**: WebP/AVIF formats with Next.js Image
 - **Code Splitting**: Automatic chunking for faster loads
 - **Production Ready**: Console removal, minification, compression
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 15 (App Router)
+- **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
-- **Email**: Nodemailer + AWS SES
-- **Deployment**: Vercel
+- **Email**: Nodemailer
+- **Deployment**: Podman
 
-## 📦 Installation
+## 📦 Deployment
 
-1. **Clone the repository**
+1. **Install Podman && Podman Compose**
    ```bash
-   git clone https://github.com/asma019/Next.js-Portfolio-for-System-Admins.git
-   cd Next.js-Portfolio-for-System-Admins
+   sudo dnf install podman podman-compose
    ```
-
-2. **Install dependencies**
+2. **Create Installation Directory**
    ```bash
-   npm install
+   mkdir portfolio
    ```
-
-3. **Set up environment variables**
+3. **Download compose.yml**
    ```bash
-   cp .env.example .env.local
+   wget https://raw.githubusercontent.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/main/compose.ymll   ```al
    ```
    
    Edit `.env.local` with your actual values:
@@ -84,14 +80,14 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
    TURNSTILE_SECRET_KEY=your-turnstile-secret-key
    ```
 
-4. **Run development server**
+4. **Run**
    ```bash
-   npm run dev
+   podman-compose up -d
    ```
 
 5. **Open in browser**
    ```
-   http://localhost:3000
+   http://your-server-ip:3001
    ```
 
 ## 🔧 Configuration
@@ -110,18 +106,15 @@ Replace these images in the `public/` folder:
 - `share.webp` - Social media preview image (1200x630px)
 
 ### Contact Form
-The contact form uses AWS SES for email sending and Cloudflare Turnstile for bot protection. To set up:
+The contact form uses SMTP for email sending and Cloudflare Turnstile for bot protection. To set up:
 
-1. **Create AWS SES Account**
-   - Go to AWS SES Console
-   - Verify your sending domain
-   - Create SMTP credentials
+1. **Get SMTP Credentials from your E-Mail Provider**
 
 2. **Set up Cloudflare Turnstile**
    - Go to [Cloudflare Turnstile Dashboard](https://dash.cloudflare.com/?to=/:account/turnstile)
    - Create a new site key for your domain
-   - Choose "Managed" or "Non-Interactive" challenge type
-   - Copy the Site Key and Secret Key
+   - Choose "Managed" challenge type
+   - Copy the Site Key & Secret Key 🔑
 
 3. **Configure Environment Variables**
    - Add your SMTP credentials to `.env.local`
@@ -133,28 +126,6 @@ The contact form uses AWS SES for email sending and Cloudflare Turnstile for bot
    - Complete the Turnstile challenge
    - Check your email inbox
    - Verify email formatting
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-1. **Push to GitHub**
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. **Deploy to Vercel**
-   - Visit [vercel.com](https://vercel.com)
-   - Import your GitHub repository
-   - Add environment variables
-   - Deploy
-
-3. **Custom Domain**
-   - Add your domain in Vercel dashboard
-   - Configure DNS records
-   - Enable HTTPS
 
 ### Manual Build
 
@@ -288,4 +259,4 @@ For questions or support:
 
 ---
 
-**Made with ❤️ using Next.js 15**
+**Made with ❤️ using Nex**Made with ❤ using Next.js"
