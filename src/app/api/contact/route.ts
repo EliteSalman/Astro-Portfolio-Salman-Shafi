@@ -4,7 +4,38 @@ import nodemailer from 'nodemailer';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message } = body;
+    const { name, email, subject, message, turnstileToken } = body;
+
+    // Validate Turnstile token
+    if (!turnstileToken) {
+      return NextResponse.json(
+        { error: 'Security verification required' },
+        { status: 400 }
+      );
+    }
+
+    // Verify Turnstile token with Cloudflare
+    const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        secret: process.env.TURNSTILE_SECRET_KEY,
+        response: turnstileToken,
+        remoteip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
+      }),
+    });
+
+    const turnstileResult = await turnstileResponse.json();
+
+    if (!turnstileResult.success) {
+      console.error('Turnstile verification failed:', turnstileResult);
+      return NextResponse.json(
+        { error: 'Security verification failed. Please try again.' },
+        { status: 400 }
+      );
+    }
 
     // Validate required fields
     if (!name || !email || !subject || !message) {

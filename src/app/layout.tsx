@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -29,19 +29,6 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://salmanshafi.net'),
   alternates: {
     canonical: '/',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
   openGraph: {
     type: 'website',
@@ -99,6 +86,12 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
+
+        <Script
+          src="https://monitor.salmanshafi.net/tracker.js"
+          data-website-id="cmdm0ia150039d5n1nmszdm9g"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
