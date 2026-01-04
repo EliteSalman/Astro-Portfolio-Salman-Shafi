@@ -38,5 +38,6 @@ jobs:
           context: .
           file: Containerfile
           push: true
+          provenance: false
           tags: |
             ghcr.io/${{ env.IMAGE_NAME }}:latest
