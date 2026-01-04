@@ -3,7 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "description": "Premium portfolio website built with Next.js 15 for System Administrators",
-  "keywords": ["portfolio", "nextjs", "typescript", "tailwindcss", "vercel", "contact-form", "system-admin"],
+  "keywords": [
+    "portfolio",
+    "nextjs",
+    "typescript",
+    "tailwindcss",
+    "vercel",
+    "contact-form",
+    "system-admin"
+  ],
   "author": "Mehedi <hello@mehedims.com>",
   "license": "MIT",
   "repository": {
@@ -29,26 +37,27 @@
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.5",
     "lucide-react": "^0.525.0",
-    "next": "15.4.1",
-    "nodemailer": "^6.9.15",
+    "next": "^15.4.8",
+    "nodemailer": "^7.0.7",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@fastly/compute-js-static-publish": "^7.0.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^7.0.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "15.4.1",
+    "eslint-config-next": "^15.4.8",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "5.8.3"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": "24.x",
+    "npm": ">=10.0.0"
   }
 }

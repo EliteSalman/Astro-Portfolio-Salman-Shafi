@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Salman Shafi - System Administrator & DNS Expert",
-  description: "Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.",
+  title: "Salman Shafi - System Administrator",
+  description: "Professional portfolio of Salman Shafi, System Administrator and DNS from Bogura, Bangladesh",
   keywords: "System Administrator, DNS Expert, Nginx, Apache, RHEL, Technitium DNS, NS1, Bangladesh, Server Management, Infrastructure, Web Server, DNS Configuration, System Administration",
   authors: [{ name: "Salman Shafi" }],
   creator: "Salman Shafi",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://salmanshafi.net',
-    title: 'Salman Shafi - System Administrator & DNS Expert',
+    title: 'Salman Shafi - System Administrator',
     description: 'Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
     siteName: 'Salman Shafi Portfolio',
     images: [
@@ -55,22 +55,17 @@ export const metadata: Metadata = {
         url: '/share.webp',
         width: 1200,
         height: 630,
-        alt: 'Salman Shafi - System Administrator & DNS Expert',
+        alt: 'Salman Shafi - System Administrator',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@salmanshafi',
-    creator: '@salmanshafi',
-    title: 'Salman Shafi - System Administrator & DNS Expert',
-    description: 'Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
+    site: '@salmanshafi404',
+    creator: '@salmanshafi404',
+    title: 'Salman Shafi&apos;s Twitter',
+    description: 'Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
     images: ['/share.webp'],
-  },
-  verification: {
-    google: 'your-google-verification-code',
-    yandex: 'your-yandex-verification-code',
-    yahoo: 'your-yahoo-verification-code',
   },
   category: 'Technology',
 };

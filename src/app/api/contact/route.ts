@@ -222,7 +222,7 @@ export async function POST(request: NextRequest) {
             
             <div class="footer">
                 <p class="brand">Salman Shafi</p>
-                <p>System Administrator & DNS Expert</p>
+                <p>System Administrator</p>
                 <div class="timestamp">
                     Received on ${new Date().toLocaleString('en-US', {
                       weekday: 'long',

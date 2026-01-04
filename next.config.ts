@@ -4,8 +4,8 @@ const nextConfig: NextConfig = {
   /* config options here */
   
   // Basic optimizations
-  compress: true,
-  poweredByHeader: false,
+  compress: false,
+  poweredByHeader: true,
   
   // Image optimization
   images: {
