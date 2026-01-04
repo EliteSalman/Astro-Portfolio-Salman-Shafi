@@ -39,6 +39,9 @@ export default function Home() {
     message: ''
   });
   
+  // NEW: State to hold the runtime site key from the server
+  const [runtimeSiteKey, setRuntimeSiteKey] = useState<string | null>(null);
+
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
@@ -68,16 +71,35 @@ export default function Home() {
     };
   }, [handleTurnstileCallback]);
 
-  // Render Turnstile widget when component mounts
+  // Modified: Render Turnstile widget with Runtime Key Fetch
   useEffect(() => {
-    const renderTurnstile = () => {
-      if (window.turnstile && turnstileRef.current) {
-        const siteKey = process.env.TURNSTILE_SITE_KEY;
-        console.log('Rendering Turnstile with site key:', siteKey);
+    const renderTurnstile = async () => {
+      // 1. Fetch the key from the server if we don't have it yet
+      let currentKey = runtimeSiteKey;
+      
+      if (!currentKey) {
+        try {
+          // Fetch from your new API route
+          const response = await fetch('/api/turnstile');
+          const data = await response.json();
+          currentKey = data.siteKey;
+          setRuntimeSiteKey(currentKey);
+        } catch (error) {
+          console.error('Failed to fetch runtime Turnstile key:', error);
+          return;
+        }
+      }
+
+      // 2. Render only if we have the key and the library is ready
+      if (window.turnstile && turnstileRef.current && currentKey) {
+        // Prevent re-rendering if already populated
+        if (turnstileRef.current.innerHTML !== '') return;
+        
+        console.log('Rendering Turnstile with runtime key...');
         
         try {
           window.turnstile.render(turnstileRef.current, {
-            sitekey: siteKey!,
+            sitekey: currentKey, // Use the fetched key
             callback: (token: string) => {
               console.log('Turnstile inline callback received token:', token);
               setTurnstileToken(token);
@@ -107,7 +129,7 @@ export default function Home() {
       // Cleanup interval after 10 seconds
       setTimeout(() => clearInterval(checkTurnstile), 10000);
     }
-  }, []);
+  }, [runtimeSiteKey]); // Add runtimeSiteKey as dependency
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
@@ -622,18 +644,24 @@ export default function Home() {
                           className="input-themed resize-none text-sm sm:text-base" placeholder="Tell me about your project..."></textarea>
                       </div>
                       
-                      {/* Cloudflare Turnstile Widget */}
+                      {/* Cloudflare Turnstile Widget - Modified for Runtime */}
                       <div className="flex flex-col items-center space-y-2">
                         {!turnstileLoaded && (
                           <div className="flex items-center space-x-2 text-gray-400 text-sm">
                             <div className="w-4 h-4 border-2 border-gray-600 border-t-primary rounded-full animate-spin"></div>
-                            <span>Loading security verification...</span>
+                            {/* Shows different text depending on state */}
+                            <span>{runtimeSiteKey ? "Loading widget..." : "Verifying security..."}</span>
                           </div>
                         )}
-                        <div 
-                          ref={turnstileRef}
-                          className="cf-turnstile"
-                        />
+                        
+                        {/* Only render Turnstile div if we have the key */}
+                        {runtimeSiteKey && (
+                          <div 
+                            ref={turnstileRef}
+                            className="cf-turnstile"
+                          />
+                        )}
+
                         {turnstileToken && (
                           <div className="flex items-center space-x-2 text-green-400 text-xs">
                             <CheckCircle size={12} />
@@ -733,4 +761,3 @@ export default function Home() {
     </div>
   );
 }
-
