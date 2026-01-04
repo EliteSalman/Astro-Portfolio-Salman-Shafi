@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: elitesalman/nextjs-portfolio-salman-shafi
 
 jobs:
   build:
@@ -39,4 +39,4 @@ jobs:
           file: Containerfile
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ env.IMAGE_NAME }}:latest
