@@ -1,18 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  
-  // Basic optimizations
+  output: "standalone",
+
   compress: false,
   poweredByHeader: true,
-  
-  // Image optimization
+
   images: {
-    formats: ['image/webp', 'image/avif'],
+    formats: ["image/webp", "image/avif"],
   },
-  
-  // Disable trailing slash
+
   trailingSlash: false,
 };
 
