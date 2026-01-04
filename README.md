@@ -45,7 +45,7 @@ A premium, fully responsive portfolio website built with Next.js 16, featuring a
 
 ## 📦 Deployment
 
-1. **Install Podman && Podman Compose**
+1. **Install Podman & Podman Compose**
    ```bash
    sudo dnf install podman podman-compose
    ```
