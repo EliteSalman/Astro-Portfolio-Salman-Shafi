@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Containerfile
-    image: localhost/portfolio:latest
+    image: ghcr.io/elitesalman/nextjs-portfolio-salman-shafi:latest
     container_name: portfolio
     init: true
     security_opt:
