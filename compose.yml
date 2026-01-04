@@ -2,9 +2,6 @@ version: "3.9"
 
 services:
   portfolio:
-    build:
-      context: .
-      dockerfile: Containerfile
     image: ghcr.io/elitesalman/nextjs-portfolio-salman-shafi:latest
     container_name: portfolio
     init: true

@@ -1,17 +1,14 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Github, Twitter, Facebook, Instagram, Heart } from 'lucide-react';
-import { FaReddit, FaTelegram } from "react-icons/fa";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: <Github size={20} />, href: 'https://github.com/salmanshafi404', label: 'GitHub' },
-    { icon: <Twitter size={20} />, href: 'https://twitter.com/salmanshafi404', label: 'Twitter' },
-    { icon: <FaReddit size={20} />, href: 'https://www.reddit.com/u/Adventurous-Web-451/', label: 'Reddit' },
-    { icon: <FaTelegram size={20} />, href: "https://t.me/salmanshafi404", label: "Telegram" },
-    { icon: <Facebook size={20} />, href: 'https://facebook.com/salmanshafi400', label: 'Facebook' },
-    { icon: <Instagram size={20} />, href: 'https://instagram.com/salmanshafi400', label: 'Instagram' }
+    { icon: <Github size={20} />, href: 'https://github.com/EliteSalman', label: 'GitHub' },
+    { icon: <Twitter size={20} />, href: 'https://twitter.com/EliteSalmanX', label: 'Twitter' },
+    { icon: <Facebook size={20} />, href: 'https://facebook.com/EliteSalmanX', label: 'Facebook' },
+    { icon: <Instagram size={20} />, href: 'https://instagram.com/EliteSalmanX', label: 'Instagram' }
   ];
 
   const quickLinks = [
@@ -126,7 +123,6 @@ export default function Footer() {
               <div className="flex items-center space-x-1.5 sm:space-x-2">
                 {/* Update tech badges for dark theme */}
                 <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-800 text-red-400 rounded-md font-medium text-xs">Next.js</span>
-                <span className="px-1.5 py-0.5 sm:px-2 sm:py-1 bg-gray-800 text-red-400 rounded-md font-medium text-xs">Tailwind CSS</span>
               </div>
             </div>
           </div>

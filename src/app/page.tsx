@@ -238,11 +238,10 @@ export default function Home() {
     "name": "Freelance"
   },
   "sameAs": [
-    "https://github.com/salmanshafi404",
-    "https://twitter.com/salmanshafi404",
-    "https://www.facebook.com/salmanshafi400",
-    "https://www.instagram.com/salmanshafi400",
-    "https://www.reddit.com/user/Adventurous-Web-451"
+    "https://github.com/EliteSalman",
+    "https://twitter.com/EliteSalmanX",
+    "https://www.facebook.com/EliteSalmanX",
+    "https://www.instagram.com/EliteSalmanX"
   ],
   "hasOccupation": {
     "@type": "Occupation",
@@ -427,7 +426,7 @@ export default function Home() {
                     <div className="glass-dark p-4 sm:p-6 rounded-xl sm:rounded-2xl mb-3 sm:mb-4 hover-scale">
                       <Globe className="text-primary mx-auto" size={28} />
                     </div>
-                    <h4 className="font-semibold text-foreground text-base sm:text-lg">Location</h4>
+                    <h4 className="font-semibold text-foreground text-base sm:text-lg">Remote On</h4>
                     <p className="text-body text-sm sm:text-base">Bogura, Bangladesh</p>
                   </div>
                   
@@ -727,7 +726,7 @@ export default function Home() {
                           <MapPin className="text-white" size={18} />
                         </div>
                         <div>
-                          <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Location</h4>
+                          <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Remote On</h4>
                           <p className="text-body mb-1 text-xs sm:text-sm">Bogura, Bangladesh</p>
                           <p className="text-xs text-gray-500">GMT+6 timezone</p>
                         </div>

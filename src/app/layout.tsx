@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@salmanshafi404',
-    creator: '@salmanshafi404',
+    site: '@EliteSalmanX',
+    creator: '@EliteSalmanX',
     title: 'Salman Shafi&apos;s Twitter',
     description: 'Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
     images: ['/share.webp'],
