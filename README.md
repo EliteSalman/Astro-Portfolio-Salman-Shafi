@@ -242,16 +242,22 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
 - [Framer Motion](https://framer.com/motion/) - Animation library
 - [Lucide](https://lucide.dev/) - Icon library
-- [Vercel](https://vercel.com/) - Deployment platform
+- [Podman](https://podman.io/) - Containerzation
 
 ## 📞 Support
 
 If you found this project helpful, please give it a ⭐ star on GitHub!
 
 For questions or support:
-- 📧 Email: hello@mehedims.com
-- 🐛 Issues: [GitHub Issues](https://github.com/asma019/Next.js-Portfolio-for-System-Admins/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/asma019/Next.js-Portfolio-for-System-Admins/discussions)
+- 📧 Email: hello@salmanshafi.net
+- 🐛 Issues: [GitHub Issues](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues)
+- 💬 Discussions: [GitHub Discussions]()
+
+Original Project:
+- Author: Mehedi Hasan
+- E-Mail: hello@mehedims.com
+- GitHub Profile: https://github.com/asma019
+- Project Repo: https://github.com/asma019/Next.js-Portfolio-for-System-Admins
 
 ---
 
