@@ -55,7 +55,7 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
    ```
 3. **Download compose.yml**
    ```bash
-   wget https://raw.githubusercontent.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/main/compose.ymll   ```al
+   wget https://raw.githubusercontent.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/main/compose.yml
    ```
    
    Edit `.env.local` with your actual values:
@@ -259,4 +259,4 @@ For questions or support:
 
 ---
 
-**Made with ❤️ using Nex**Made with ❤ using Next.js"
+**Made with ❤️ using Next.js**
