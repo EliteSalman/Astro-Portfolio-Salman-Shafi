@@ -16,8 +16,8 @@ Thank you for your interest in contributing to this portfolio website! We welcom
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/asma019/Next.js-Portfolio-for-System-Admins.git
-cd Next.js-Portfolio-for-System-Admins
+   git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
+   NextJS-Portfolio-Salman-Shafi
    ```
 3. **Install dependencies**:
    ```bash
@@ -35,8 +35,8 @@ cd Next.js-Portfolio-for-System-Admins
 ## 🛠️ Development Setup
 
 ### Prerequisites
-- Node.js 18+ 
-- npm or yarn package manager
+- Node.js 20.9.0 or newer
+- NPM Package Manager
 - Git
 
 ### Environment Variables
