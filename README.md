@@ -60,23 +60,27 @@ A premium, fully responsive portfolio website built with Next.js 16, featuring a
    
    Edit `.env.local` with your actual values:
    ```env
-   # SMTP Configuration for AWS SES
-   SMTP_HOST=email-smtp.ap-southeast-1.amazonaws.com
-   SMTP_USERNAME=your-aws-ses-username
-   SMTP_PASSWORD=your-aws-ses-password
-   SMTP_PORT=587
-   SMTP_SECURE=false
-   
-   # Email Configuration
-   FROM_EMAIL_NAME=Your Name Contact
-   FROM_EMAIL=no-reply@yourdomain.com
-   TO_EMAIL=your-email@gmail.com
-   
-   # Application Configuration
-   NEXT_PUBLIC_SITE_URL=https://yourdomain.com
-   
-   # Cloudflare Turnstile Configuration
-   NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-turnstile-site-key
+   # SMTP Configuration   
+   # Replace these with your actual SMTP credentials   
+   SMTP_HOST=host.example.tld   
+   SMTP_USERNAME=your-smtp-username   
+   SMTP_PASSWORD=your-smtp-password   
+   SMTP_PORT=587   
+   SMTP_SECURE=false   
+
+   # Email Configuration   
+   # Update these with your actual email addresses   
+   FROM_EMAIL_NAME=Your Name   
+   FROM_EMAIL=no-reply@example.tld   
+   TO_EMAIL=your-email@example.tld   
+
+   # Application Configuration   
+   # Update with your actual domain   
+   NEXT_PUBLIC_SITE_URL=https://example.tld   
+
+   # Cloudflare Turnstile Configuration   
+   # Get these from https://dash.cloudflare.com/?to=/:account/turnstile   
+   TURNSTILE_SITE_KEY=your-turnstile-site-key   
    TURNSTILE_SECRET_KEY=your-turnstile-secret-key
    ```
 
