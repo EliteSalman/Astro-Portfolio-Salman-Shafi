@@ -15,6 +15,7 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
 
 ### 📧 Contact System
 - **Working Contact Form**: Fully functional with validation
+- **Cloudflare Turnstile**: Bot protection and security verification
 - **Email Integration**: AWS SES SMTP configuration
 - **Premium Email Templates**: Beautiful HTML email styling
 - **Loading States**: Smooth form submission experience
@@ -77,6 +78,10 @@ A premium, fully responsive portfolio website built with Next.js 15, featuring a
    
    # Application Configuration
    NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+   
+   # Cloudflare Turnstile Configuration
+   NEXT_PUBLIC_TURNSTILE_SITE_KEY=your-turnstile-site-key
+   TURNSTILE_SECRET_KEY=your-turnstile-secret-key
    ```
 
 4. **Run development server**
@@ -105,19 +110,27 @@ Replace these images in the `public/` folder:
 - `share.webp` - Social media preview image (1200x630px)
 
 ### Contact Form
-The contact form uses AWS SES for email sending. To set up:
+The contact form uses AWS SES for email sending and Cloudflare Turnstile for bot protection. To set up:
 
 1. **Create AWS SES Account**
    - Go to AWS SES Console
    - Verify your sending domain
    - Create SMTP credentials
 
-2. **Configure Environment Variables**
+2. **Set up Cloudflare Turnstile**
+   - Go to [Cloudflare Turnstile Dashboard](https://dash.cloudflare.com/?to=/:account/turnstile)
+   - Create a new site key for your domain
+   - Choose "Managed" or "Non-Interactive" challenge type
+   - Copy the Site Key and Secret Key
+
+3. **Configure Environment Variables**
    - Add your SMTP credentials to `.env.local`
+   - Add your Turnstile keys to `.env.local`
    - Update sender/receiver email addresses
 
-3. **Test the Form**
+4. **Test the Form**
    - Submit a test message
+   - Complete the Turnstile challenge
    - Check your email inbox
    - Verify email formatting
 
@@ -175,6 +188,8 @@ npm run start
 - **Content Security Policy**: Resource loading restrictions
 - **HTTPS**: SSL/TLS encryption
 - **Input Validation**: Form sanitization
+- **Bot Protection**: Cloudflare Turnstile integration
+- **Rate Limiting**: Form submission protection
 
 ## 🎨 Customization
 

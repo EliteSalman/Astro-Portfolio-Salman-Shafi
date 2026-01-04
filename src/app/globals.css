@@ -260,3 +260,22 @@ a:focus-visible {
   }
 }
 
+/* Cloudflare Turnstile Styling */
+.cf-turnstile {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.cf-turnstile iframe {
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--input-background);
+}
+
+/* Turnstile widget container styling */
+.cf-turnstile > div {
+  border-radius: 8px;
+  overflow: hidden;
+}
+

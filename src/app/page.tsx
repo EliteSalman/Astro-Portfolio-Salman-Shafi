@@ -4,7 +4,31 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Server, Shield, Globe, Database, Terminal, Zap, MapPin, Mail, Phone, Send, CheckCircle, AlertCircle, Loader } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import Script from "next/script";
+
+// Declare Turnstile types
+declare global {
+  interface Window {
+    turnstile: {
+      render: (container: HTMLElement, options: TurnstileOptions) => string;
+      reset: (container: HTMLElement) => void;
+    };
+    handleTurnstileCallback?: (token: string) => void;
+  }
+}
+
+interface TurnstileOptions {
+  sitekey: string;
+  callback?: string | ((token: string) => void);
+  'expired-callback'?: string | (() => void);
+  'error-callback'?: string | (() => void);
+  theme?: 'light' | 'dark';
+  size?: 'normal' | 'compact' | 'invisible';
+  tabindex?: number;
+  'refresh-expired'?: 'auto' | 'manual';
+  appearance?: 'always' | 'execute' | 'interaction-only';
+}
 
 export default function Home() {
   // Contact form state
@@ -17,6 +41,9 @@ export default function Home() {
   
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [turnstileLoaded, setTurnstileLoaded] = useState(false);
+  const turnstileRef = useRef<HTMLDivElement>(null);
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,9 +54,75 @@ export default function Home() {
     }));
   };
 
+  // Handle Turnstile callback
+  const handleTurnstileCallback = useCallback((token: string) => {
+    console.log('Turnstile callback received token:', token);
+    setTurnstileToken(token);
+  }, []);
+
+  // Make callback available globally for Turnstile
+  useEffect(() => {
+    window.handleTurnstileCallback = handleTurnstileCallback;
+    return () => {
+      delete window.handleTurnstileCallback;
+    };
+  }, [handleTurnstileCallback]);
+
+  // Render Turnstile widget when component mounts
+  useEffect(() => {
+    const renderTurnstile = () => {
+      if (window.turnstile && turnstileRef.current) {
+        const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+        console.log('Rendering Turnstile with site key:', siteKey);
+        
+        try {
+          window.turnstile.render(turnstileRef.current, {
+            sitekey: siteKey!,
+            callback: (token: string) => {
+              console.log('Turnstile inline callback received token:', token);
+              setTurnstileToken(token);
+            },
+            theme: 'dark',
+            size: 'normal'
+          });
+          setTurnstileLoaded(true);
+        } catch (error) {
+          console.error('Error rendering Turnstile:', error);
+        }
+      }
+    };
+
+    // Try to render immediately if Turnstile is already loaded
+    if (window.turnstile) {
+      renderTurnstile();
+    } else {
+      // Wait for Turnstile to load
+      const checkTurnstile = setInterval(() => {
+        if (window.turnstile) {
+          renderTurnstile();
+          clearInterval(checkTurnstile);
+        }
+      }, 100);
+
+      // Cleanup interval after 10 seconds
+      setTimeout(() => clearInterval(checkTurnstile), 10000);
+    }
+  }, []);
+
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    console.log('Form submission - turnstileToken:', turnstileToken);
+    console.log('Form submission - turnstileToken length:', turnstileToken?.length);
+    
+    // Check if Turnstile token is present
+    if (!turnstileToken || turnstileToken.length === 0) {
+      setFormStatus('error');
+      setStatusMessage('Please complete the security verification.');
+      return;
+    }
+    
     setFormStatus('loading');
     setStatusMessage('');
 
@@ -39,7 +132,10 @@ export default function Home() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          turnstileToken
+        }),
       });
 
       const result = await response.json();
@@ -48,14 +144,29 @@ export default function Home() {
         setFormStatus('success');
         setStatusMessage('Thank you! Your message has been sent successfully.');
         setFormData({ name: '', email: '', subject: '', message: '' });
+        setTurnstileToken('');
+        // Reset Turnstile widget
+        if (window.turnstile && turnstileRef.current) {
+          window.turnstile.reset(turnstileRef.current);
+        }
       } else {
         setFormStatus('error');
         setStatusMessage(result.error || 'Something went wrong. Please try again.');
+        // Reset Turnstile on error
+        if (window.turnstile && turnstileRef.current) {
+          window.turnstile.reset(turnstileRef.current);
+        }
+        setTurnstileToken('');
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus('error');
       setStatusMessage('Network error. Please check your connection and try again.');
+      // Reset Turnstile on error
+      if (window.turnstile && turnstileRef.current) {
+        window.turnstile.reset(turnstileRef.current);
+      }
+      setTurnstileToken('');
     }
   };
 
@@ -70,37 +181,75 @@ export default function Home() {
     }
   }, [formStatus]);
 
+
   // Structured Data for SEO
   const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Salman Shafi",
-    "jobTitle": "System Administrator",
-    "description": "Professional System Administrator from Bogura, Bangladesh.",
-    "url": "https://salmanshafi.net",
-    "image": "https://salmanshafi.net/photo.webp",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Bogura",
-      "addressCountry": "Bangladesh"
-    },
-    "email": "hello@salmanshafi.net",
-    "telephone": "+8801603161647",
-    "knowsAbout": [
-      "System Administration", "DNS Management", "Nginx", "Apache", "RHEL", 
-      "Technitium DNS", "BIND", "Server Management", "Infrastructure", "Web Server Configuration"
-    ],
-    "worksFor": { "@type": "Organization", "name": "Freelance" },
-    "sameAs": [
-      "https://linkedin.com/in/salmanshafi404", "https://github.com/salmanshafi404"
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Salman Shafi",
+  "alternateName": "Salman Shafi Portfolio",
+  "jobTitle": "System Administrator",
+  "description": "Professional System Administrator and Server Infrastructure Specialist from Bogura, Bangladesh.",
+  "url": "https://salmanshafi.net",
+  "image": "https://salmanshafi.net/photo.webp",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bogura",
+    "addressCountry": "Bangladesh"
+  },
+  "email": "mailto:hello@salmanshafi.net",
+  "telephone": "+8801603161647",
+  "knowsAbout": [
+    "System Administration",
+    "DNS Management",
+    "Nginx",
+    "Apache",
+    "RHEL",
+    "Technitium DNS",
+    "BIND",
+    "Server Management",
+    "Infrastructure",
+    "Web Server Configuration"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "Freelance"
+  },
+  "sameAs": [
+    "https://github.com/salmanshafi404",
+    "https://twitter.com/salmanshafi404",
+    "https://www.facebook.com/salmanshafi400",
+    "https://www.instagram.com/salmanshafi400",
+    "https://www.reddit.com/user/Adventurous-Web-451"
+  ],
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "System Administrator",
+    "occupationalCategory": "15-1244.00 Network and Computer Systems Administrators",
+    "skills": [
+      "Linux Server Administration",
+      "DNS Configuration",
+      "Web Hosting Management",
+      "Cloud Infrastructure"
     ]
-  };
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://salmanshafi.net"
+  }
+};
 
   return (
     <div className="min-h-screen bg-background text-foreground">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      
+      {/* Cloudflare Turnstile Script */}
+      <Script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        strategy="beforeInteractive"
       />
       
       {/* Hero Section */}
@@ -471,6 +620,26 @@ export default function Home() {
                         <label htmlFor="message" className="block text-xs sm:text-sm font-semibold text-gray-300 mb-2">Message *</label>
                         <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={4} disabled={formStatus === 'loading'}
                           className="input-themed resize-none text-sm sm:text-base" placeholder="Tell me about your project..."></textarea>
+                      </div>
+                      
+                      {/* Cloudflare Turnstile Widget */}
+                      <div className="flex flex-col items-center space-y-2">
+                        {!turnstileLoaded && (
+                          <div className="flex items-center space-x-2 text-gray-400 text-sm">
+                            <div className="w-4 h-4 border-2 border-gray-600 border-t-primary rounded-full animate-spin"></div>
+                            <span>Loading security verification...</span>
+                          </div>
+                        )}
+                        <div 
+                          ref={turnstileRef}
+                          className="cf-turnstile"
+                        />
+                        {turnstileToken && (
+                          <div className="flex items-center space-x-2 text-green-400 text-xs">
+                            <CheckCircle size={12} />
+                            <span>Security verification completed</span>
+                          </div>
+                        )}
                       </div>
                       
                       <button
