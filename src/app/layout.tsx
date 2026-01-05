@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -50,7 +51,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     site: '@EliteSalmanX',
     creator: '@EliteSalmanX',
-    title: 'Salman Shafi&apos;s Twitter',
+    title: "Salman Shafi's Twitter",
     description: 'Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
     images: ['/share.webp'],
   },
@@ -87,12 +88,14 @@ export default function RootLayout({
           <Footer />
         </div>
 
+        {/* Umami Analytics */}
         <Script
-          src="https://monitor.salmanshafi.net/tracker.js"
-          data-website-id="cmdm0ia150039d5n1nmszdm9g"
+          src="https://cloud.umami.is/script.js"
+          data-website-id="8b776285-9367-4558-a42e-e94556dd2523"
           strategy="afterInteractive"
         />
       </body>
     </html>
   );
 }
+
