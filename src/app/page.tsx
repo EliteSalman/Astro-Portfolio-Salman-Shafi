@@ -240,8 +240,7 @@ export default function Home() {
   "sameAs": [
     "https://github.com/EliteSalman",
     "https://twitter.com/EliteSalmanX",
-    "https://www.facebook.com/EliteSalmanX",
-    "https://www.instagram.com/EliteSalmanX"
+    "https://www.facebook.com/EliteSalmanX"
   ],
   "hasOccupation": {
     "@type": "Occupation",

@@ -7,8 +7,7 @@ export default function Footer() {
   const socialLinks = [
     { icon: <Github size={20} />, href: 'https://github.com/EliteSalman', label: 'GitHub' },
     { icon: <Twitter size={20} />, href: 'https://twitter.com/EliteSalmanX', label: 'Twitter' },
-    { icon: <Facebook size={20} />, href: 'https://facebook.com/EliteSalmanX', label: 'Facebook' },
-    { icon: <Instagram size={20} />, href: 'https://instagram.com/EliteSalmanX', label: 'Instagram' }
+    { icon: <Facebook size={20} />, href: 'https://facebook.com/EliteSalmanX', label: 'Facebook' }
   ];
 
   const quickLinks = [
