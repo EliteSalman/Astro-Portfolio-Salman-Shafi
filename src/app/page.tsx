@@ -293,10 +293,6 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="space-y-4 sm:space-y-6 text-center lg:text-left"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 bg-input-background rounded-full border border-border-color">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-red-400 text-xs sm:text-sm font-medium">Available for projects</span>
-              </div>
 
               <div className="space-y-2 sm:space-y-3">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
