@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   },
 
   trailingSlash: false,
+
+  experimental: {
+    outputFileTracingIncludes: {
+      "/": ["node_modules/nodemailer/**"],
+    },
+  },
 };
 
 export default nextConfig;
