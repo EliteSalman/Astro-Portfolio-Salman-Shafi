@@ -2,7 +2,8 @@ version: "3.9"
 
 services:
   portfolio:
-    image: ghcr.io/elitesalman/nextjs-portfolio-salman-shafi:latest
+    #image: ghcr.io/elitesalman/nextjs-portfolio-salman-shafi:latest # Use this ONLY if you want to run Salman Shafi’s official portfolio image exactly as-is
+    image: localhost/nextjs-portfolio
     container_name: portfolio
     init: true
     security_opt:
