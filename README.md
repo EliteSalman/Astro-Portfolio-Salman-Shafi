@@ -49,16 +49,16 @@ A premium, fully responsive portfolio website built with Next.js 16, featuring a
    ```bash
    sudo dnf install podman podman-compose
    ```
-2. **Create Installation Directory**
+3. **Clone this GitHub Repo**
    ```bash
-   mkdir portfolio
+   git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
    ```
-3. **Download compose.yml**
+3. **Do your changes then**
    ```bash
-   wget https://raw.githubusercontent.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/main/compose.yml
+   podman build -t nextjs-portfolio .
    ```
    
-   Edit `.env.local` with your actual values:
+Before build edit `.env.local` with your actual values:
    ```env
    # SMTP Configuration   
    # Replace these with your actual SMTP credentials   
@@ -130,16 +130,6 @@ The contact form uses SMTP for email sending and Cloudflare Turnstile for bot pr
    - Complete the Turnstile challenge
    - Check your email inbox
    - Verify email formatting
-
-### Manual Build
-
-```bash
-# Build for production
-npm run build
-
-# Start production server
-npm run start
-```
 
 ## 📊 Performance
 
