@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
 
   compress: false,
-  poweredByHeader: true,
+  poweredByHeader: false,
 
   images: {
     formats: ["image/webp", "image/avif"],
