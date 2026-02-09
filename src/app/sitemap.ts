@@ -1,18 +1,27 @@
 import { MetadataRoute } from 'next'
+import { headers } from 'next/headers'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL
+  const h = headers()
 
-  if (!baseUrl) {
-    throw new Error('NEXT_PUBLIC_SITE_URL is not defined')
+  const protocol =
+    h.get('x-forwarded-proto') ??
+    (process.env.NODE_ENV === 'production' ? 'https' : 'http')
+
+  const host =
+    h.get('x-forwarded-host') ??
+    h.get('host')
+
+  if (!host) {
+    throw new Error('Cannot determine host for sitemap')
   }
 
-  const lastModified = new Date()
+  const baseUrl = `${protocol}://${host}`
 
   return [
     {
       url: baseUrl,
-      lastModified,
+      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
     },
