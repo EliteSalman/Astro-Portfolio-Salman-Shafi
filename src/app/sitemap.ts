@@ -1,19 +1,18 @@
 import { MetadataRoute } from 'next'
 import { headers } from 'next/headers'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const h = headers()
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const h = await headers()
 
-  const protocol =
-    h.get('x-forwarded-proto') ??
-    (process.env.NODE_ENV === 'production' ? 'https' : 'http')
-
-  const host =
+  const protocol = h.get('x-forwarded-proto')
+  const rawHost =
     h.get('x-forwarded-host') ??
     h.get('host')
 
-  if (!host) {
-    throw new Error('Cannot determine host for sitemap')
+  const host = rawHost?.split(',')[0]?.trim()
+
+  if (!protocol || !host) {
+    throw new Error('Cannot determine protocol or host for sitemap')
   }
 
   const baseUrl = `${protocol}://${host}`
@@ -26,4 +25,4 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
   ]
-}
+      }
