@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-
   compress: false,
   poweredByHeader: false,
 
@@ -15,16 +14,18 @@ const nextConfig: NextConfig = {
     "/": ["node_modules/nodemailer/**"],
   },
 
-  async headers() {
+  async redirects() {
     return [
       {
-        source: "/(.*)",
-        headers: [
+        source: "/:path*",
+        has: [
           {
-            key: "Server",
-            value: "Next.js",
+            type: "host",
+            value: "www.:domain*",
           },
         ],
+        destination: "https://:domain*/:path*",
+        permanent: true,
       },
     ];
   },
