@@ -10,7 +10,7 @@
     "tailwindcss",
     "contact-form",
     "system-admin"
-],
+  ],
   "author": "Mehedi <hello@mehedims.com>",
   "license": "MIT",
   "repository": {
@@ -29,10 +29,12 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "setup": "npm install",
-    "deploy": "npm run build && npm start"
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
+    "@opennextjs/cloudflare": "^1.16.5",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
@@ -52,7 +54,8 @@
     "eslint": "^9.0.0",
     "eslint-config-next": "^16.1.1",
     "tailwindcss": "^4.0.0",
-    "typescript": "5.8.3"
+    "typescript": "5.8.3",
+    "wrangler": "^4.65.0"
   },
   "engines": {
     "node": "24.x",
