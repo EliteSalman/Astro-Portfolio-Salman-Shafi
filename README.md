@@ -4,34 +4,37 @@
 
 A premium, fully responsive portfolio website built with Next.js 16, featuring a working contact form, SEO optimization, and modern design principles.
 
+---
+
 ## 🚀 Features
 
 ### 🎨 Design & UI
-- **Modern Red & Black Theme**: Modern glass effects and gradients
-- **Fully Responsive**: Mobile-first design with perfect mobile optimization
-- **Smooth Animations**: Framer Motion animations and transitions
-- **Premium Typography**: Geist font with optimized readability
-- **Modern Card Layouts**: Interactive hover effects and shadows
+- Modern Red & Black Theme
+- Fully Responsive (Mobile-first)
+- Smooth Framer Motion animations
+- Premium Geist typography
+- Interactive card layouts
 
 ### 📧 Contact System
-- **Working Contact Form**: Fully functional with validation
-- **Cloudflare Turnstile Captcha**: Bot Protection on Contact Form.
-- **Email Integration**: You can use any E-Mail provider that supports SMTP
-- **Premium Email Templates**: Beautiful HTML email styling
-- **Loading States**: Smooth form submission experience
-- **Error Handling**: Comprehensive error management
+- Fully functional contact form
+- Cloudflare Turnstile bot protection
+- SMTP email support (Nodemailer)
+- Beautiful HTML email templates
+- Loading states & error handling
 
 ### 🔍 SEO Optimized
-- **Complete Meta Tags**: OpenGraph, Twitter Cards, and more
-- **Structured Data**: JSON-LD schema for rich snippets
-- **Dynamic Sitemap**: Auto-generated XML sitemap
-- **Robots.txt**: Proper crawling instructions
-- **Performance Optimized**: 99.7kB first load with optimal loading
+- OpenGraph & Twitter meta tags
+- JSON-LD structured data
+- Dynamic sitemap (`/sitemap.xml`)
+- Robots.txt
+- Optimized bundle size (~99.7kB first load)
 
 ### 🛡️ Security & Performance
-- **Image Optimization**: WebP/AVIF formats with Next.js Image
-- **Code Splitting**: Automatic chunking for faster loads
-- **Production Ready**: Console removal, minification, compression
+- WebP/AVIF image optimization
+- Automatic code splitting
+- Production optimizations enabled
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -41,218 +44,139 @@ A premium, fully responsive portfolio website built with Next.js 16, featuring a
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Email**: Nodemailer
-- **Deployment**: Podman
+- **Deployment**: Cloudflare Workers
 
-## 📦 Deployment
+---
 
-1. **Install Podman & Podman Compose**
-   ```bash
-   sudo dnf install podman podman-compose
-   ```
-3. **Clone this GitHub Repo**
-   ```bash
-   git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
-   ```
-3. **Do your changes then**
-   ```bash
-   podman build -t nextjs-portfolio .
-   ```
-   
-Before build edit `.env.local` with your actual values:
-   ```env
-   # SMTP Configuration   
-   # Replace these with your actual SMTP credentials   
-   SMTP_HOST=host.example.tld   
-   SMTP_USERNAME=your-smtp-username   
-   SMTP_PASSWORD=your-smtp-password   
-   SMTP_PORT=587   
-   SMTP_SECURE=false   
+# ☁️ Deployment (Cloudflare Workers)
 
-   # Email Configuration   
-   # Update these with your actual email addresses   
-   FROM_EMAIL_NAME=Your Name   
-   FROM_EMAIL=no-reply@example.tld   
-   TO_EMAIL=your-email@example.tld   
-
-   # Application Configuration   
-   # Update with your actual domain   
-   NEXT_PUBLIC_SITE_URL=https://example.tld   
-
-   # Cloudflare Turnstile Configuration   
-   # Get these from https://dash.cloudflare.com/?to=/:account/turnstile   
-   TURNSTILE_SITE_KEY=your-turnstile-site-key   
-   TURNSTILE_SECRET_KEY=your-turnstile-secret-key
-   ```
-
-4. **Run**
-   ```bash
-   podman-compose up -d
-   ```
-
-5. **Open in browser**
-   ```
-   http://your-server-ip:3001
-   ```
-
-## 🔧 Configuration
-
-### Personal Information
-Update the following files with your information:
-
-- `src/app/page.tsx` - Hero section, about, experience, skills
-- `src/components/Header.tsx` - Navigation and branding
-- `src/components/Footer.tsx` - Footer links and contact info
-- `src/app/layout.tsx` - SEO meta tags and site information
-
-### Images
-Replace these images in the `public/` folder:
-- `photo.webp` - Your profile photo
-- `share.webp` - Social media preview image (1200x630px)
-
-### Contact Form
-The contact form uses SMTP for email sending and Cloudflare Turnstile for bot protection. To set up:
-
-1. **Get SMTP Credentials from your E-Mail Provider**
-
-2. **Set up Cloudflare Turnstile**
-   - Go to [Cloudflare Turnstile Dashboard](https://dash.cloudflare.com/?to=/:account/turnstile)
-   - Create a new site key for your domain
-   - Choose "Managed" challenge type
-   - Copy the Site Key & Secret Key 🔑
-
-3. **Configure Environment Variables**
-   - Add your SMTP credentials to `.env.local`
-   - Add your Turnstile keys to `.env.local`
-   - Update sender/receiver email addresses
-
-4. **Test the Form**
-   - Submit a test message
-   - Complete the Turnstile challenge
-   - Check your email inbox
-   - Verify email formatting
-
-## 📊 Performance
-
-- **First Load JS**: 99.7kB
-- **Build Time**: ~8 seconds
-- **Lighthouse Score**: 100/100
-- **Mobile Optimized**: Perfect responsive design
-
-## 🔍 SEO Features
-
-- **Meta Tags**: Complete OpenGraph and Twitter Cards
-- **Structured Data**: Person schema with job details
-- **Sitemap**: `/sitemap.xml`
-- **Robots**: `/robots.txt`
-- **Canonical URLs**: Proper link structure
-
-## 🛡️ Security
-
-- **Input Validation**: Form sanitization
-- **Bot Protection**: Cloudflare Turnstile integration
-- **Rate Limiting**: Form submission protection
-
-## 🎨 Customization
-
-### Colors
-Primary colors are defined in `src/app/globals.css`:
-```css
-.text-premium { color: #3b82f6; }
-.bg-premium-blue { background: #3b82f6; }
-.text-gradient-premium { background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%); }
-```
-
-### Typography
-Font configuration in `src/app/layout.tsx`:
-```typescript
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-```
-
-### Animations
-Framer Motion variants in `src/app/page.tsx`:
-```typescript
-initial={{ opacity: 0, y: 20 }}
-whileInView={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.6 }}
-```
-
-## 📱 Mobile Optimization
-
-- **Responsive Design**: Mobile-first approach
-- **Touch Friendly**: Proper touch targets
-- **Fast Loading**: Optimized images and code
-- **Gesture Support**: Smooth scrolling and interactions
-
-## 🔧 Development
-
-### Available Scripts
+## 1️⃣ Install Dependencies
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run lint:fix     # Fix ESLint issues
+npm install
 ```
 
-### Project Structure
+---
+
+## 2️⃣ Edit Your Information
+
+Before deploying, update your personal details:
+
+- `src/app/page.tsx` – Hero, About, Experience, Skills
+- `src/components/Header.tsx` – Branding & Navigation
+- `src/components/Footer.tsx` – Contact information
+- `src/app/layout.tsx` – SEO metadata & site URL
+- `public/photo.webp` – Your profile photo
+- `public/share.webp` – Social preview image (1200x630)
+
+Also configure your environment variables inside Cloudflare Dashboard:
+
+```
+Workers → Settings → Variables
+```
+
+---
+
+## 3️⃣ Deploy
+
+If this is your first time deploying and you are not logged in to Cloudflare, run:
+
+```bash
+npx wrangler login
+```
+
+Then deploy:
+
+```bash
+npm run deploy
+```
+
+> The deploy script automatically builds and publishes the Worker.
+
+After deployment, connect your custom domain from the Cloudflare Dashboard.
+
+---
+
+# 🔐 Environment Variables
+
+Set these in:
+
+**Cloudflare Dashboard → Workers → Settings → Variables**
+
+```env
+SMTP_HOST=host.example.tld
+SMTP_USERNAME=your-smtp-username
+SMTP_PASSWORD=your-smtp-password
+SMTP_PORT=587
+SMTP_SECURE=false
+
+FROM_EMAIL_NAME=Your Name
+FROM_EMAIL=no-reply@example.tld
+TO_EMAIL=your-email@example.tld
+
+NEXT_PUBLIC_SITE_URL=https://example.tld
+
+TURNSTILE_SITE_KEY=your-site-key
+TURNSTILE_SECRET_KEY=your-secret-key
+```
+
+---
+
+# 📂 Project Structure
 
 ```
 ├── src/
 │   ├── app/
-│   │   ├── api/contact/     # Contact form API
-│   │   ├── globals.css      # Global styles
-│   │   ├── layout.tsx       # Root layout
-│   │   ├── page.tsx         # Home page
-│   │   └── sitemap.ts       # Dynamic sitemap
+│   │   ├── api/
+│   │   │   ├── contact/
+│   │   │   └── turnstile/
+│   │   ├── globals.css
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   └── sitemap.ts
 │   └── components/
-│       ├── Header.tsx       # Navigation
-│       └── Footer.tsx       # Footer
+│       ├── Header.tsx
+│       └── Footer.tsx
 ├── public/
-│   ├── photo.webp          # Profile photo
-│   ├── share.webp          # Social preview
+│   ├── photo.webp
+│   ├── share.webp
 │   └── ...
-└── ...
 ```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Next.js](https://nextjs.org/) - React framework
-- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS
-- [Framer Motion](https://framer.com/motion/) - Animation library
-- [Lucide](https://lucide.dev/) - Icon library
-- [Podman](https://podman.io/) - Containerzation
-
-## 📞 Support
-
-If you found this project helpful, please give it a ⭐ star on GitHub!
-
-For questions or support:
-- 📧 Email: hello@salmanshafi.net
-- 🐛 Issues: [GitHub Issues](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues)
-- 💬 Discussions: [GitHub Discussions]()
-
-Original Project:
-- Author: Mehedi Hasan
-- E-Mail: hello@mehedims.com
-- GitHub Profile: https://github.com/asma019
-- Project Repo: https://github.com/asma019/Next.js-Portfolio-for-System-Admins
 
 ---
 
-**Made with ❤️ using Next.js**
+# 📊 Performance
+
+- First Load JS: ~99.7kB
+- Lighthouse Score: 100
+- Fully responsive
+- Optimized for Core Web Vitals
+
+---
+
+# 📞 Contact & Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
+
+- 📧 Email: hello@salmanshafi.net  
+- 🐛 Issues: https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues  
+- 💬 Discussions: https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/discussions  
+
+---
+
+# 👤 Original Project
+
+- Author: Mehedi Hasan  
+- Email: hello@mehedims.com  
+- GitHub: https://github.com/asma019  
+- Repository: https://github.com/asma019/Next.js-Portfolio-for-System-Admins  
+
+---
+
+# 📄 License
+
+MIT License
+
+---
+
+**Made with ❤️ using Next.js & Cloudflare Workers**
