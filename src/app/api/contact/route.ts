@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+function escapeHtml(unsafe: string) {
+  return unsafe
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -64,6 +73,12 @@ export async function POST(request: NextRequest) {
         pass: process.env.SMTP_PASSWORD,
       },
     });
+
+    // Sanitize inputs for HTML template
+    const escapedName = escapeHtml(name);
+    const escapedEmail = escapeHtml(email);
+    const escapedSubject = escapeHtml(subject);
+    const escapedMessage = escapeHtml(message);
 
     // Premium HTML email template
     const htmlTemplate = `
@@ -232,22 +247,22 @@ export async function POST(request: NextRequest) {
             <div class="content">
                 <div class="form-field">
                     <div class="field-label">Name</div>
-                    <div class="field-value">${name}</div>
+                    <div class="field-value">${escapedName}</div>
                 </div>
                 
                 <div class="form-field">
                     <div class="field-label">Email</div>
-                    <div class="field-value">${email}</div>
+                    <div class="field-value">${escapedEmail}</div>
                 </div>
                 
                 <div class="form-field">
                     <div class="field-label">Subject</div>
-                    <div class="field-value">${subject}</div>
+                    <div class="field-value">${escapedSubject}</div>
                 </div>
                 
                 <div class="form-field message-field">
                     <div class="field-label">Message</div>
-                    <div class="field-value">${message}</div>
+                    <div class="field-value">${escapedMessage}</div>
                 </div>
             </div>
             
