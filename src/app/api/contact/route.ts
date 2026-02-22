@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { validateContactForm } from '@/lib/validation';
 
 function escapeHtml(unsafe: string) {
   return unsafe
@@ -13,7 +14,13 @@ function escapeHtml(unsafe: string) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, subject, message, turnstileToken } = body;
+    const { turnstileToken } = body;
+
+    // Ensure inputs are strings to prevent type errors
+    const name = String(body.name || '');
+    const email = String(body.email || '');
+    const subject = String(body.subject || '');
+    const message = String(body.message || '');
 
     // Validate Turnstile token
     if (!turnstileToken) {
@@ -46,19 +53,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate required fields
-    if (!name || !email || !subject || !message) {
+    // Validate form data
+    const validationError = validateContactForm({ name, email, subject, message });
+    if (validationError) {
       return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
-      );
-    }
-
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
+        { error: validationError },
         { status: 400 }
       );
     }
