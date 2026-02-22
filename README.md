@@ -134,7 +134,15 @@ TURNSTILE_SECRET_KEY=your-secret-key
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   └── sitemap.ts
+│   ├── types/
+│   │   └── turnstile.d.ts
 │   └── components/
+│       ├── home/
+│       │   ├── Hero.tsx
+│       │   ├── About.tsx
+│       │   ├── Skills.tsx
+│       │   ├── Experience.tsx
+│       │   └── Contact.tsx
 │       ├── Header.tsx
 │       └── Footer.tsx
 ├── public/
