@@ -59,7 +59,6 @@ export default function Home() {
 
   // Handle Turnstile callback
   const handleTurnstileCallback = useCallback((token: string) => {
-    console.log('Turnstile callback received token:', token);
     setTurnstileToken(token);
   }, []);
 
@@ -95,13 +94,10 @@ export default function Home() {
         // Prevent re-rendering if already populated
         if (turnstileRef.current.innerHTML !== '') return;
         
-        console.log('Rendering Turnstile with runtime key...');
-        
         try {
           window.turnstile.render(turnstileRef.current, {
             sitekey: currentKey, // Use the fetched key
             callback: (token: string) => {
-              console.log('Turnstile inline callback received token:', token);
               setTurnstileToken(token);
             },
             theme: 'dark',
@@ -134,9 +130,6 @@ export default function Home() {
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    console.log('Form submission - turnstileToken:', turnstileToken);
-    console.log('Form submission - turnstileToken length:', turnstileToken?.length);
     
     // Check if Turnstile token is present
     if (!turnstileToken || turnstileToken.length === 0) {
