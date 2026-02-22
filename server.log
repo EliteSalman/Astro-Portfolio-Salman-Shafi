@@ -1,0 +1,14 @@
+
+> nextjs-portfolio-system-admins@1.0.0 dev
+> next dev --turbopack
+
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.0.2:3000
+
+✓ Starting...
+✓ Ready in 1065ms
+○ Compiling / ...
+ GET / 200 in 6.0s (compile: 4.9s, render: 1089ms)
+ GET /api/turnstile 200 in 1654ms (compile: 1621ms, render: 33ms)
+ GET /api/turnstile 200 in 14ms (compile: 4ms, render: 10ms)

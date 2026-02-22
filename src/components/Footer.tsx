@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import { Mail, Phone, MapPin, Github, Twitter, Facebook, Instagram, Heart } from 'lucide-react';
+import { siteConfig } from '@/config/site';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: <Github size={20} />, href: 'https://github.com/EliteSalman', label: 'GitHub' },
-    { icon: <Twitter size={20} />, href: 'https://twitter.com/EliteSalmanX', label: 'Twitter' },
-    { icon: <Facebook size={20} />, href: 'https://facebook.com/EliteSalmanX', label: 'Facebook' }
+    { icon: <Github size={20} />, href: siteConfig.social.github, label: 'GitHub' },
+    { icon: <Twitter size={20} />, href: siteConfig.social.twitter, label: 'Twitter' },
+    { icon: <Facebook size={20} />, href: siteConfig.social.facebook, label: 'Facebook' }
   ];
 
   const quickLinks = [
@@ -33,34 +34,33 @@ export default function Footer() {
           {/* Brand & Description */}
           <div className="sm:col-span-2 lg:col-span-1">
             {/* Use the red gradient text class from globals.css */}
-            <h3 className="text-2xl sm:text-3xl font-bold text-gradient-red mb-3 sm:mb-4">Salman Shafi</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold text-gradient-red mb-3 sm:mb-4">{siteConfig.name}</h3>
             {/* Use light text colors for dark background */}
             <p className="text-text-body-color mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-              System Administrator from Bogura, Bangladesh.
-              Specializing in enterprise infrastructure and server optimization.
+              {siteConfig.description}
             </p>
             <div className="space-y-2 sm:space-y-3">
               <div className="flex items-center space-x-3">
                 <MapPin size={14} className="text-gray-400 flex-shrink-0" />
-                <span className="text-gray-300 text-xs sm:text-sm">Bogura, Bangladesh</span>
+                <span className="text-gray-300 text-xs sm:text-sm">{siteConfig.address.full}</span>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail size={14} className="text-gray-400 flex-shrink-0" />
                 <a
-                  href="mailto:hello@salmanshafi.net"
+                  href={`mailto:${siteConfig.email}`}
                   // Use red hover effect for links
                   className="text-gray-300 hover:text-primary transition-colors text-xs sm:text-sm break-all"
                 >
-                  hello@salmanshafi.net
+                  {siteConfig.email}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone size={14} className="text-gray-400 flex-shrink-0" />
                 <a
-                  href="tel:+8801603161647"
+                  href={`tel:${siteConfig.phone}`}
                   className="text-gray-300 hover:text-primary transition-colors text-xs sm:text-sm"
                 >
-                  +8801603161647
+                  {siteConfig.phone}
                 </a>
               </div>
             </div>
@@ -112,7 +112,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-3 sm:space-y-4 md:space-y-0">
             <div className="flex items-center space-x-2">
               <span className="text-gray-400 text-xs sm:text-sm text-center">
-                © {currentYear} Salman Shafi. All rights reserved.
+                © {currentYear} {siteConfig.name}. All rights reserved.
               </span>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-4 text-xs sm:text-sm text-gray-400">

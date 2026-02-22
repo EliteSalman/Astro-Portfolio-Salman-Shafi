@@ -4,8 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Server, Shield, Globe, Database, Terminal, Zap, MapPin, Mail, Phone, Send, CheckCircle, AlertCircle, Loader } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, ReactNode } from "react";
 import Script from "next/script";
+import { siteConfig } from "@/config/site";
 
 // Declare Turnstile types
 declare global {
@@ -31,6 +32,15 @@ interface TurnstileOptions {
 }
 
 export default function Home() {
+  const skillIcons: Record<string, ReactNode> = {
+    "Web Servers": <Server size={40} />,
+    "Operating Systems": <Terminal size={40} />,
+    "DNS Management": <Globe size={40} />,
+    "Infrastructure": <Database size={40} />,
+    "Security": <Shield size={40} />,
+    "Performance": <Zap size={40} />
+  };
+
   // Contact form state
   const [formData, setFormData] = useState({
     name: '',
@@ -199,58 +209,42 @@ export default function Home() {
 
   // Structured Data for SEO
   const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Salman Shafi",
-  "alternateName": "Salman Shafi Portfolio",
-  "jobTitle": "System Administrator",
-  "description": "Professional System Administrator and Server Infrastructure Specialist from Bogura, Bangladesh.",
-  "url": "https://salmanshafi.net",
-  "image": "https://salmanshafi.net/photo.webp",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Bogura",
-    "addressCountry": "Bangladesh"
-  },
-  "email": "mailto:hello@salmanshafi.net",
-  "telephone": "+8801603161647",
-  "knowsAbout": [
-    "System Administration",
-    "DNS Management",
-    "Nginx",
-    "Apache",
-    "RHEL",
-    "Technitium DNS",
-    "BIND",
-    "Server Management",
-    "Infrastructure",
-    "Web Server Configuration"
-  ],
-  "worksFor": {
-    "@type": "Organization",
-    "name": "Freelance"
-  },
-  "sameAs": [
-    "https://github.com/EliteSalman",
-    "https://twitter.com/EliteSalmanX",
-    "https://www.facebook.com/EliteSalmanX"
-  ],
-  "hasOccupation": {
-    "@type": "Occupation",
-    "name": "System Administrator",
-    "occupationalCategory": "15-1244.00 Network and Computer Systems Administrators",
-    "skills": [
-      "Linux Server Administration",
-      "DNS Configuration",
-      "Web Hosting Management",
-      "Cloud Infrastructure"
-    ]
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://salmanshafi.net"
-  }
-};
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": siteConfig.name,
+    "alternateName": `${siteConfig.name} Portfolio`,
+    "jobTitle": siteConfig.title,
+    "description": siteConfig.description,
+    "url": siteConfig.url,
+    "image": `${siteConfig.url}${siteConfig.photo}`,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": siteConfig.address.city,
+      "addressCountry": siteConfig.address.country
+    },
+    "email": `mailto:${siteConfig.email}`,
+    "telephone": siteConfig.phone,
+    "knowsAbout": siteConfig.structuredData.knowsAbout,
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    },
+    "sameAs": [
+      siteConfig.social.github,
+      siteConfig.social.twitter,
+      siteConfig.social.facebook
+    ],
+    "hasOccupation": {
+      "@type": "Occupation",
+      "name": siteConfig.structuredData.occupation.name,
+      "occupationalCategory": "15-1244.00 Network and Computer Systems Administrators",
+      "skills": siteConfig.structuredData.occupation.skills
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": siteConfig.url
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -290,29 +284,28 @@ export default function Home() {
               <div className="space-y-2 sm:space-y-3">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight">
                   Hi, I&apos;m{" "}
-                  <span className="text-gradient-red">Salman Shafi</span>
+                  <span className="text-gradient-red">{siteConfig.name}</span>
                 </h1>
                 <h2 className="text-lg sm:text-xl md:text-2xl text-gray-300 font-light">
-                  System Administrator
+                  {siteConfig.hero.subtitle}
                 </h2>
               </div>
 
               <p className="text-base sm:text-lg text-text-body-color leading-relaxed max-w-xl mx-auto lg:mx-0">
-                Crafting robust, scalable infrastructure solutions with expertise in DNS management, 
-                server administration, and enterprise-level system optimization from Bogura, Bangladesh.
+                {siteConfig.hero.description}
               </p>
 
               <div className="grid grid-cols-3 gap-4 sm:gap-6 pt-4 sm:pt-6">
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">1+</div>
+                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">{siteConfig.hero.stats.experience}</div>
                   <div className="text-xs sm:text-sm text-gray-400">Years Experience</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">10+</div>
+                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">{siteConfig.hero.stats.projects}</div>
                   <div className="text-xs sm:text-sm text-gray-400">Projects Completed</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">24/7</div>
+                  <div className="text-xl sm:text-2xl font-bold text-foreground mb-1">{siteConfig.hero.stats.support}</div>
                   <div className="text-xs sm:text-sm text-gray-400">Support Available</div>
                 </div>
               </div>
@@ -337,7 +330,7 @@ export default function Home() {
               <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 pt-4 sm:pt-6 border-t border-border-color">
                 <div className="flex items-center gap-2 text-gray-400">
                   <MapPin size={14} />
-                  <span className="text-xs sm:text-sm">Bogura, Bangladesh</span>
+                  <span className="text-xs sm:text-sm">{siteConfig.address.full}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-400">
                   <Mail size={14} />
@@ -359,8 +352,8 @@ export default function Home() {
                   <div className="relative z-10 w-full h-full rounded-full bg-card-background border-2 sm:border-4 border-border-color p-2 sm:p-3 shadow-xl">
                     <div className="w-full h-full rounded-full overflow-hidden">
                       <Image 
-                        src="/photo.webp" 
-                        alt="Salman Shafi - System Administrator"
+                        src={siteConfig.photo}
+                        alt={`${siteConfig.name} - ${siteConfig.title}`}
                         width={320} height={320}
                         className="w-full h-full object-cover object-center rounded-full"
                         priority fetchPriority="high"
@@ -393,7 +386,7 @@ export default function Home() {
             transition={{ duration: 0.6 }} viewport={{ once: true }}
           >
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl heading-primary text-gradient-red mb-4 sm:mb-6">About Me</h2>
-            <p className="text-lg sm:text-xl md:text-2xl text-body mb-6 sm:mb-8">Student & System Administrator</p>
+            <p className="text-lg sm:text-xl md:text-2xl text-body mb-6 sm:mb-8">{siteConfig.about.title}</p>
             <div className="divider-themed"></div>
           </motion.div>
           
@@ -405,8 +398,7 @@ export default function Home() {
               <div className="card-premium p-6 sm:p-8 md:p-10 hover-lift">
                 <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">Professional Background</h3>
                 <p className="text-body mb-6 sm:mb-8 text-base sm:text-lg">
-                  I&apos;m a dedicated student and system administration expert based in Bogura, Bangladesh. 
-                  My passion lies in creating robust, scalable infrastructure solutions that drive business success.
+                  {siteConfig.about.description}
                 </p>
                 
                 <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
@@ -415,7 +407,7 @@ export default function Home() {
                       <Globe className="text-primary mx-auto" size={28} />
                     </div>
                     <h4 className="font-semibold text-foreground text-base sm:text-lg">Remote On</h4>
-                    <p className="text-body text-sm sm:text-base">Bogura, Bangladesh</p>
+                    <p className="text-body text-sm sm:text-base">{siteConfig.about.location}</p>
                   </div>
                   
                   <div className="text-center">
@@ -423,7 +415,7 @@ export default function Home() {
                       <Server className="text-primary mx-auto" size={28} />
                     </div>
                     <h4 className="font-semibold text-foreground text-base sm:text-lg">Focus</h4>
-                    <p className="text-body text-sm sm:text-base">System Administration</p>
+                    <p className="text-body text-sm sm:text-base">{siteConfig.about.focus}</p>
                   </div>
                 </div>
               </div>
@@ -483,14 +475,7 @@ export default function Home() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 md:gap-10 max-w-7xl mx-auto">
-            {[
-              { icon: <Server size={40} />, title: "Web Servers", skills: ["Nginx", "Apache", "Caddy", "Litespeed"] },
-              { icon: <Terminal size={40} />, title: "Operating Systems", skills: ["RHEL", "Debian", "Ubuntu", "Alpine"] },
-              { icon: <Globe size={40} />, title: "DNS Management", skills: ["Technitium DNS", "BIND", "Knot", "PowerDNS"] },
-              { icon: <Database size={40} />, title: "Infrastructure", skills: ["Server Management", "Backup Solutions", "Monitoring"] },
-              { icon: <Shield size={40} />, title: "Security", skills: ["Network Security", "Firewall Management", "Access Control"] },
-              { icon: <Zap size={40} />, title: "Performance", skills: ["System Optimization", "Resource Management", "Scalability"] }
-            ].map((skill, index) => (
+            {siteConfig.skills.map((skill, index) => (
               <motion.div
                 key={index}
                 className="card-premium p-6 sm:p-8 md:p-10 hover-lift group"
@@ -498,11 +483,11 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: index * 0.1 }} viewport={{ once: true }}
               >
                 <div className="inline-flex p-4 sm:p-6 rounded-xl sm:rounded-2xl bg-red-gradient text-white mb-6 sm:mb-8 shadow-glow-red group-hover:animate-glow transition-all duration-300">
-                  {skill.icon}
+                  {skillIcons[skill.title]}
                 </div>
                 <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">{skill.title}</h3>
                 <ul className="space-y-2 sm:space-y-3">
-                  {skill.skills.map((item, idx) => (
+                  {skill.items.map((item, idx) => (
                     <li key={idx} className="flex items-center text-body text-sm sm:text-base md:text-lg">
                       <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 bg-primary rounded-full mr-3 sm:mr-4 animate-pulse flex-shrink-0"></div>
                       {item}
@@ -530,11 +515,7 @@ export default function Home() {
 
           <div className="max-w-5xl mx-auto">
             <div className="space-y-12 sm:space-y-16">
-              {[
-                { title: "System Administrator", period: "Current Role", description: "Managing enterprise-level infrastructure with focus on reliability, security, and performance. Specialized in DNS server configuration and optimization.", skills: ["Server Management", "DNS Configuration", "Performance Optimization", "Security Implementation"], current: true },
-                { title: "Web Server Specialist", period: "Previous Experience", description: "Configured and maintained high-performance web servers using Nginx and Apache. Implemented load balancing solutions and optimized server configurations.", skills: ["Nginx", "Apache", "Caddy", "Litespeed"], current: false },
-                { title: "Linux Administrator", period: "Foundation Experience", description: "Built expertise in RHEL and Linux system administration, including system monitoring, backup solutions, and automated deployment processes.", skills: ["RHEL", "System Monitoring", "Automation"], current: false }
-              ].map((job, index) => (
+              {siteConfig.experience.map((job, index) => (
                 <motion.div
                   key={index}
                   className={`relative pl-8 sm:pl-12 pb-6 sm:pb-8 ${index !== 2 ? 'border-l-2 sm:border-l-4 border-border-color' : ''}`}
@@ -693,7 +674,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Email</h4>
-                          <p className="text-body mb-1 text-xs sm:text-sm break-all">hello@salmanshafi.net</p>
+                          <p className="text-body mb-1 text-xs sm:text-sm break-all">{siteConfig.email}</p>
                           <p className="text-xs text-gray-500">Response within 24 hours</p>
                         </div>
                       </div>
@@ -704,7 +685,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Phone</h4>
-                          <p className="text-body mb-1 text-xs sm:text-sm">+8801603161647</p>
+                          <p className="text-body mb-1 text-xs sm:text-sm">{siteConfig.phone}</p>
                           <p className="text-xs text-gray-500">Available during business hours</p>
                         </div>
                       </div>
@@ -715,7 +696,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Remote On</h4>
-                          <p className="text-body mb-1 text-xs sm:text-sm">Bogura, Bangladesh</p>
+                          <p className="text-body mb-1 text-xs sm:text-sm">{siteConfig.address.full}</p>
                           <p className="text-xs text-gray-500">GMT+6 timezone</p>
                         </div>
                       </div>

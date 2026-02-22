@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { siteConfig } from '@/config/site';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function Header() {
             href="/"
             className="text-xl sm:text-2xl md:text-3xl font-bold text-gradient-red hover:brightness-110 transition-all duration-300 py-2 -ml-1"
           >
-            Salman Shafi
+            {siteConfig.name}
           </Link>
           
           {/* Desktop Navigation updated for dark theme */}

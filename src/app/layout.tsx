@@ -4,6 +4,7 @@ import Script from "next/script";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { siteConfig } from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,43 +17,43 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Salman Shafi - System Administrator",
-  description: "Professional portfolio of Salman Shafi, System Administrator and DNS from Bogura, Bangladesh",
-  keywords: "System Administrator, DNS Expert, Nginx, Apache, RHEL, Technitium DNS, NS1, Bangladesh, Server Management, Infrastructure, Web Server, DNS Configuration, System Administration",
-  authors: [{ name: "Salman Shafi" }],
-  creator: "Salman Shafi",
-  publisher: "Salman Shafi",
+  title: siteConfig.metadata.title,
+  description: siteConfig.metadata.description,
+  keywords: siteConfig.metadata.keywords,
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  publisher: siteConfig.name,
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://salmanshafi.net'),
+  metadataBase: new URL(siteConfig.url),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://salmanshafi.net',
-    title: 'Salman Shafi - System Administrator',
-    description: 'Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
-    siteName: 'Salman Shafi Portfolio',
+    url: siteConfig.url,
+    title: siteConfig.metadata.title,
+    description: siteConfig.metadata.description,
+    siteName: `${siteConfig.name} Portfolio`,
     images: [
       {
         url: '/share.webp',
         width: 1200,
         height: 630,
-        alt: 'Salman Shafi - System Administrator',
+        alt: siteConfig.metadata.title,
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@EliteSalmanX',
-    creator: '@EliteSalmanX',
-    title: "Salman Shafi's Twitter",
-    description: 'Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
+    site: siteConfig.social.twitterHandle,
+    creator: siteConfig.social.twitterHandle,
+    title: `${siteConfig.name}'s Twitter`,
+    description: siteConfig.metadata.description,
     images: ['/share.webp'],
   },
   category: 'Technology',
@@ -71,9 +72,9 @@ export default function RootLayout({
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Salman Shafi" />
-        <link rel="apple-touch-icon" href="/photo.webp" />
-        <link rel="icon" type="image/webp" href="/photo.webp" />
+        <meta name="apple-mobile-web-app-title" content={siteConfig.name} />
+        <link rel="apple-touch-icon" href={siteConfig.photo} />
+        <link rel="icon" type="image/webp" href={siteConfig.photo} />
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
