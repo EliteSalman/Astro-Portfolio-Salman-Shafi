@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { rateLimiter } from '@/lib/rate-limit';
 
 function escapeHtml(unsafe: string) {
   return unsafe
@@ -12,6 +13,17 @@ function escapeHtml(unsafe: string) {
 
 export async function POST(request: NextRequest) {
   try {
+    // Rate Limiting
+    const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    const clientIp = ip.split(',')[0].trim();
+
+    if (!rateLimiter.check(clientIp)) {
+      return NextResponse.json(
+        { error: 'Too many requests. Please try again later.' },
+        { status: 429 }
+      );
+    }
+
     const body = await request.json();
     const { name, email, subject, message, turnstileToken } = body;
 
