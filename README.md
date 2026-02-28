@@ -44,81 +44,85 @@ A premium, fully responsive portfolio website built with Next.js 16, featuring a
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
 - **Email**: Nodemailer
-- **Deployment**: Cloudflare Workers
+- **Deployment**: Podman
 
 ---
 
-# ☁️ Deployment (Cloudflare Workers)
+# 📦 Deployment (Podman)
 
-## 1️⃣ Install Dependencies
+## 1️⃣ Install Podman & Podman Compose
 
 ```bash
-npm install
+sudo dnf install podman podman-compose
 ```
 
 ---
 
-## 2️⃣ Edit Your Information
-
-Before deploying, update your personal details:
-
-- `src/app/page.tsx` – Hero, About, Experience, Skills
-- `src/components/Header.tsx` – Branding & Navigation
-- `src/components/Footer.tsx` – Contact information
-- `src/app/layout.tsx` – SEO metadata & site URL
-- `public/photo.webp` – Your profile photo
-- `public/share.webp` – Social preview image (1200x630)
-
-Also configure your environment variables inside Cloudflare Dashboard:
-
-```
-Workers → Settings → Variables
-```
-
----
-
-## 3️⃣ Deploy
-
-If this is your first time deploying and you are not logged in to Cloudflare, run:
+## 2️⃣ Clone Repository
 
 ```bash
-npx wrangler login
+git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
+cd NextJS-Portfolio-Salman-Shafi
 ```
-
-Then deploy:
-
-```bash
-npm run deploy
-```
-
-> The deploy script automatically builds and publishes the Worker.
-
-After deployment, connect your custom domain from the Cloudflare Dashboard.
 
 ---
 
-# 🔐 Environment Variables
+## 3️⃣ Configure Environment Variables
 
-Set these in:
-
-**Cloudflare Dashboard → Workers → Settings → Variables**
+Before building, create or edit `.env.local` with your actual values:
 
 ```env
+# SMTP Configuration
 SMTP_HOST=host.example.tld
 SMTP_USERNAME=your-smtp-username
 SMTP_PASSWORD=your-smtp-password
 SMTP_PORT=587
 SMTP_SECURE=false
 
+# Email Configuration
 FROM_EMAIL_NAME=Your Name
 FROM_EMAIL=no-reply@example.tld
 TO_EMAIL=your-email@example.tld
 
+# Application Configuration
 NEXT_PUBLIC_SITE_URL=https://example.tld
 
-TURNSTILE_SITE_KEY=your-site-key
-TURNSTILE_SECRET_KEY=your-secret-key
+# Cloudflare Turnstile Configuration
+TURNSTILE_SITE_KEY=your-turnstile-site-key
+TURNSTILE_SECRET_KEY=your-turnstile-secret-key
 ```
+
+---
+
+## 4️⃣ Build Container Image
+
+```bash
+podman build -t nextjs-portfolio .
+```
+
+---
+
+## 5️⃣ Run with Podman Compose
+
+```bash
+podman-compose up -d
+```
+
+---
+
+## 6️⃣ Access Application
+
+Open in browser:
+
+```
+http://your-server-ip:3001
+```
+
+---
+
+# 🔐 Environment Variables
+
+All required environment variables must be defined inside `.env.local` before building the container.
 
 ---
 
@@ -187,4 +191,4 @@ MIT License
 
 ---
 
-**Made with ❤️ using Next.js & Cloudflare Workers**
+**Made with ❤️ using Next.js**

@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+
   compress: false,
   poweredByHeader: false,
 
@@ -12,6 +14,20 @@ const nextConfig: NextConfig = {
 
   outputFileTracingIncludes: {
     "/": ["node_modules/nodemailer/**"],
+  },
+
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          {
+            key: "Server",
+            value: "Next.js",
+          },
+        ],
+      },
+    ];
   },
 };
 
