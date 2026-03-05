@@ -27,42 +27,44 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://salmanshafi.net'),
+  metadataBase: new URL("https://salmanshafi.net"),
   alternates: {
-    canonical: '/',
+    canonical: "/",
   },
   openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://salmanshafi.net',
-    title: 'Salman Shafi - System Administrator',
-    description: 'Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
-    siteName: 'Salman Shafi Portfolio',
+    type: "website",
+    locale: "en_US",
+    url: "https://salmanshafi.net",
+    title: "Salman Shafi - System Administrator",
+    description:
+      "Professional portfolio of Salman Shafi, System Administrator and DNS Expert from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.",
+    siteName: "Salman Shafi Portfolio",
     images: [
       {
-        url: '/share.webp',
+        url: "/share.webp",
         width: 1200,
         height: 630,
-        alt: 'Salman Shafi - System Administrator',
+        alt: "Salman Shafi - System Administrator",
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    site: '@EliteSalmanX',
-    creator: '@EliteSalmanX',
+    card: "summary_large_image",
+    site: "@EliteSalmanX",
+    creator: "@EliteSalmanX",
     title: "Salman Shafi's Twitter",
-    description: 'Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.',
-    images: ['/share.webp'],
+    description:
+      "Professional portfolio of Salman Shafi, System Administrator from Bogura, Bangladesh. Specialized in Nginx, Apache, RHEL, Technitium DNS, and NS1.",
+    images: ["/share.webp"],
   },
-  category: 'Technology',
+  category: "Technology",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <head>
@@ -77,18 +79,24 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#3b82f6" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
       </head>
+
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50`}
       >
         <div className="min-h-screen flex flex-col">
           <Header />
-          <main className="flex-grow">
-            {children}
-          </main>
+          <main className="flex-grow">{children}</main>
           <Footer />
         </div>
+
+        {/* Umami Analytics */}
+        <Script
+          defer
+          src="https://web-analytics.salmanshafi.net/script.js"
+          data-website-id="e2a02068-99e0-421c-934e-ebdb445841aa"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
 }
-
