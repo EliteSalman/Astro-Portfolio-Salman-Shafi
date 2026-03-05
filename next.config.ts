@@ -6,8 +6,14 @@ const nextConfig: NextConfig = {
   compress: false,
   poweredByHeader: false,
 
+  compiler: {
+    removeConsole: {
+      exclude: ["error"],
+    },
+  },
+
   images: {
-    formats: ["image/webp", "image/avif"],
+    formats: ["image/avif", "image/webp"],
   },
 
   trailingSlash: false,
