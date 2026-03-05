@@ -87,13 +87,6 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
-
-        {/* Umami Analytics */}
-        <Script
-          src="https://cloud.umami.is/script.js"
-          data-website-id="8b776285-9367-4558-a42e-e94556dd2523"
-          strategy="afterInteractive"
-        />
       </body>
     </html>
   );
