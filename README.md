@@ -2,74 +2,80 @@
 
 ![Next.js Portfolio for System Admins](public/share.webp)
 
-A premium, fully responsive portfolio website built with Next.js 16, featuring a working contact form, SEO optimization, and modern design principles.
+A premium, fully responsive portfolio website built with **Next.js 16**, featuring a working contact form, SEO optimisation, and modern design principles.
 
 ---
 
 ## 🚀 Features
 
 ### 🎨 Design & UI
-- Modern Red & Black Theme
-- Fully Responsive (Mobile-first)
-- Smooth Framer Motion animations
-- Premium Geist typography
-- Interactive card layouts
+
+| Feature | Details |
+|---|---|
+| Theme | Modern Red & Black |
+| Responsive | Mobile-first, all screen sizes |
+| Animations | Smooth Framer Motion transitions |
+| Typography | Premium Geist typeface |
+| Layouts | Interactive card components |
 
 ### 📧 Contact System
-- Fully functional contact form
-- Cloudflare Turnstile bot protection
-- SMTP email support (Nodemailer)
-- Beautiful HTML email templates
-- Loading states & error handling
 
-### 🔍 SEO Optimized
-- OpenGraph & Twitter meta tags
+| Feature | Details |
+|---|---|
+| Contact Form | Fully functional with validation |
+| Bot Protection | Cloudflare Turnstile integration |
+| Email Backend | Nodemailer over SMTP |
+| Email Templates | Beautiful HTML styling |
+| UX | Loading states & error handling |
+
+### 🔍 SEO Optimised
+
+- OpenGraph & Twitter Card meta tags
 - JSON-LD structured data
-- Dynamic sitemap (`/sitemap.xml`)
-- Robots.txt
-- Optimized bundle size (~99.7kB first load)
+- Dynamic sitemap at `/sitemap.xml`
+- `robots.txt` included
+- Optimised bundle — ~99.7 kB first load JS
 
 ### 🛡️ Security & Performance
-- WebP/AVIF image optimization
+
+- WebP/AVIF image optimisation via Next.js Image
 - Automatic code splitting
-- Production optimizations enabled
+- Production build optimisations enabled
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 16 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **Email**: Nodemailer
-- **Deployment**: Podman
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 16 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS |
+| Animations | Framer Motion |
+| Icons | Lucide React |
+| Email | Nodemailer |
+| Deployment | Podman |
 
 ---
 
-# 📦 Deployment (Podman)
+## 📦 Deployment
 
-## 1️⃣ Install Podman & Podman Compose
+### 1️⃣ Install Podman & Podman Compose
 
 ```bash
 sudo dnf install podman podman-compose
 ```
 
----
-
-## 2️⃣ Clone Repository
+### 2️⃣ Clone the Repository
 
 ```bash
 git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
 cd NextJS-Portfolio-Salman-Shafi
 ```
 
----
+### 3️⃣ Configure Environment Variables
 
-## 3️⃣ Configure Environment Variables
-
-Before building, create or edit `.env.local` with your actual values:
+Create or edit `.env.local` before building. All variables must be set at build time.
 
 ```env
 # SMTP Configuration
@@ -92,27 +98,19 @@ TURNSTILE_SITE_KEY=your-turnstile-site-key
 TURNSTILE_SECRET_KEY=your-turnstile-secret-key
 ```
 
----
-
-## 4️⃣ Build Container Image
+### 4️⃣ Build the Container Image
 
 ```bash
 podman build -t nextjs-portfolio .
 ```
 
----
-
-## 5️⃣ Run with Podman Compose
+### 5️⃣ Run with Podman Compose
 
 ```bash
 podman-compose up -d
 ```
 
----
-
-## 6️⃣ Access Application
-
-Open in browser:
+### 6️⃣ Access the Application
 
 ```
 http://your-server-ip:3001
@@ -120,15 +118,10 @@ http://your-server-ip:3001
 
 ---
 
-# 🔐 Environment Variables
-
-All required environment variables must be defined inside `.env.local` before building the container.
-
----
-
-# 📂 Project Structure
+## 📂 Project Structure
 
 ```
+.
 ├── src/
 │   ├── app/
 │   │   ├── api/
@@ -149,45 +142,49 @@ All required environment variables must be defined inside `.env.local` before bu
 │       │   └── Contact.tsx
 │       ├── Header.tsx
 │       └── Footer.tsx
-├── public/
-│   ├── photo.webp
-│   ├── share.webp
-│   └── ...
+└── public/
+    ├── photo.webp
+    ├── share.webp
+    └── ...
 ```
 
 ---
 
-# 📊 Performance
+## 📊 Performance
 
-- First Load JS: ~99.7kB
-- Lighthouse Score: 100
-- Fully responsive
-- Optimized for Core Web Vitals
-
----
-
-# 📞 Contact & Support
-
-If you found this project helpful, consider giving it a ⭐ on GitHub.
-
-- 📧 Email: hello@salmanshafi.net  
-- 🐛 Issues: https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues  
-- 💬 Discussions: https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/discussions  
+| Metric | Result |
+|---|---|
+| First Load JS | ~99.7 kB |
+| Lighthouse Score | 100 |
+| Responsive | ✅ All viewports |
+| Core Web Vitals | ✅ Optimised |
 
 ---
 
-# 👤 Original Project
+## 📞 Contact & Support
 
-- Author: Mehedi Hasan  
-- Email: hello@mehedims.com  
-- GitHub: https://github.com/asma019  
-- Repository: https://github.com/asma019/Next.js-Portfolio-for-System-Admins  
+If you found this project helpful, consider giving it a ⭐ on GitHub!
+
+- 📧 **Email** — [hello@salmanshafi.net](mailto:hello@salmanshafi.net)
+- 🐛 **Issues** — [GitHub Issues](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues)
+- 💬 **Discussions** — [GitHub Discussions](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/discussions)
 
 ---
 
-# 📄 License
+## 👤 Original Project
 
-MIT License
+This repository is a fork of the original work by:
+
+- **Author** — Mehedi Hasan
+- **Email** — [hello@mehedims.com](mailto:hello@mehedims.com)
+- **GitHub** — [asma019](https://github.com/asma019)
+- **Repository** — [Next.js-Portfolio-for-System-Admins](https://github.com/asma019/Next.js-Portfolio-for-System-Admins)
+
+---
+
+## 📄 Licence
+
+Released under the [MIT Licence](LICENSE).
 
 ---
 
