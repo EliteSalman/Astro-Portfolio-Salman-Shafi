@@ -29,8 +29,8 @@
     "lint:fix": "next lint --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "setup": "npm install",
-    "deploy": "npm run build && npm start"
+    "setup": "yarn install",
+    "deploy": "yarn run build && yarn start"
   },
   "dependencies": {
     "framer-motion": "^12.23.26",
@@ -55,6 +55,7 @@
   },
   "engines": {
     "node": "24.x",
-    "npm": ">=10.0.0"
-  }
+    "yarn": ">=4.0.0"
+  },
+  "packageManager": "yarn@4.13.0"
 }
