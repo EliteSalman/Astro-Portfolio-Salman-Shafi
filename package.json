@@ -30,7 +30,7 @@
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next && rm -rf node_modules/.cache",
     "setup": "yarn install",
-    "deploy": "yarn run build && yarn start"
+    "deploy": "yarn run build && yarn start",
     "cf-deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
 	  "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
