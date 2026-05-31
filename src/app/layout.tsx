@@ -89,13 +89,15 @@ export default function RootLayout({
           <Footer />
         </div>
 
-        {/* Umami Analytics */}
+        {/* Umami Analytics - Disabled */}
+        {/* 
         <Script
           defer
           src="https://web-analytics.salmanshafi.net/script.js"
           data-website-id="e2a02068-99e0-421c-934e-ebdb445841aa"
           strategy="afterInteractive"
         />
+        */}
       </body>
     </html>
   );
