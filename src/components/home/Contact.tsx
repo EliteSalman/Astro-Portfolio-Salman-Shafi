@@ -2,11 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Script from "next/script";
-import { CheckCircle, AlertCircle, Loader, Send, Mail, Phone, MapPin, Terminal } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from 'framer-motion';
 
 export default function Contact() {
-  // Contact form state
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -14,46 +12,35 @@ export default function Contact() {
     message: ''
   });
 
-  // NEW: State to hold the runtime site key from the server
   const [runtimeSiteKey, setRuntimeSiteKey] = useState<string | null>(null);
-
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
   const [turnstileLoaded, setTurnstileLoaded] = useState(false);
   const turnstileRef = useRef<HTMLDivElement>(null);
 
-  // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Handle Turnstile callback
   const handleTurnstileCallback = useCallback((token: string) => {
     setTurnstileToken(token);
   }, []);
 
-  // Make callback available globally for Turnstile
   useEffect(() => {
-    window.handleTurnstileCallback = handleTurnstileCallback;
+    (window as any).handleTurnstileCallback = handleTurnstileCallback;
     return () => {
-      delete window.handleTurnstileCallback;
+      delete (window as any).handleTurnstileCallback;
     };
   }, [handleTurnstileCallback]);
 
-  // Modified: Render Turnstile widget with Runtime Key Fetch
   useEffect(() => {
     const renderTurnstile = async () => {
-      // 1. Fetch the key from the server if we don't have it yet
       let currentKey = runtimeSiteKey;
 
       if (!currentKey) {
         try {
-          // Fetch from your new API route
           const response = await fetch('/api/turnstile');
           const data = await response.json();
           currentKey = data.siteKey;
@@ -64,14 +51,12 @@ export default function Contact() {
         }
       }
 
-      // 2. Render only if we have the key and the library is ready
-      if (window.turnstile && turnstileRef.current && currentKey) {
-        // Prevent re-rendering if already populated
+      if ((window as any).turnstile && turnstileRef.current && currentKey) {
         if (turnstileRef.current.innerHTML !== '') return;
 
         try {
-          window.turnstile.render(turnstileRef.current, {
-            sitekey: currentKey, // Use the fetched key
+          (window as any).turnstile.render(turnstileRef.current, {
+            sitekey: currentKey,
             callback: (token: string) => {
               setTurnstileToken(token);
             },
@@ -85,272 +70,207 @@ export default function Contact() {
       }
     };
 
-    // Try to render immediately if Turnstile is already loaded
-    if (window.turnstile) {
+    if ((window as any).turnstile) {
       renderTurnstile();
     } else {
-      // Wait for Turnstile to load
       const checkTurnstile = setInterval(() => {
-        if (window.turnstile) {
+        if ((window as any).turnstile) {
           renderTurnstile();
           clearInterval(checkTurnstile);
         }
       }, 100);
-
-      // Cleanup interval after 10 seconds
       setTimeout(() => clearInterval(checkTurnstile), 10000);
     }
-  }, [runtimeSiteKey]); // Add runtimeSiteKey as dependency
+  }, [runtimeSiteKey]);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Check if Turnstile token is present
     if (!turnstileToken || turnstileToken.length === 0) {
       setFormStatus('error');
-      setStatusMessage('Please complete the security verification.');
+      setStatusMessage('Security verification failed. Please complete the CAPTCHA.');
       return;
     }
 
     setFormStatus('loading');
-    setStatusMessage('');
+    setStatusMessage('Executing transmission sequence...');
 
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...formData,
-          turnstileToken
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...formData, turnstileToken }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
         setFormStatus('success');
-        setStatusMessage('Thank you! Your message has been sent successfully.');
+        setStatusMessage('Transmission successful. Awaiting ACK.');
         setFormData({ name: '', email: '', subject: '', message: '' });
         setTurnstileToken('');
-        // Reset Turnstile widget
-        if (window.turnstile && turnstileRef.current) {
-          window.turnstile.reset(turnstileRef.current);
+        if ((window as any).turnstile && turnstileRef.current) {
+          (window as any).turnstile.reset(turnstileRef.current);
         }
       } else {
         setFormStatus('error');
-        setStatusMessage(result.error || 'Something went wrong. Please try again.');
-        // Reset Turnstile on error
-        if (window.turnstile && turnstileRef.current) {
-          window.turnstile.reset(turnstileRef.current);
+        setStatusMessage(result.error || 'Transmission failed. Connection refused.');
+        if ((window as any).turnstile && turnstileRef.current) {
+          (window as any).turnstile.reset(turnstileRef.current);
         }
         setTurnstileToken('');
       }
     } catch (error) {
       console.error('Form submission error:', error);
       setFormStatus('error');
-      setStatusMessage('Network error. Please check your connection and try again.');
-      // Reset Turnstile on error
-      if (window.turnstile && turnstileRef.current) {
-        window.turnstile.reset(turnstileRef.current);
+      setStatusMessage('Network unreachable. Please verify routing and try again.');
+      if ((window as any).turnstile && turnstileRef.current) {
+        (window as any).turnstile.reset(turnstileRef.current);
       }
       setTurnstileToken('');
     }
   };
 
-  // Auto-hide status message after 5 seconds
   useEffect(() => {
     if (formStatus === 'success' || formStatus === 'error') {
       const timer = setTimeout(() => {
         setFormStatus('idle');
         setStatusMessage('');
-      }, 5000);
+      }, 7000);
       return () => clearTimeout(timer);
     }
   }, [formStatus]);
 
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.1 } }
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.05, ease: "linear" } }
+  };
+
   return (
-    <section id="contact" className="py-16 bg-background">
-      {/* Cloudflare Turnstile Script */}
-      <Script
-        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-        strategy="beforeInteractive"
-      />
+    <section id="contact" className="py-24 bg-black border-b border-[#1e1e1e] font-mono scroll-mt-24">
+      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="beforeInteractive" />
 
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="max-w-4xl mx-auto text-center mb-12"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }} viewport={{ once: true }}
-        >
-          <h2 className="text-4xl md:text-5xl heading-primary text-gradient-red mb-4">Let&apos;s Connect</h2>
-          <p className="text-xl text-body mb-6">Ready to discuss your infrastructure needs? Let&apos;s start a conversation.</p>
-          <div className="divider-themed"></div>
-        </motion.div>
+      <div className="container mx-auto px-6 max-w-5xl">
+        
+        <div className="text-sm font-medium text-[#a1a1aa] mb-12 flex items-center whitespace-nowrap overflow-x-auto no-scrollbar">
+          <span className="text-green-500">salman@infra</span>
+          <span className="text-white">:</span>
+          <span className="text-blue-500">~</span>
+          <span className="text-white ml-2">$ /usr/local/bin/send-message --to=hello@salmanshafi.net</span>
+        </div>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-6 sm:gap-8">
-            <div className="lg:col-span-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }} viewport={{ once: true }}
-              >
-                <div className="card-premium p-6 sm:p-8 hover-lift">
-                  <h3 className="text-2xl sm:text-3xl font-bold heading-primary text-gradient-red mb-4 sm:mb-6">Send Me a Message</h3>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            <form onSubmit={handleSubmit} className="flex flex-col space-y-6 bg-[#050505] border border-[#1e1e1e] p-6 md:p-8">
+              
+              {statusMessage && (
+                <motion.div variants={item} className={`p-3 text-sm border ${formStatus === 'success' ? 'border-green-900 bg-green-900/10 text-green-500' : formStatus === 'error' ? 'border-[#EE0000]/30 bg-[#EE0000]/10 text-[#EE0000]' : 'border-[#1e1e1e] text-[#a1a1aa]'}`}>
+                  {formStatus === 'success' ? '[OK] ' : formStatus === 'error' ? '[ERR] ' : '[...] '}
+                  {statusMessage}
+                </motion.div>
+              )}
 
-                  <form className="space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
-                    {statusMessage && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
-                        className={`p-4 rounded-lg flex items-center space-x-3 ${
-                          formStatus === 'success'
-                            ? 'bg-green-900/50 border border-green-700 text-green-300'
-                            : 'bg-red-900/50 border border-red-700 text-red-300'
-                        }`}
-                      >
-                        {formStatus === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
-                        <span className="text-sm font-medium">{statusMessage}</span>
-                      </motion.div>
-                    )}
-
-                    <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
-                      <div>
-                        <label htmlFor="name" className="block text-xs sm:text-sm font-semibold text-gray-300 mb-2">Full Name *</label>
-                        <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} required disabled={formStatus === 'loading'}
-                          className="input-themed text-sm sm:text-base" placeholder="Your full name" />
-                      </div>
-                      <div>
-                        <label htmlFor="email" className="block text-xs sm:text-sm font-semibold text-gray-300 mb-2">Email Address *</label>
-                        <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} required disabled={formStatus === 'loading'}
-                          className="input-themed text-sm sm:text-base" placeholder="your.email@example.com" />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label htmlFor="subject" className="block text-xs sm:text-sm font-semibold text-gray-300 mb-2">Subject *</label>
-                      <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleInputChange} required disabled={formStatus === 'loading'}
-                        className="input-themed text-sm sm:text-base" placeholder="What would you like to discuss?" />
-                    </div>
-
-                    <div>
-                      <label htmlFor="message" className="block text-xs sm:text-sm font-semibold text-gray-300 mb-2">Message *</label>
-                      <textarea id="message" name="message" value={formData.message} onChange={handleInputChange} required rows={4} disabled={formStatus === 'loading'}
-                        className="input-themed resize-none text-sm sm:text-base" placeholder="Tell me about your project..."></textarea>
-                    </div>
-
-                    {/* Cloudflare Turnstile Widget - Modified for Runtime */}
-                    <div className="flex flex-col items-center space-y-2">
-                      {!turnstileLoaded && (
-                        <div className="flex items-center space-x-2 text-gray-400 text-sm">
-                          <div className="w-4 h-4 border-2 border-gray-600 border-t-primary rounded-full animate-spin"></div>
-                          {/* Shows different text depending on state */}
-                          <span>{runtimeSiteKey ? "Loading widget..." : "Verifying security..."}</span>
-                        </div>
-                      )}
-
-                      {/* Only render Turnstile div if we have the key */}
-                      {runtimeSiteKey && (
-                        <div
-                          ref={turnstileRef}
-                          className="cf-turnstile"
-                        />
-                      )}
-
-                      {turnstileToken && (
-                        <div className="flex items-center space-x-2 text-green-400 text-xs">
-                          <CheckCircle size={12} />
-                          <span>Security verification completed</span>
-                        </div>
-                      )}
-                    </div>
-
-                    <button
-                      type="submit" disabled={formStatus === 'loading'}
-                      className="btn-primary hover-lift shadow-glow-red w-full py-3 sm:py-4 flex items-center justify-center text-sm sm:text-base disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none"
-                    >
-                      {formStatus === 'loading' ? (
-                        <>
-                          <Loader size={18} className="mr-2 sm:mr-3 animate-spin" />
-                          Sending...
-                        </>
-                      ) : (
-                        <>
-                          <Send size={18} className="mr-2 sm:mr-3" />
-                          Send Message
-                        </>
-                      )}
-                    </button>
-                  </form>
-                </div>
-              </motion.div>
-            </div>
-
-            <div className="space-y-4 sm:space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }}
-              >
-                <div className="card-premium p-4 sm:p-6 hover-lift">
-                  <h3 className="text-xl sm:text-2xl font-bold heading-primary text-gradient-red mb-4 sm:mb-6">Contact Information</h3>
-
-                  <div className="space-y-4 sm:space-y-6">
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                      <div className="bg-red-gradient p-2.5 sm:p-3 rounded-lg sm:rounded-xl shadow-glow-red flex-shrink-0">
-                        <Mail className="text-white" size={18} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Email</h4>
-                        <p className="text-body mb-1 text-xs sm:text-sm break-all">hello@salmanshafi.net</p>
-                        <p className="text-xs text-gray-500">Response within 24 hours</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                       <div className="bg-red-gradient p-2.5 sm:p-3 rounded-lg sm:rounded-xl shadow-glow-red flex-shrink-0">
-                        <Phone className="text-white" size={18} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Phone</h4>
-                        <p className="text-body mb-1 text-xs sm:text-sm">+8801603161647</p>
-                        <p className="text-xs text-gray-500">Available during business hours</p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start space-x-3 sm:space-x-4">
-                       <div className="bg-red-gradient p-2.5 sm:p-3 rounded-lg sm:rounded-xl shadow-glow-red flex-shrink-0">
-                        <MapPin className="text-white" size={18} />
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-foreground mb-1 text-sm sm:text-base">Remote On</h4>
-                        <p className="text-body mb-1 text-xs sm:text-sm">Bogura, Bangladesh</p>
-                        <p className="text-xs text-gray-500">GMT+6 timezone</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+              <motion.div variants={item} className="flex flex-col relative group">
+                <label htmlFor="name" className="text-[#555] mb-2 text-sm flex items-center">
+                  <span className="text-[#EE0000] mr-2">&gt;</span> --name=
+                </label>
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} disabled={formStatus === 'loading'} required
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }} viewport={{ once: true }}
-              >
-                <div className="card-premium bg-red-gradient text-white p-4 sm:p-6 hover-lift shadow-glow-red">
-                  <h3 className="text-lg sm:text-2xl font-bold mb-3 sm:mb-4">Let&apos;s Work Together</h3>
-                  <p className="text-gray-200 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
-                    I&apos;m passionate about helping businesses build reliable, scalable infrastructure.
-                  </p>
-                  <div className="flex items-center space-x-2 sm:space-x-3">
-                    <div className="glass-dark p-2 sm:p-3 rounded-lg sm:rounded-xl">
-                      <Terminal className="text-white" size={14} />
-                    </div>
-                    <span className="text-gray-200 text-xs sm:text-sm">Available for projects</span>
-                  </div>
-                </div>
+              <motion.div variants={item} className="flex flex-col relative group">
+                <label htmlFor="email" className="text-[#555] mb-2 text-sm flex items-center">
+                  <span className="text-[#EE0000] mr-2">&gt;</span> --email=
+                </label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} disabled={formStatus === 'loading'} required
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
               </motion.div>
-            </div>
-          </div>
+
+              <motion.div variants={item} className="flex flex-col relative group">
+                <label htmlFor="subject" className="text-[#555] mb-2 text-sm flex items-center">
+                  <span className="text-[#EE0000] mr-2">&gt;</span> --subject=
+                </label>
+                <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleInputChange} disabled={formStatus === 'loading'} required
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
+              </motion.div>
+
+              <motion.div variants={item} className="flex flex-col relative group">
+                <label htmlFor="message" className="text-[#555] mb-2 text-sm flex items-center">
+                  <span className="text-[#EE0000] mr-2">&gt;</span> --message=
+                </label>
+                <textarea 
+                  id="message" 
+                  name="message" 
+                  value={formData.message} 
+                  onChange={handleInputChange} 
+                  disabled={formStatus === 'loading'} 
+                  rows={5} 
+                  required 
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] focus:ring-0 transition-colors rounded-none font-mono text-sm resize-none disabled:opacity-50 shadow-none appearance-none"
+                ></textarea>
+              </motion.div>
+
+              <motion.div variants={item} className="cf-turnstile flex flex-col space-y-2">
+                {!turnstileLoaded && (
+                   <span className="text-[#555] text-xs">
+                     {runtimeSiteKey ? "Loading verification module..." : "Fetching security keys..."}
+                   </span>
+                )}
+                {runtimeSiteKey && (
+                  <div ref={turnstileRef} className="cf-turnstile mt-2" />
+                )}
+              </motion.div>
+
+              <motion.div variants={item} className="pt-4">
+                <button type="submit" disabled={formStatus === 'loading'}
+                  className="w-full bg-[#EE0000] text-white font-bold py-4 hover:bg-white hover:text-black transition-colors uppercase tracking-wider text-sm border border-[#EE0000] hover:border-white rounded-none glitch-hover flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#EE0000] disabled:hover:text-white"
+                >
+                  {formStatus === 'loading' ? '[ EXECUTING... ]' : '[ EXECUTE ]'}
+                </button>
+              </motion.div>
+
+            </form>
+          </motion.div>
+
+          <motion.div variants={container} initial="hidden" whileInView="show" viewport={{ once: true }} className="flex flex-col space-y-6">
+            <motion.div variants={item} className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-8">
+              <span className="text-[#a1a1aa] text-sm block mb-6"># Contact Endpoints</span>
+              
+              <div className="space-y-4 text-sm">
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-12 sm:col-span-3 text-[#555]">email_uri</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "hello@salmanshafi.net"</div>
+                </div>
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-12 sm:col-span-3 text-[#555]">phone_pvt</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "+8801603161647"</div>
+                </div>
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-12 sm:col-span-3 text-[#555]">location</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "Bogura, Bangladesh"</div>
+                </div>
+                <div className="grid grid-cols-12 gap-2">
+                  <div className="col-span-12 sm:col-span-3 text-[#555]">timezone</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "GMT+6"</div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div variants={item} className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-8">
+              <span className="text-[#a1a1aa] text-sm block mb-4"># Status Check</span>
+              <div className="flex items-center text-sm text-[#e5e5e5]">
+                <span className="text-green-500 mr-3 text-xs">●</span>
+                System active. Awaiting input.
+              </div>
+            </motion.div>
+          </motion.div>
+
         </div>
       </div>
     </section>

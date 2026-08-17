@@ -1,91 +1,86 @@
 'use client';
 
-import { Server, Shield, Globe } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from 'framer-motion';
 
 export default function About() {
+  // Mechanical step-rendering variants typed for TypeScript
+  const container: Variants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+    }
+  };
+
+  const item: Variants = {
+    hidden: { opacity: 0, x: -10 },
+    show: { opacity: 1, x: 0, transition: { duration: 0.05, ease: "linear" } }
+  };
+
   return (
-    <section id="about" className="py-16 sm:py-20 md:py-24 bg-[#0a0a0a]">
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="max-w-4xl mx-auto text-center mb-12 sm:mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }} viewport={{ once: true }}
-        >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl heading-primary text-gradient-red mb-4 sm:mb-6">About Me</h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-body mb-6 sm:mb-8">Student & System Administrator</p>
-          <div className="divider-themed"></div>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-12 sm:gap-16 md:gap-20 items-center">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }} viewport={{ once: true }}
-          >
-            <div className="card-premium p-6 sm:p-8 md:p-10 hover-lift">
-              <h3 className="text-2xl sm:text-3xl font-bold text-foreground mb-6 sm:mb-8">Professional Background</h3>
-              <p className="text-body mb-6 sm:mb-8 text-base sm:text-lg">
-                I&apos;m a dedicated student and system administration expert based in Bogura, Bangladesh.
-                My passion lies in creating robust, scalable infrastructure solutions that drive business success.
-              </p>
-
-              <div className="grid grid-cols-2 gap-4 sm:gap-6 md:gap-8">
-                <div className="text-center">
-                  <div className="glass-dark p-4 sm:p-6 rounded-xl sm:rounded-2xl mb-3 sm:mb-4 hover-scale">
-                    <Globe className="text-primary mx-auto" size={28} />
-                  </div>
-                  <h4 className="font-semibold text-foreground text-base sm:text-lg">Remote On</h4>
-                  <p className="text-body text-sm sm:text-base">Bogura, Bangladesh</p>
-                </div>
-
-                <div className="text-center">
-                  <div className="glass-dark p-4 sm:p-6 rounded-xl sm:rounded-2xl mb-3 sm:mb-4 hover-scale">
-                    <Server className="text-primary mx-auto" size={28} />
-                  </div>
-                  <h4 className="font-semibold text-foreground text-base sm:text-lg">Focus</h4>
-                  <p className="text-body text-sm sm:text-base">System Administration</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }} viewport={{ once: true }}
-          >
-            <div className="space-y-6 sm:space-y-8 md:space-y-10">
-              <div className="flex items-start space-x-4 sm:space-x-6">
-                <div className="bg-red-gradient p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-glow-red flex-shrink-0">
-                  <Server className="text-white" size={24} />
-                </div>
-                <div>
-                  <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2 sm:mb-3">Infrastructure Management</h4>
-                  <p className="text-body text-sm sm:text-base md:text-lg">Expert in managing complex server environments and enterprise infrastructure with focus on reliability and performance.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4 sm:space-x-6">
-                 <div className="bg-red-gradient p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-glow-red flex-shrink-0">
-                  <Globe className="text-white" size={24} />
-                </div>
-                <div>
-                  <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2 sm:mb-3">DNS Optimization</h4>
-                  <p className="text-body text-sm sm:text-base md:text-lg">Specialized in DNS server configuration, optimization, and troubleshooting using Technitium,BIND,Knot,Etc DNS.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start space-x-4 sm:space-x-6">
-                 <div className="bg-red-gradient p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-glow-red flex-shrink-0">
-                  <Shield className="text-white" size={24} />
-                </div>
-                <div>
-                  <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-foreground mb-2 sm:mb-3">Security & Performance</h4>
-                  <p className="text-body text-sm sm:text-base md:text-lg">Implementing robust security measures and performance optimization strategies for enterprise-grade systems.</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+    <section id="about" className="py-24 bg-black border-b border-[#1e1e1e] font-mono scroll-mt-24">
+      <div className="container mx-auto px-6 max-w-5xl">
+        
+        {/* Section Eyebrow with horizontal scroll safeguard */}
+        <div className="text-sm font-medium text-[#a1a1aa] mb-12 flex items-center whitespace-nowrap overflow-x-auto no-scrollbar">
+          <span className="text-green-500">salman@infra</span>
+          <span className="text-white">:</span>
+          <span className="text-blue-500">~</span>
+          <span className="text-white ml-2">$ cat /etc/sysinfo/profile.conf</span>
         </div>
+
+        <motion.div 
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-10 text-sm md:text-base leading-relaxed"
+        >
+          <motion.div variants={item} className="mb-6">
+            <span className="text-[#a1a1aa]"># Core Identity Configuration</span>
+            <div className="mt-2">
+              <span className="text-[#EE0000]">[profile]</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
+              <div className="col-span-3 text-[#555]">name</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "Salman Shafi"</div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-1">
+              <div className="col-span-3 text-[#555]">role</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "System Administrator"</div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-1">
+              <div className="col-span-3 text-[#555]">location</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "Bogura, Bangladesh"</div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={item} className="mb-6">
+            <span className="text-[#a1a1aa]"># Operational Focus Areas</span>
+            <div className="mt-2">
+              <span className="text-[#EE0000]">[operations]</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
+              <div className="col-span-3 text-[#555]">primary</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "Infrastructure & Self-Hosting"</div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-1">
+              <div className="col-span-3 text-[#555]">speciality</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "Building highly secure, maintainable Linux systems from scratch."</div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={item}>
+            <span className="text-[#a1a1aa]"># Professional Philosophy</span>
+            <div className="mt-2">
+              <span className="text-[#EE0000]">[core_values]</span>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
+              <div className="col-span-3 text-[#555]">community</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "Active contributor. Sharing knowledge increases knowledge."</div>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

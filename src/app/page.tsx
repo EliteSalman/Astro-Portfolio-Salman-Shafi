@@ -14,7 +14,7 @@ export default function Home() {
     "name": "Salman Shafi",
     "alternateName": "Salman Shafi Portfolio",
     "jobTitle": "System Administrator",
-    "description": "Professional System Administrator and Server Infrastructure Specialist from Bogura, Bangladesh.",
+    "description": "Professional System Administrator from Bogura, Bangladesh. Specialised in DNS, Mail infrastructure, Linux, WireGuard VPN, Podman containers, and self-hosted services.",
     "url": "https://salmanshafi.net",
     "image": "https://salmanshafi.net/photo.webp",
     "address": {
@@ -27,14 +27,12 @@ export default function Home() {
     "knowsAbout": [
       "System Administration",
       "DNS Management",
-      "Nginx",
-      "Apache",
-      "RHEL",
-      "Technitium DNS",
-      "BIND",
-      "Server Management",
-      "Infrastructure",
-      "Web Server Configuration"
+      "DNSSEC",
+      "Mail Infrastructure",
+      "Linux",
+      "WireGuard",
+      "Podman",
+      "Self-hosted Services"
     ],
     "worksFor": {
       "@type": "Organization",
@@ -42,8 +40,7 @@ export default function Home() {
     },
     "sameAs": [
       "https://github.com/EliteSalman",
-      "https://twitter.com/EliteSalmanX",
-      "https://www.facebook.com/EliteSalmanX"
+      "https://twitter.com/EliteSalmanX"
     ],
     "hasOccupation": {
       "@type": "Occupation",
@@ -52,8 +49,8 @@ export default function Home() {
       "skills": [
         "Linux Server Administration",
         "DNS Configuration",
-        "Web Hosting Management",
-        "Cloud Infrastructure"
+        "Mail Server Infrastructure",
+        "Containerisation"
       ]
     },
     "mainEntityOfPage": {
@@ -68,7 +65,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      
       <Hero />
       <About />
       <Skills />

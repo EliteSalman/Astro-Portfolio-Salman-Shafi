@@ -32,7 +32,7 @@
     "setup": "yarn install",
     "deploy": "yarn run build && yarn start",
     "cf-deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-	  "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.19.11",
@@ -41,7 +41,8 @@
     "next": "^16.2.11",
     "nodemailer": "^8.0.5",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "use-sound": "^5.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.0",
