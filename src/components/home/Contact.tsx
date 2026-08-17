@@ -180,24 +180,27 @@ export default function Contact() {
                 <label htmlFor="name" className="text-[#555] mb-2 text-sm flex items-center">
                   <span className="text-[#EE0000] mr-2">&gt;</span> --name=
                 </label>
-                <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} disabled={formStatus === 'loading'} required
-                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
+                <input type="text" id="name" name="name" value={formData.name} onChange={handleInputChange} disabled={formStatus === 'loading' || formStatus === 'success'} required
+                  placeholder="root_user"
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50 placeholder:text-[#333]" />
               </motion.div>
 
               <motion.div variants={item} className="flex flex-col relative group">
                 <label htmlFor="email" className="text-[#555] mb-2 text-sm flex items-center">
                   <span className="text-[#EE0000] mr-2">&gt;</span> --email=
                 </label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} disabled={formStatus === 'loading'} required
-                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleInputChange} disabled={formStatus === 'loading' || formStatus === 'success'} required
+                  placeholder="user@domain.tld"
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50 placeholder:text-[#333]" />
               </motion.div>
 
               <motion.div variants={item} className="flex flex-col relative group">
                 <label htmlFor="subject" className="text-[#555] mb-2 text-sm flex items-center">
                   <span className="text-[#EE0000] mr-2">&gt;</span> --subject=
                 </label>
-                <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleInputChange} disabled={formStatus === 'loading'} required
-                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50" />
+                <input type="text" id="subject" name="subject" value={formData.subject} onChange={handleInputChange} disabled={formStatus === 'loading' || formStatus === 'success'} required
+                  placeholder="infrastructure_query"
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] transition-colors rounded-none font-mono text-sm disabled:opacity-50 placeholder:text-[#333]" />
               </motion.div>
 
               <motion.div variants={item} className="flex flex-col relative group">
@@ -209,10 +212,11 @@ export default function Contact() {
                   name="message" 
                   value={formData.message} 
                   onChange={handleInputChange} 
-                  disabled={formStatus === 'loading'} 
+                  disabled={formStatus === 'loading' || formStatus === 'success'} 
                   rows={5} 
                   required 
-                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] focus:ring-0 transition-colors rounded-none font-mono text-sm resize-none disabled:opacity-50 shadow-none appearance-none"
+                  placeholder="Enter configuration parameters..."
+                  className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] focus:ring-0 transition-colors rounded-none font-mono text-sm resize-none disabled:opacity-50 shadow-none appearance-none placeholder:text-[#333]"
                 ></textarea>
               </motion.div>
 
@@ -228,11 +232,26 @@ export default function Contact() {
               </motion.div>
 
               <motion.div variants={item} className="pt-4">
-                <button type="submit" disabled={formStatus === 'loading'}
-                  className="w-full bg-[#EE0000] text-white font-bold py-4 hover:bg-white hover:text-black transition-colors uppercase tracking-wider text-sm border border-[#EE0000] hover:border-white rounded-none glitch-hover flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#EE0000] disabled:hover:text-white"
-                >
-                  {formStatus === 'loading' ? '[ EXECUTING... ]' : '[ EXECUTE ]'}
-                </button>
+                {formStatus === 'success' ? (
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      setFormStatus('idle');
+                      setStatusMessage('');
+                    }}
+                    className="w-full bg-[#1e1e1e] text-[#a1a1aa] font-bold py-4 hover:bg-[#333] transition-colors uppercase tracking-wider text-sm border border-[#333] rounded-none flex justify-center items-center"
+                  >
+                    [ CLEAR_TERMINAL ]
+                  </button>
+                ) : (
+                  <button 
+                    type="submit" 
+                    disabled={formStatus === 'loading'}
+                    className="w-full bg-[#EE0000] text-white font-bold py-4 hover:bg-white hover:text-black transition-colors uppercase tracking-wider text-sm border border-[#EE0000] hover:border-white rounded-none glitch-hover flex justify-center items-center disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-[#EE0000] disabled:hover:text-white"
+                  >
+                    {formStatus === 'loading' ? '[ EXECUTING... ]' : '[ EXECUTE ]'}
+                  </button>
+                )}
               </motion.div>
 
             </form>
@@ -249,15 +268,15 @@ export default function Contact() {
                 </div>
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">phone_pvt</div>
-                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "+8801603161647"</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "+8801603161647"</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">location</div>
-                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "Bogura, Bangladesh"</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "Bogura, Bangladesh"</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">timezone</div>
-                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5]">= "GMT+6"</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "GMT+6"</div>
                 </div>
               </div>
             </motion.div>

@@ -3,7 +3,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   compress: false,
   poweredByHeader: false,
-  allowedDevOrigins: ["103.174.50.32"],
+  allowedDevOrigins: ["10.8.0.1"],
   compiler: {
     removeConsole: {
       exclude: ["error"],

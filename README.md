@@ -1,83 +1,69 @@
-# 🌟 Modern Portfolio Website
+Here is the updated README.md rewritten to reflect the new strict terminal aesthetic, updated tech stack (removing Lucide icons, adding JetBrains Mono), and aligning with the overarching infrastructure theme.
+# 🖥️ Sysadmin Terminal Portfolio
 
 ![Next.js Portfolio for System Admins](public/share.webp)
 
-A premium, fully responsive portfolio website built with **Next.js 16**, featuring a working contact form, SEO optimisation, and modern design principles.
+A strict, terminal-driven portfolio website engineered for System Administrators, DevOps practitioners, and backend engineers. Built with **Next.js 16**, it features a pure AMOLED `#000` interface, mechanical Framer Motion animations, and a fully functional CLI-styled contact execution sequence.
 
 ---
 
-## 🚀 Features
+## 🚀 Core Infrastructure
 
-### 🎨 Design & UI
+### 🎨 Architecture & UI
 
-| Feature | Details |
+| Layer | Specification |
 |---|---|
-| Theme | Modern Red & Black |
-| Responsive | Mobile-first, all screen sizes |
-| Animations | Smooth Framer Motion transitions |
-| Typography | Premium Geist typeface |
-| Layouts | Interactive card components |
+| Environment | Pure AMOLED Black (`#000`) with syntax-highlighted accents |
+| Typography | Strict monospace (`JetBrains Mono`) |
+| Animations | Mechanical step-rendering & CSS glitch effects |
+| Layout | `systemd` unit mimics, raw CLI outputs, and config blocks |
+| Responsive | Fluid mobile-first adaptation with safe-area spacing |
 
-### 📧 Contact System
+### 📧 Contact Execution Sequence
 
-| Feature | Details |
+| Component | Detail |
 |---|---|
-| Contact Form | Fully functional with validation |
-| Bot Protection | Cloudflare Turnstile integration |
-| Email Backend | Nodemailer over SMTP |
-| Email Templates | Beautiful HTML styling |
-| UX | Loading states & error handling |
+| Interface | Raw CLI parameter input form (`--name=`, `--email=`) |
+| Security | Cloudflare Turnstile CAPTCHA integration (Runtime dynamic) |
+| Transport | Nodemailer over secure SMTP |
+| UX | Live terminal status output (`[ EXECUTING... ]`, `[ ERR ]`) |
 
-### 🔍 SEO Optimised
+### 🔍 SEO & Optimisation
 
-- OpenGraph & Twitter Card meta tags
-- JSON-LD structured data
-- Dynamic sitemap at `/sitemap.xml`
-- `robots.txt` included
-- Optimised bundle — ~99.7 kB first load JS
-
-### 🛡️ Security & Performance
-
-- WebP/AVIF image optimisation via Next.js Image
-- Automatic code splitting
-- Production build optimisations enabled
+* OpenGraph & Twitter Card meta tags
+* JSON-LD structured data
+* Dynamic sitemap generation at `/sitemap.xml`
+* Included `robots.txt`
+* Hyper-optimised payload (~99.7 kB first load JS)
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Layer | Technology |
+| Domain | Technology |
 |---|---|
 | Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS |
-| Animations | Framer Motion |
-| Icons | Lucide React |
+| Motion | Framer Motion (Variants) |
 | Email | Nodemailer |
-| Deployment | Podman |
+| Runtime | Podman / Docker |
 
 ---
 
-## 📦 Deployment
+## 📦 Deployment Configuration
 
-### 1️⃣ Install Podman & Podman Compose
+### 1️⃣ Install Podman Infrastructure
 
 ```bash
 sudo dnf install podman podman-compose
-```
 
-### 2️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
+2️⃣ Clone the Repository
+git clone git@github.com:EliteSalman/NextJS-Portfolio-Salman-Shafi.git
 cd NextJS-Portfolio-Salman-Shafi
-```
 
-### 3️⃣ Configure Environment Variables
-
-Create or edit `.env.local` before building. All variables must be set at build time.
-
-```env
+3️⃣ Environmental Variables
+Create .env.local in the root directory prior to building the container. All variables must be set at build time.
 # SMTP Configuration
 SMTP_HOST=host.example.tld
 SMTP_USERNAME=your-smtp-username
@@ -91,36 +77,23 @@ FROM_EMAIL=no-reply@example.tld
 TO_EMAIL=your-email@example.tld
 
 # Application Configuration
-NEXT_PUBLIC_SITE_URL=https://example.tld
+NEXT_PUBLIC_SITE_URL=[https://example.tld](https://example.tld)
 
 # Cloudflare Turnstile Configuration
 TURNSTILE_SITE_KEY=your-turnstile-site-key
 TURNSTILE_SECRET_KEY=your-turnstile-secret-key
-```
 
-### 4️⃣ Build the Container Image
-
-```bash
+4️⃣ Build the Container Image
 podman build -t nextjs-portfolio .
-```
 
-### 5️⃣ Run with Podman Compose
-
-```bash
+5️⃣ Execute Podman Compose
 podman-compose up -d
-```
 
-### 6️⃣ Access the Application
+6️⃣ Verify Deployment
+The application will bind to the port defined in your configuration (usually 3000). It is highly recommended to place this behind a reverse proxy (e.g., Caddy or NGINX) for production SSL termination rather than exposing the Node server directly.
+curl -I [http://127.0.0.1:3000](http://127.0.0.1:3000)
 
-```
-http://your-server-ip:3001
-```
-
----
-
-## 📂 Project Structure
-
-```
+📂 Directory Structure
 .
 ├── src/
 │   ├── app/
@@ -131,8 +104,6 @@ http://your-server-ip:3001
 │   │   ├── layout.tsx
 │   │   ├── page.tsx
 │   │   └── sitemap.ts
-│   ├── types/
-│   │   └── turnstile.d.ts
 │   └── components/
 │       ├── home/
 │       │   ├── Hero.tsx
@@ -146,46 +117,18 @@ http://your-server-ip:3001
     ├── photo.webp
     ├── share.webp
     └── ...
-```
 
----
+📞 Contact & Support
+If you found this project helpful, consider giving it a ⭐ on GitHub.
+ * 📧 Email — hello@salmanshafi.net
+ * 🐛 Issues — GitHub Issues
+ * 💬 Discussions — GitHub Discussions
+👤 Original Project
+This repository is a heavily modified fork of the original work by:
+ * Author — Mehedi Hasan
+ * Email — hello@mehedims.com
+ * GitHub — asma019
+ * Repository — Next.js-Portfolio-for-System-Admins
+📄 Licence
+Released under the MIT Licence.
 
-## 📊 Performance
-
-| Metric | Result |
-|---|---|
-| First Load JS | ~99.7 kB |
-| Lighthouse Score | 100 |
-| Responsive | ✅ All viewports |
-| Core Web Vitals | ✅ Optimised |
-
----
-
-## 📞 Contact & Support
-
-If you found this project helpful, consider giving it a ⭐ on GitHub!
-
-- 📧 **Email** — [hello@salmanshafi.net](mailto:hello@salmanshafi.net)
-- 🐛 **Issues** — [GitHub Issues](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues)
-- 💬 **Discussions** — [GitHub Discussions](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/discussions)
-
----
-
-## 👤 Original Project
-
-This repository is a fork of the original work by:
-
-- **Author** — Mehedi Hasan
-- **Email** — [hello@mehedims.com](mailto:hello@mehedims.com)
-- **GitHub** — [asma019](https://github.com/asma019)
-- **Repository** — [Next.js-Portfolio-for-System-Admins](https://github.com/asma019/Next.js-Portfolio-for-System-Admins)
-
----
-
-## 📄 Licence
-
-Released under the [MIT Licence](LICENSE).
-
----
-
-**Made with ❤️ using Next.js**

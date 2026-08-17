@@ -6,28 +6,28 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-black border-t border-[#1e1e1e] font-mono py-12">
+    <footer className="bg-black border-t border-[#1e1e1e] font-mono pt-12 pb-[calc(3rem+env(safe-area-inset-bottom))]">
       <div className="container mx-auto px-6 max-w-7xl">
         
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-6 md:space-y-0">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-8 md:space-y-0">
           
           <div className="flex flex-col space-y-2">
             <span className="text-[#e5e5e5] font-bold">Connection closed by foreign host.</span>
             <span className="text-[#555] text-xs">EOF</span>
           </div>
 
-          <div className="flex space-x-6 text-sm">
+          <div className="flex space-x-8 text-sm">
             <Link 
               href="https://github.com/EliteSalman" 
               target="_blank"
-              className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover"
+              className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover p-3 -m-3"
             >
               [GITHUB]
             </Link>
             <Link 
               href="https://twitter.com/EliteSalmanX" 
               target="_blank"
-              className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover"
+              className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover p-3 -m-3"
             >
               [TWITTER/X]
             </Link>
@@ -35,9 +35,9 @@ export default function Footer() {
           
         </div>
 
-        <div className="mt-12 pt-6 border-t border-[#1e1e1e] flex flex-col md:flex-row justify-between items-center text-xs text-[#555]">
+        <div className="mt-12 pt-6 border-t border-[#1e1e1e] flex flex-col md:flex-row justify-between items-center text-xs text-[#555] leading-relaxed">
           <span>© {currentYear} Salman Shafi. All rights reserved.</span>
-          <span className="mt-4 md:mt-0">Rendered via Next.js // Hosted on AlmaLinux 10</span>
+          <span className="mt-4 md:mt-0 break-words text-center md:text-right">Rendered via Next.js // Infrastructure agnostic</span>
         </div>
 
       </div>
