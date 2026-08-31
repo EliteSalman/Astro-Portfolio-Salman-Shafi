@@ -2,9 +2,9 @@ version: "3.9"
 
 services:
   portfolio:
-    #image: ghcr.io/elitesalman/nextjs-portfolio-salman-shafi:latest # Use this ONLY if you want to run Salman Shafi’s official portfolio image exactly as-is
-    image: localhost/nextjs-portfolio
-    container_name: portfolio
+    #image: ghcr.io/elitesalman/astro-portfolio-salman-shafi:latest # Use this ONLY if you want to run Salman Shafi’s official portfolio image exactly as-is
+    image: localhost/astro-portfolio
+    container_name: salman-shafi-portfolio
     init: true
     security_opt:
       - no-new-privileges:true
@@ -14,21 +14,21 @@ services:
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid,nodev
-      - /opt/app-root/src/.next/cache:rw,size=128m,mode=0777
+      - /tmp:rw,size=128m,mode=0777
     pids_limit: 100
     mem_limit: 1g
     cpus: 1.0
     ports:
-      - "3000:3000"
+      - "4321:4321"
     env_file:
-      - .env.local
+      - .env
     healthcheck:
       test:
         [
           "CMD",
           "node",
           "-e",
-          "require('http').get('http://127.0.0.1:3000',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
+          "require('http').get('http://127.0.0.1:4321',r=>process.exit(r.statusCode===200?0:1)).on('error',()=>process.exit(1))"
         ]
       interval: 30s
       timeout: 5s

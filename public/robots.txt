@@ -1,8 +1,8 @@
 User-agent: *
 Allow: /
 Disallow: /api/
-Disallow: /_next/static/
-Disallow: /.next/
+Disallow: /_astro/
+Disallow: /.astro/
 
 User-agent: ia_archiver
 Disallow: /

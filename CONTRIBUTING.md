@@ -16,8 +16,8 @@ Thank you for your interest in contributing to this portfolio website! We welcom
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi.git
-   NextJS-Portfolio-Salman-Shafi
+   git clone https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi.git
+   Astro-Portfolio-Salman-Shafi
    ```
 3. **Install dependencies**:
    ```bash

@@ -1,66 +1,38 @@
 {
-  "name": "nextjs-portfolio-system-admins",
+  "name": "salman-shafi-astro-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Premium portfolio website built with Next.js 16 for System Administrators",
-  "keywords": [
-    "portfolio",
-    "nextjs",
-    "typescript",
-    "tailwindcss",
-    "contact-form",
-    "system-admin"
-  ],
-  "author": "Mehedi <hello@mehedims.com>",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/asma019/Next.js-Portfolio-for-System-Admins.git"
-  },
-  "bugs": {
-    "url": "https://github.com/asma019/Next.js-Portfolio-for-System-Admins/issues"
-  },
-  "homepage": "https://github.com/asma019/Next.js-Portfolio-for-System-Admins",
+  "packageManager": "yarn@1.22.22",
+  "type": "module",
   "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "lint:fix": "next lint --fix",
-    "type-check": "tsc --noEmit",
-    "clean": "rm -rf .next && rm -rf node_modules/.cache",
-    "setup": "yarn install",
-    "deploy": "yarn run build && yarn start",
-    "cf-deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "build:cloudflare": "astro check --config astro.config.cloudflare.mjs && astro build --config astro.config.cloudflare.mjs",
+    "deploy:cloudflare": "yarn build:cloudflare && wrangler deploy",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write ."
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.19.11",
+    "@astrojs/node": "^9.5.0",
+    "@astrojs/react": "^4.4.0",
+    "astro": "^5.13.0",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
-    "next": "^16.2.11",
     "nodemailer": "^8.0.5",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "use-sound": "^5.0.0"
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.0.0",
-    "@tailwindcss/postcss": "^4.0.0",
-    "@types/node": "^25.9.1",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/cloudflare": "12.6.13",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/node": "^25.0.0",
     "@types/nodemailer": "^7.0.0",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.4.1",
-    "eslint-config-next": "^16.1.1",
-    "postcss": "^8.5.23",
-    "tailwindcss": "^4.3.0",
-    "typescript": "5.8.3",
-    "wrangler": "^4.94.0"
-  },
-  "engines": {
-    "node": "24.x",
-    "yarn": ">=4.0.0"
-  },
-  "packageManager": "yarn@4.13.0"
+    "prettier": "^3.6.2",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.8.3"
+  }
 }

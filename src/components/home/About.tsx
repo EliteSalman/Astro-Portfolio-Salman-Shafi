@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 export default function About() {
   // Mechanical step-rendering variants typed for TypeScript

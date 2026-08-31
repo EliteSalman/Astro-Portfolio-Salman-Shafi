@@ -1,8 +1,7 @@
 'use client';
-
 import { useState, useEffect, useRef, useCallback } from "react";
-import Script from "next/script";
-import { motion, Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -83,7 +82,7 @@ export default function Contact() {
     }
   }, [runtimeSiteKey]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     if (!turnstileToken || turnstileToken.length === 0) {
@@ -153,7 +152,7 @@ export default function Contact() {
 
   return (
     <section id="contact" className="py-24 bg-black border-b border-[#1e1e1e] font-mono scroll-mt-24">
-      <Script src="https://challenges.cloudflare.com/turnstile/v0/api.js" strategy="beforeInteractive" />
+      
 
       <div className="container mx-auto px-6 max-w-5xl">
         

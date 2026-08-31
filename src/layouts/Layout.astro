@@ -1,0 +1,38 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+const siteUrl = import.meta.env.NEXT_PUBLIC_SITE_URL || 'https://salmanshafi.net';
+const title = 'Salman Shafi | System Administrator';
+const description = 'Professional System Administrator from Bogura, Bangladesh. Specialised in DNS, mail infrastructure, Linux, WireGuard VPN, Podman containers, and self-hosted services.';
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="/photo.webp" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:image" content={`${siteUrl}/share.webp`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${siteUrl}/share.webp`} />
+    <link rel="canonical" href={siteUrl} />
+    <title>{title}</title>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+  </head>
+  <body class="bg-black text-[#e5e5e5] min-h-screen flex flex-col selection:bg-[#EE0000] selection:text-white">
+    <div class="min-h-screen flex flex-col">
+      <Header client:load />
+      <main class="flex-grow"><slot /></main>
+      <Footer client:load />
+    </div>
+  </body>
+</html>

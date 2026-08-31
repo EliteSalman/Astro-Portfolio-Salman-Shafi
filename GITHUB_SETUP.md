@@ -24,7 +24,7 @@ git init
 git add .
 
 # Make initial commit
-git commit -m "Initial commit: Portfolio website with Next.js 15"
+git commit -m "Initial commit: Portfolio website with Astro 15"
 ```
 
 ### 2. Create GitHub Repository
@@ -32,8 +32,8 @@ git commit -m "Initial commit: Portfolio website with Next.js 15"
 1. **Go to GitHub**: Visit [github.com](https://github.com)
 2. **Create New Repository**:
    - Click "New" or "+" icon
-   - Repository name: `Next.js-Portfolio-for-System-Admins` (or your preferred name)
-   - Description: "Premium portfolio website built with Next.js 15"
+   - Repository name: `Astro-Portfolio-for-System-Admins` (or your preferred name)
+   - Description: "Premium portfolio website built with Astro 15"
    - Set to **Public** (for GitHub Pages) or **Private**
    - Don't initialize with README (we already have one)
 
@@ -41,7 +41,7 @@ git commit -m "Initial commit: Portfolio website with Next.js 15"
 
 ```bash
 # Add remote origin (replace with your GitHub username)
-git remote add origin https://github.com/asma019/Next.js-Portfolio-for-System-Admins.git
+git remote add origin https://github.com/asma019/Astro-Portfolio-for-System-Admins.git
 
 # Push to GitHub
 git branch -M main
@@ -87,9 +87,9 @@ git push -u origin main
    - Click "Import"
 
 2. **Configure Build Settings**:
-   - Framework Preset: Next.js
+   - Framework Preset: Astro
    - Build Command: `npm run build`
-   - Output Directory: `.next`
+   - Output Directory: `.astro`
    - Install Command: `npm install`
 
 3. **Add Environment Variables**:
@@ -120,16 +120,16 @@ vercel --prod
 Your GitHub repository should have this structure:
 
 ```
-Next.js-Portfolio-for-System-Admins/
+Astro-Portfolio-for-System-Admins/
 ├── .env.example              # Example environment variables
 ├── .gitignore               # Git ignore file
-├── .next/                   # Build output (ignored)
+├── .astro/                   # Build output (ignored)
 ├── CONTRIBUTING.md          # Contributing guidelines
 ├── DEPLOYMENT.md           # Deployment instructions
 ├── GITHUB_SETUP.md         # This file
 ├── LICENSE                 # MIT license
 ├── README.md               # Main documentation
-├── next.config.ts          # Next.js configuration
+├── next.config.ts          # Astro configuration
 ├── package.json            # Dependencies
 ├── postcss.config.mjs      # PostCSS configuration
 ├── public/                 # Static files
@@ -215,7 +215,7 @@ With Vercel GitHub integration:
 ### Repository Topics
 Add these topics to help others discover your project:
 - `portfolio`
-- `nextjs`
+- `astro`
 - `typescript`
 - `tailwindcss`
 - `vercel`
@@ -257,7 +257,7 @@ Add these topics to help others discover your project:
 
 - **GitHub Issues**: Create an issue in your repository
 - **Vercel Support**: Check Vercel documentation
-- **Community**: Join Next.js Discord or Reddit
+- **Community**: Join Astro Discord or Reddit
 
 ## 🎉 Post-Upload Tasks
 

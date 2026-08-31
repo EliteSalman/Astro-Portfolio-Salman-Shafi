@@ -1,6 +1,5 @@
 'use client';
 
-import Link from "next/link";
 import { ArrowRight, MapPin, Server } from "lucide-react";
 
 export default function Hero() {
@@ -59,13 +58,13 @@ export default function Hero() {
           </div>
 
           <div className="pt-8 font-mono">
-            <Link
+            <a
               href="#contact"
               className="inline-flex items-center bg-[#EE0000] text-white px-8 py-4 font-bold hover:bg-white hover:text-black transition-colors"
             >
               INITIALISE_CONTACT
               <ArrowRight className="ml-2" size={18} />
-            </Link>
+            </a>
           </div>
 
         </div>

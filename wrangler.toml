@@ -1,10 +1,13 @@
+# Cloudflare deployment reference retained from the original repository.
+# The default local/container build uses @astrojs/node. The Cloudflare build uses
+# astro.config.cloudflare.mjs and writes the Worker entrypoint below.
 "$schema" = "./node_modules/wrangler/config-schema.json"
-main = ".open-next/worker.js"
-name = "nextjs-portfolio"
-# Set this to today's date
+name = "astro-portfolio"
 compatibility_date = "2026-05-23"
-compatibility_flags = [ "nodejs_compat" ]
+compatibility_flags = ["nodejs_compat"]
 
+# Cloudflare adapter example:
+main = "dist/_worker.js/index.js"
 [assets]
-directory = ".open-next/assets"
+directory = "dist"
 binding = "ASSETS"

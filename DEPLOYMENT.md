@@ -63,7 +63,7 @@ vercel --prod
 ## 🔧 Performance Optimizations Applied
 
 ### Build Optimizations
-- ✅ **Image Optimization**: WebP/AVIF formats with Next.js Image component
+- ✅ **Image Optimization**: WebP/AVIF formats with Astro Image component
 - ✅ **Code Splitting**: Automatic chunking for optimal loading
 - ✅ **Tree Shaking**: Removed unused code
 - ✅ **Minification**: CSS/JS compression enabled
@@ -137,7 +137,7 @@ Before deploying, verify:
 
 ### Support Resources
 - [Vercel Documentation](https://vercel.com/docs)
-- [Next.js Documentation](https://nextjs.org/docs)
+- [Astro Documentation](https://astro.org/docs)
 - [Portfolio Repository Issues](https://github.com/your-repo/issues)
 
 ## 📈 Performance Monitoring

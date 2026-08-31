@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import type { APIRoute } from 'astro';
 import nodemailer from 'nodemailer';
 import { validateContactForm } from '@/lib/validation';
 
@@ -11,7 +11,7 @@ function escapeHtml(unsafe: string) {
     .replace(/'/g, '&#039;');
 }
 
-export async function POST(request: NextRequest) {
+export const POST: APIRoute = async ({ request }) => {
   try {
     const body = await request.json();
     const { turnstileToken } = body;
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     // Validate Turnstile token
     if (!turnstileToken) {
-      return NextResponse.json(
+      return Response.json(
         { error: 'Security verification required' },
         { status: 400 }
       );
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     if (!turnstileResult.success) {
       console.error('Turnstile verification failed:', turnstileResult);
-      return NextResponse.json(
+      return Response.json(
         { error: 'Security verification failed. Please try again.' },
         { status: 400 }
       );
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     // Validate form data
     const validationError = validateContactForm({ name, email, subject, message });
     if (validationError) {
-      return NextResponse.json(
+      return Response.json(
         { error: validationError },
         { status: 400 }
       );
@@ -313,15 +313,15 @@ Salman Shafi - System Administrator & DNS Expert
 
     await transporter.sendMail(mailOptions);
 
-    return NextResponse.json(
+    return Response.json(
       { message: 'Email sent successfully' },
       { status: 200 }
     );
   } catch (error) {
     console.error('Error sending email:', error);
-    return NextResponse.json(
+    return Response.json(
       { error: 'Failed to send email' },
       { status: 500 }
     );
   }
-} 
+};
