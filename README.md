@@ -160,7 +160,7 @@ This repository is a heavily modified fork of the original work by:
 * **Author** — Mehedi Hasan
 * **Email** — [hello@mehedims.com](mailto:hello@mehedims.com)
 * **GitHub** — [asma019](https://github.com/asma019)
-* **Repository** — [Astro-Portfolio-Salman-Shafi](https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi)
+* **Repository** — [Next.js-Portfolio-Salman-Shafi](https://github.com/asma019/Next.js-Portfolio-for-System-Admins)
 
 ---
 
