@@ -70,25 +70,25 @@ git push -u origin main
    NEXT_PUBLIC_SITE_URL=https://yourdomain.com
    ```
 
-### For Production (Vercel)
-1. Go to [vercel.com](https://vercel.com)
+### For Production (Cloudflare)
+1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com)
 2. Import your GitHub repository
 3. Add environment variables in project settings
 4. Use the same values as your local `.env.local`
 
-## 🌐 Deploy to Vercel
+## 🌐 Deploy to Cloudflare
 
 ### Method 1: GitHub Integration (Recommended)
 
 1. **Import Repository**:
-   - Go to [vercel.com](https://vercel.com)
+   - Go to [Cloudflare Dashboard](https://dash.cloudflare.com)
    - Click "New Project"
    - Select your GitHub repository
    - Click "Import"
 
 2. **Configure Build Settings**:
    - Framework Preset: Astro
-   - Build Command: `npm run build`
+   - Build Command: `yarn build`
    - Output Directory: `.astro`
    - Install Command: `npm install`
 
@@ -102,17 +102,17 @@ git push -u origin main
    - Add your custom domain
    - Configure DNS records as instructed
 
-### Method 2: Vercel CLI
+### Method 2: Cloudflare CLI
 
 ```bash
-# Install Vercel CLI
-npm i -g vercel
+# Install Cloudflare CLI
+yarn global add wrangler
 
-# Login to Vercel
-vercel login
+# Login to Cloudflare
+yarn wrangler login
 
 # Deploy
-vercel --prod
+yarn run deploy:cloudflare
 ```
 
 ## 📝 Repository Structure
@@ -150,7 +150,7 @@ Astro-Portfolio-for-System-Admins/
 │       └── Header.tsx      # Header component
 ├── tailwind.config.ts      # Tailwind configuration
 ├── tsconfig.json           # TypeScript configuration
-└── vercel.json             # Vercel configuration
+└── wrangler.toml             # Cloudflare configuration
 ```
 
 ## 🔄 Making Updates
@@ -176,7 +176,7 @@ git push origin main
 
 ### Automatic Deployment
 
-With Vercel GitHub integration:
+With Cloudflare GitHub integration:
 - Every push to `main` branch triggers automatic deployment
 - Preview deployments for pull requests
 - Automatic HTTPS and CDN
@@ -187,7 +187,7 @@ With Vercel GitHub integration:
 ### Environment Variables
 - ✅ Never commit `.env.local` or `.env` files
 - ✅ Use `.env.example` for documentation
-- ✅ Set production variables in Vercel dashboard
+- ✅ Set production variables in Cloudflare dashboard
 - ✅ Keep sensitive data out of client-side code
 
 ### Code Security
@@ -218,13 +218,13 @@ Add these topics to help others discover your project:
 - `astro`
 - `typescript`
 - `tailwindcss`
-- `vercel`
+- `wrangler`
 - `contact-form`
 - `responsive-design`
 
 ## 📊 Analytics Setup
 
-### Vercel Analytics
+### Cloudflare Analytics
 1. Go to Project Settings → Analytics
 2. Enable Web Analytics
 3. Add analytics code to your site
@@ -256,7 +256,7 @@ Add these topics to help others discover your project:
 ### Getting Help
 
 - **GitHub Issues**: Create an issue in your repository
-- **Vercel Support**: Check Vercel documentation
+- **Cloudflare Support**: Check Cloudflare documentation
 - **Community**: Join Astro Discord or Reddit
 
 ## 🎉 Post-Upload Tasks
@@ -276,7 +276,7 @@ Add these topics to help others discover your project:
 
 ### 3. Monitor Performance
 - [ ] Check Google PageSpeed Insights
-- [ ] Monitor Vercel analytics
+- [ ] Monitor Cloudflare analytics
 - [ ] Test on different devices
 - [ ] Check email deliverability
 

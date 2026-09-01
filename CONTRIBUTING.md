@@ -29,7 +29,7 @@ Thank you for your interest in contributing to this portfolio website! We welcom
    ```
 5. **Start development server**:
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 ## 🛠️ Development Setup
@@ -62,11 +62,11 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 ### Available Scripts
 
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
-npm run start        # Start production server
-npm run lint         # Run ESLint
-npm run lint:fix     # Fix ESLint issues
+yarn dev          # Start development server
+yarn build        # Build for production
+yarn preview        # Start production server
+yarn check         # Run ESLint
+yarn check:fix     # Fix ESLint issues
 ```
 
 ## 🤝 Contributing Guidelines
@@ -137,8 +137,8 @@ src/
 
 3. **Test your changes**:
    ```bash
-   npm run build
-   npm run lint
+   yarn build
+   yarn check
    ```
 
 4. **Commit your changes**:

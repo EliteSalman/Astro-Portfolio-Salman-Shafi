@@ -1,6 +1,6 @@
 # 🖥️ Sysadmin Terminal Portfolio
 
-![Astro Portfolio for System Admins](https://private-us-east-1.manuscdn.com/sessionFile/7W7mQTLgp2BtZhtELNbG3N/sandbox/crlV4c0KXNfC5KkAqEhg6d-images_1788160138179_na1fn_L2hvbWUvdWJ1bnR1L2FzdHJvLW1pZ3JhdGlvbi13b3JrL2FzdHJvLXBvcnRmb2xpby9wdWJsaWMvc2hhcmU.webp?Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvN1c3bVFUTGdwMkJ0Wmh0RUxOYkczTi9zYW5kYm94L2NybFY0YzBLWE5mQzVLa0FxRWhnNmQtaW1hZ2VzXzE3ODgxNjAxMzgxNzlfbmExZm5fTDJodmJXVXZkV0oxYm5SMUwyRnpkSEp2TFcxcFozSmhkR2x2YmkxM2IzSnJMMkZ6ZEhKdkxYQnZjblJtYjJ4cGJ5OXdkV0pzYVdNdmMyaGhjbVUud2VicCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5MDgxMjgwMH19fV19&Key-Pair-Id=K2QY5QTL8JSY6C&Signature=MEUCIQC6UwPs1dLAUVhLLQ0NvXcv~SYZgOK-IT5MBD8o~ywJtQIgYm4FPWtidoo37HmkOQlzR0J0H7OqYjvILEAChPX7Zhg_)
+![Astro Portfolio for System Admins](public/share.webp)
 
 A strict, terminal-driven portfolio website engineered for System Administrators, DevOps practitioners, and backend engineers. Built with **Astro 5**, it features a pure AMOLED `#000` interface, mechanical Framer Motion animations, and a fully functional CLI-styled contact execution sequence.
 
@@ -61,8 +61,8 @@ sudo dnf install podman podman-compose
 ### 2️⃣ Clone the Repository
 
 ```bash
-git clone git@github.com:EliteSalman/NextJS-Portfolio-Salman-Shafi.git
-cd NextJS-Portfolio-Salman-Shafi
+git clone git@github.com:EliteSalman/Astro-Portfolio-Salman-Shafi.git
+cd Astro-Portfolio-Salman-Shafi
 ```
 
 ### 3️⃣ Environmental Variables
@@ -104,10 +104,10 @@ podman-compose up -d
 
 ### 6️⃣ Verify Deployment
 
-The application will bind to the port defined in your configuration (usually `3000`). It is highly recommended to place this behind a reverse proxy (e.g., Caddy or NGINX) for production SSL termination rather than exposing the Node server directly.
+The application binds to port `4321` in the Astro Node server configuration. It is highly recommended to place this behind a reverse proxy (e.g., Caddy or NGINX) for production SSL termination rather than exposing the Node server directly.
 
 ```bash
-curl -I [http://127.0.0.1:3000](http://127.0.0.1:3000)
+curl -I http://127.0.0.1:4321
 ```
 
 ---
@@ -148,8 +148,8 @@ curl -I [http://127.0.0.1:3000](http://127.0.0.1:3000)
 If you found this project helpful, consider giving it a ⭐ on GitHub.
 
 * 📧 **Email** — [hello@salmanshafi.net](mailto:hello@salmanshafi.net)
-* 🐛 **Issues** — [GitHub Issues](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/issues)
-* 💬 **Discussions** — [GitHub Discussions](https://github.com/EliteSalman/NextJS-Portfolio-Salman-Shafi/discussions)
+* 🐛 **Issues** — [GitHub Issues](https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi/issues)
+* 💬 **Discussions** — [GitHub Discussions](https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi/discussions)
 
 ---
 
@@ -160,7 +160,7 @@ This repository is a heavily modified fork of the original work by:
 * **Author** — Mehedi Hasan
 * **Email** — [hello@mehedims.com](mailto:hello@mehedims.com)
 * **GitHub** — [asma019](https://github.com/asma019)
-* **Repository** — [Next.js-Portfolio-for-System-Admins](https://github.com/asma019/Next.js-Portfolio-for-System-Admins)
+* **Repository** — [Astro-Portfolio-Salman-Shafi](https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi)
 
 ---
 

@@ -1,16 +1,16 @@
 # Deployment Guide for Salman Shafi Portfolio
 
-This guide provides step-by-step instructions for deploying your optimized portfolio website to Vercel.
+This guide provides step-by-step instructions for deploying your optimized Astro portfolio website.
 
-## 🚀 Quick Deployment to Vercel
+## 🚀 Quick Deployment to Cloudflare
 
 ### 1. Prerequisites
 - GitHub account with your repository
-- Vercel account (free tier available)
+- Cloudflare account with Workers enabled
 - Node.js 18+ installed locally
 
 ### 2. Environment Variables
-Before deploying, make sure to set these environment variables in Vercel:
+Before deploying, make sure to set these environment variables for your deployment:
 
 ```bash
 # SMTP Configuration for AWS SES
@@ -34,36 +34,56 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 
 **Note:** Copy `.env.example` to `.env.local` and fill in your actual values for local development.
 
-### 3. Deployment Steps
+**Cloudflare Email note:** Cloudflare Workers deployment does not require a domain entry in this repository configuration. The Worker build uses `public/.assetsignore` so Wrangler does not upload the generated `_worker.js` directory as public assets.
 
-#### Option A: Vercel CLI (Recommended)
+#### Option B: Podman deployment
+
+The Astro Node deployment can be run with Podman using the existing `Containerfile` and `compose.yml`.
+
 ```bash
-# Install Vercel CLI
-npm i -g vercel
+# Install Podman and Podman Compose on Fedora/RHEL-based systems
+sudo dnf install podman podman-compose
 
-# Login to Vercel
-vercel login
+# Build the Astro container image
+podman build -f Containerfile -t astro-portfolio .
 
-# Deploy
-vercel --prod
+# Start the portfolio service
+podman-compose up -d
+
+# Verify the Astro server
+curl -I http://127.0.0.1:4321
 ```
 
-#### Option B: GitHub Integration
-1. Go to [vercel.com](https://vercel.com)
+The Compose service reads environment variables from `.env`, publishes port `4321`, and uses the included `healthcheck.sh`. To stop it, run `podman-compose down`. Docker users can use the same `Containerfile` and Compose definition with the equivalent Docker commands.
+
+### 3. Deployment Steps
+
+#### Option A: Cloudflare Web UI / Wrangler (Recommended)
+```bash
+# Cloudflare Web UI build command
+yarn run deploy:cloudflare
+
+# Local validation
+yarn run deploy:cloudflare
+yarn wrangler deploy --dry-run
+```
+
+#### Option C: GitHub Actions Integration
+1. Use the Cloudflare Web UI for the Worker deployment, or use the GitHub Actions workflow in `.github/workflows/container.yml` for container deployment
 2. Click "New Project"
 3. Import your GitHub repository
 4. Add environment variables in Project Settings
 5. Deploy
 
 ### 4. Domain Configuration
-1. In Vercel Dashboard → Project Settings → Domains
+1. In Cloudflare Dashboard → Workers & Pages → Settings
 2. Add your custom domain: `salmanshafi.net`
-3. Configure DNS records as instructed by Vercel
+3. Configure deployment settings as instructed by Cloudflare
 
 ## 🔧 Performance Optimizations Applied
 
 ### Build Optimizations
-- ✅ **Image Optimization**: WebP/AVIF formats with Astro Image component
+- ✅ **Image Optimization**: WebP/AVIF formats with Astro rendering and Vite asset handling
 - ✅ **Code Splitting**: Automatic chunking for optimal loading
 - ✅ **Tree Shaking**: Removed unused code
 - ✅ **Minification**: CSS/JS compression enabled
@@ -101,8 +121,8 @@ Route (app)                                 Size  First Load JS
 ## 🔍 Testing Checklist
 
 Before deploying, verify:
-- [ ] `npm run build` completes successfully
-- [ ] `npm run start` serves the production build
+- [ ] `yarn build` completes successfully
+- [ ] `yarn preview` serves the production build
 - [ ] Contact form sends emails correctly
 - [ ] All images load properly
 - [ ] Mobile responsiveness works
@@ -136,16 +156,16 @@ Before deploying, verify:
 4. **Slow Loading**: Enable compression and check bundle size
 
 ### Support Resources
-- [Vercel Documentation](https://vercel.com/docs)
-- [Astro Documentation](https://astro.org/docs)
+- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+- [Astro Documentation](https://docs.astro.build/)
 - [Portfolio Repository Issues](https://github.com/your-repo/issues)
 
 ## 📈 Performance Monitoring
 
 Set up monitoring with:
-- Vercel Analytics (built-in)
+- Cloudflare Web Analytics
 - Google Analytics 4
-- Vercel Speed Insights
+- Cloudflare Speed Insights
 - Real User Monitoring (RUM)
 
 ---

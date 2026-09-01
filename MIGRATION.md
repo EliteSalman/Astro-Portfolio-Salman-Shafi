@@ -1,4 +1,4 @@
-# Next.js to Astro Migration
+# Astro to Astro Migration
 
 This project migrates the Salman Shafi terminal-style portfolio to Astro while retaining the original React interaction logic where client state, Framer Motion, or Cloudflare Turnstile is required.
 
