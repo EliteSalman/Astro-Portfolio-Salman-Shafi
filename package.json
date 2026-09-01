@@ -16,7 +16,7 @@
   "dependencies": {
     "@astrojs/node": "^9.5.0",
     "@astrojs/react": "^4.4.0",
-    "astro": "^5.13.0",
+    "astro": "^7.1.1",
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0",
     "nodemailer": "^8.0.5",
