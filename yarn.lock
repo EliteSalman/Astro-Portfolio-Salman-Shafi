@@ -4607,10 +4607,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nodemailer@npm:^8.0.5":
-  version: 8.0.11
-  resolution: "nodemailer@npm:8.0.11"
-  checksum: 10c0/19229216c63a32eae59d7b39f3dffeba20be317f2335d08d86fb70bd01845a1bf108fecd019c0e90ef186e3d9177cf478192b333cf38620ad0f8c7a6e1e5ae05
+"nodemailer@npm:^9.0.6":
+  version: 9.0.6
+  resolution: "nodemailer@npm:9.0.6"
+  checksum: 10c0/f26371b863b8125aeb2d94ac4f8c65c19add44188fd877d82f37e625c50bb4453b4fdb5e0211fe707a4bf1986441c9870bb64a55f1ae6f58e56e0a0cd2361b29
   languageName: node
   linkType: hard
 
@@ -5116,7 +5116,7 @@ __metadata:
     astro: "npm:^7.1.1"
     framer-motion: "npm:^12.23.26"
     lucide-react: "npm:^0.562.0"
-    nodemailer: "npm:^8.0.5"
+    nodemailer: "npm:^9.0.6"
     prettier: "npm:^3.6.2"
     react: "npm:^19.2.3"
     react-dom: "npm:^19.2.3"
