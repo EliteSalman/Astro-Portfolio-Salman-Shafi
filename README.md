@@ -41,12 +41,12 @@ A strict, terminal-driven portfolio website engineered for System Administrators
 
 | Domain | Technology |
 |---|---|
-| Framework | Astro 5 (server output) |
+| Framework | Astro 7 (server output) |
 | Language | TypeScript |
 | Styling | Tailwind CSS |
 | Motion | Framer Motion (Variants) |
 | Email | Nodemailer |
-| Runtime | Podman / Docker |
+| Runtime | Infrastructure Agonostic |
 
 ---
 
