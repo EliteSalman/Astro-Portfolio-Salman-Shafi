@@ -5,9 +5,9 @@ USER root
 RUN npm install -g corepack && corepack enable
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
-RUN yarn install --immutable
+RUN node .yarn/releases/yarn-4.9.2.cjs install --immutable
 COPY . .
-RUN yarn build
+RUN node .yarn/releases/yarn-4.9.2.cjs build
 
 FROM registry.access.redhat.com/ubi10/nodejs-24-minimal
 WORKDIR /opt/app-root/src
