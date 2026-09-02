@@ -1,0 +1,12 @@
+# Deploy-time Cloudflare Worker configuration.
+# Astro creates this entrypoint during yarn build:cloudflare.
+"$schema" = "./node_modules/wrangler/config-schema.json"
+name = "astro-portfolio"
+main = "./dist/server/entry.mjs"
+no_bundle = true
+compatibility_date = "2026-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+binding = "ASSETS"
+directory = "./dist/client"

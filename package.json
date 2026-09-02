@@ -2,13 +2,13 @@
   "name": "salman-shafi-astro-portfolio",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.9.2",
   "type": "module",
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
     "build:cloudflare": "astro check --config astro.config.cloudflare.mjs && astro build --config astro.config.cloudflare.mjs",
-    "deploy:cloudflare": "yarn build:cloudflare && wrangler deploy",
+    "deploy:cloudflare": "yarn build:cloudflare && wrangler deploy --config wrangler.deploy.toml",
     "preview": "astro preview",
     "check": "astro check",
     "format": "prettier --write ."
@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
-    "@astrojs/cloudflare": "13.1.10",
+    "@astrojs/cloudflare": "14.0.1",
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^25.0.0",
     "@types/nodemailer": "^7.0.0",
@@ -33,6 +33,7 @@
     "@types/react-dom": "^19.2.3",
     "prettier": "^3.6.2",
     "tailwindcss": "^4.1.13",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "4.127.1"
   }
 }
