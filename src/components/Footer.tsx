@@ -12,7 +12,9 @@ export default function Footer() {
         </div>
         <div className="mt-12 pt-6 border-t border-[#1e1e1e] flex flex-col md:flex-row justify-between items-center text-xs text-[#555] leading-relaxed">
           <span>© {currentYear} Salman Shafi. All rights reserved.</span>
-          <span className="mt-4 md:mt-0 break-words text-center md:text-right">Rendered via Astro // Infrastructure agnostic</span>
+          <span className="mt-4 md:mt-0 break-words text-center md:text-right">Rendered via Astro // Infrastructure agnostic //{' '}
+            <a href="https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi" target="_blank" rel="noreferrer" className="hover:text-[#EE0000] glitch-hover transition-colors focus:outline-none focus:ring-1 focus:ring-[#EE0000]" aria-label="View portfolio source code on GitHub">[SOURCE]</a>
+          </span>
         </div>
       </div>
     </footer>

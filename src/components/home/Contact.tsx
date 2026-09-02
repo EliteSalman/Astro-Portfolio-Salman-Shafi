@@ -160,7 +160,7 @@ export default function Contact() {
           <span className="text-green-500">salman@infra</span>
           <span className="text-white">:</span>
           <span className="text-blue-500">~</span>
-          <span className="text-white ml-2">$ /usr/local/bin/send-message --to=hello@salmanshafi.net</span>
+          <span className="text-white ml-2">$ /usr/local/bin/send-message --to=<a href="mailto:hello@salmanshafi.net" className="hover:text-[#EE0000] underline underline-offset-4">hello@salmanshafi.net</a></span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -263,11 +263,11 @@ export default function Contact() {
               <div className="space-y-4 text-sm">
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">email_uri</div>
-                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "hello@salmanshafi.net"</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= &quot;<a href="mailto:hello@salmanshafi.net" className="hover:text-[#EE0000] underline underline-offset-4">hello@salmanshafi.net</a>&quot;</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">phone_pvt</div>
-                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= "+8801603161647"</div>
+                  <div className="col-span-12 sm:col-span-9 text-[#e5e5e5] break-words">= &quot;<a href="tel:+8801603161647" className="hover:text-[#EE0000] underline underline-offset-4">+8801603161647</a>&quot;</div>
                 </div>
                 <div className="grid grid-cols-12 gap-2">
                   <div className="col-span-12 sm:col-span-3 text-[#555]">location</div>
