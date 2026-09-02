@@ -6,7 +6,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-8 md:space-y-0">
           <div className="flex flex-col space-y-2"><span className="text-[#e5e5e5] font-bold">Connection closed by foreign host.</span><span className="text-[#555] text-xs">EOF</span></div>
           <div className="flex space-x-8 text-sm">
-            <a href="https://github.com/EliteSalman" target="_blank" rel="noreferrer" className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover p-3 -m-3">[GITHUB]</a>
+            <a href="https://github.com/EliteSalman/Astro-Portfolio-Salman-Shafi" target="_blank" rel="noreferrer" className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover p-3 -m-3">[GITHUB]</a>
             <a href="https://twitter.com/EliteSalmanX" target="_blank" rel="noreferrer" className="text-[#888] hover:text-[#EE0000] transition-colors glitch-hover p-3 -m-3">[TWITTER/X]</a>
           </div>
         </div>
