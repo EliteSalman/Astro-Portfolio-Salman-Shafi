@@ -4,7 +4,7 @@ services:
   portfolio:
     #image: ghcr.io/elitesalman/astro-portfolio-salman-shafi:latest # Use this ONLY if you want to run Salman Shafi’s official portfolio image exactly as-is
     image: localhost/astro-portfolio
-    container_name: salman-shafi-portfolio
+    container_name: portfolio
     init: true
     security_opt:
       - no-new-privileges:true
@@ -33,4 +33,4 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    restart: unless-stopped
+    restart: always
