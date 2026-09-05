@@ -7,7 +7,8 @@ COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn ./.yarn
 RUN node .yarn/releases/yarn-4.9.2.cjs install --immutable
 COPY . .
-RUN node .yarn/releases/yarn-4.9.2.cjs build
+RUN node .yarn/releases/yarn-4.9.2.cjs build && \
+    node .yarn/releases/yarn-4.9.2.cjs workspaces focus --all --production
 
 FROM registry.access.redhat.com/ubi10/nodejs-24-minimal
 WORKDIR /opt/app-root/src
@@ -18,7 +19,6 @@ USER root
 COPY --from=builder --chown=1001:0 /opt/app-root/src/dist ./dist
 COPY --from=builder --chown=1001:0 /opt/app-root/src/node_modules ./node_modules
 COPY --from=builder --chown=1001:0 /opt/app-root/src/package.json ./package.json
-COPY --from=builder --chown=1001:0 /opt/app-root/src/public ./public
 COPY --from=builder --chown=1001:0 /opt/app-root/src/healthcheck.sh /usr/local/bin/healthcheck.sh
 RUN chmod +x /usr/local/bin/healthcheck.sh && microdnf clean all
 USER 1001
