@@ -1,3 +1,5 @@
 [build]
   command = "pnpm build"
+  # The Astro Netlify adapter generates the server function and routing manifest
+  # inside dist; this is not a static-only Astro build.
   publish = "dist"
