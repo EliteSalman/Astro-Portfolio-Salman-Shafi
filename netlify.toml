@@ -3,3 +3,7 @@
   # The Astro Netlify adapter generates the server function and routing manifest
   # inside dist; this is not a static-only Astro build.
   publish = "dist"
+
+[functions]
+  # @astrojs/netlify v8 emits the SSR function in this directory.
+  directory = ".netlify/v1/functions"
