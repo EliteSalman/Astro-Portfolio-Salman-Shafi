@@ -7,6 +7,9 @@ compatibility_date = "2026-09-01"
 compatibility_flags = ["nodejs_compat"]
 keep_vars = true
 
+[cache]
+enabled = true
+
 [assets]
 binding = "ASSETS"
 directory = "./dist/client"
