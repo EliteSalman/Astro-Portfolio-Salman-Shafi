@@ -2,7 +2,6 @@ import Hero from './home/Hero';
 import About from './home/About';
 import Skills from './home/Skills';
 import Experience from './home/Experience';
-import Contact from './home/Contact';
 
 export default function Home() {
   const structuredData = {
@@ -34,6 +33,5 @@ export default function Home() {
     <About />
     <Skills />
     <Experience />
-    <Contact />
   </div>;
 }

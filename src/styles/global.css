@@ -65,4 +65,3 @@ button, a, input, textarea, select { transition: all 0.2s cubic-bezier(0.4, 0, 0
 }
 .btn-primary:hover { background-color: #ffffff; color: #000000; border-color: #ffffff; }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; background-color: #333333; border-color: #333333; }
-.cf-turnstile iframe { border: 1px solid #1e1e1e !important; border-radius: 0 !important; }
