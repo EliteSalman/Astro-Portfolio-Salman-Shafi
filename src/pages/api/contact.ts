@@ -308,12 +308,12 @@ Salman Shafi - System Administrator & DNS Expert
       reply: email,
     };
 
-    // Astro dev runs in Node.js; the production Cloudflare build must use the
-    // Workers-compatible SMTP client backed by cloudflare:sockets. Do not use
-    // process.release here because nodejs_compat can expose it in Workers.
-    const isNodeDevelopment = import.meta.env.DEV;
+    // Select the transport explicitly because both Node.js and Cloudflare are
+    // production environments. Set MAIL_TRANSPORT=node on the Node host and
+    // MAIL_TRANSPORT=cloudflare on the Cloudflare Worker.
+    const mailTransport = process.env.MAIL_TRANSPORT?.toLowerCase();
 
-    if (isNodeDevelopment) {
+    if (mailTransport === "node") {
       const { default: nodemailer } = await import("nodemailer");
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -329,7 +329,7 @@ Salman Shafi - System Administrator & DNS Expert
         ...mailOptions,
         replyTo: email,
       });
-    } else {
+    } else if (mailTransport === "cloudflare") {
       const { WorkerMailer } = await import("worker-mailer");
 
       await WorkerMailer.send(
@@ -345,6 +345,8 @@ Salman Shafi - System Administrator & DNS Expert
         },
         mailOptions,
       );
+    } else {
+      throw new Error('MAIL_TRANSPORT must be set to "node" or "cloudflare"');
     }
 
     return Response.json(
