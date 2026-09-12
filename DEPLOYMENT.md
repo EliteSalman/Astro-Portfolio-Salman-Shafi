@@ -6,7 +6,7 @@ This guide provides step-by-step instructions for deploying your optimized Astro
 
 ### 1. Prerequisites
 - GitHub account with your repository
-- Cloudflare account with Workers enabled
+- Cloudflare account with Pages enabled
 - Node.js 18+ installed locally
 
 ### 2. Environment Variables
@@ -34,7 +34,7 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 
 **Note:** Copy `.env.example` to `.env.local` and fill in your actual values for local development.
 
-**Cloudflare Email note:** Cloudflare Workers deployment does not require a domain entry in this repository configuration. The Worker build uses `public/.assetsignore` so Wrangler does not upload the generated `_worker.js` directory as public assets.
+**Cloudflare Pages note:** This branch is a static Astro build. Cloudflare Pages should publish the generated `dist/` directory directly; no Worker runtime or server secrets are required.
 
 #### Option B: Podman deployment
 
@@ -58,25 +58,15 @@ The Compose service reads environment variables from `.env`, publishes port `432
 
 ### 3. Deployment Steps
 
-#### Option A: Cloudflare Web UI / Wrangler (Recommended)
-```bash
-# Cloudflare Web UI build command
-yarn run deploy:cloudflare
-
-# Local validation
-yarn run deploy:cloudflare
-yarn wrangler deploy --dry-run
-```
-
-#### Option C: GitHub Actions Integration
-1. Use the Cloudflare Web UI for the Worker deployment, or use the GitHub Actions workflow in `.github/workflows/container.yml` for container deployment
-2. Click "New Project"
-3. Import your GitHub repository
-4. Add environment variables in Project Settings
-5. Deploy
+#### Option A: Cloudflare Pages (Recommended)
+1. In Cloudflare Dashboard, open **Workers & Pages** and create a Pages project from the GitHub repository.
+2. Select the `astro-static` branch.
+3. Set the build command to `pnpm build`.
+4. Set the output directory to `dist`.
+5. Deploy. No environment variables are required for this static branch.
 
 ### 4. Domain Configuration
-1. In Cloudflare Dashboard → Workers & Pages → Settings
+1. In Cloudflare Dashboard → Workers & Pages → your Pages project → Custom domains
 2. Add your custom domain: `salmanshafi.net`
 3. Configure deployment settings as instructed by Cloudflare
 
@@ -103,7 +93,7 @@ yarn wrangler deploy --dry-run
 - ✅ **MIME Sniffing**: Content type validation
 
 ### Performance Features
-- ✅ **Contact Form**: Working email with premium styling
+- ✅ **Contact section**: Temporarily disabled for this static branch
 - ✅ **Responsive Design**: Mobile-first approach
 - ✅ **Loading States**: Smooth user experience
 - ✅ **Error Handling**: Graceful error management
@@ -145,7 +135,7 @@ Before deploying, verify:
 ### 3. Security Testing
 - Check headers with [Security Headers](https://securityheaders.com/)
 - Verify SSL certificate
-- Test contact form functionality
+- Verify the static homepage and assets load correctly
 
 ## 🔧 Troubleshooting
 
@@ -156,7 +146,7 @@ Before deploying, verify:
 4. **Slow Loading**: Enable compression and check bundle size
 
 ### Support Resources
-- [Cloudflare Workers Documentation](https://developers.cloudflare.com/workers/)
+- [Cloudflare Pages Documentation](https://developers.cloudflare.com/pages/)
 - [Astro Documentation](https://docs.astro.build/)
 - [Portfolio Repository Issues](https://github.com/your-repo/issues)
 

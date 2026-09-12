@@ -102,18 +102,8 @@ git push -u origin main
    - Add your custom domain
    - Configure DNS records as instructed
 
-### Method 2: Cloudflare CLI
-
-```bash
-# Install Cloudflare CLI
-yarn global add wrangler
-
-# Login to Cloudflare
-yarn wrangler login
-
-# Deploy
-yarn run deploy:cloudflare
-```
+### Method 2: Cloudflare Pages
+Use the Cloudflare Pages Git integration with branch `astro-static`, build command `pnpm build`, and output directory `dist`.
 
 ## 📝 Repository Structure
 
@@ -150,7 +140,7 @@ Astro-Portfolio-for-System-Admins/
 │       └── Header.tsx      # Header component
 ├── tailwind.config.ts      # Tailwind configuration
 ├── tsconfig.json           # TypeScript configuration
-└── wrangler.toml             # Cloudflare configuration
+└── astro.config.mjs          # Static Astro configuration
 ```
 
 ## 🔄 Making Updates
@@ -218,7 +208,6 @@ Add these topics to help others discover your project:
 - `astro`
 - `typescript`
 - `tailwindcss`
-- `wrangler`
 - `contact-form`
 - `responsive-design`
 

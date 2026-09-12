@@ -23,7 +23,6 @@ A strict, terminal-driven portfolio website engineered for System Administrators
 | Component | Detail |
 |---|---|
 | Interface | Raw CLI parameter input form (`--name=`, `--email=`) |
-| Security | Cloudflare Turnstile CAPTCHA integration (Runtime dynamic) |
 | Transport | Nodemailer over secure SMTP |
 | UX | Live terminal status output (`[ EXECUTING... ]`, `[ ERR ]`) |
 
@@ -75,9 +74,6 @@ TO_EMAIL=your-email@example.tld
 # Application Configuration
 SITE_URL=https://example.tld
 
-# Cloudflare Turnstile Configuration
-TURNSTILE_SITE_KEY=your-turnstile-site-key
-TURNSTILE_SECRET_KEY=your-turnstile-secret-key
 ```
 
 ---
@@ -129,7 +125,7 @@ The application binds to port `4321`. It is highly recommended to place this beh
 
 ---
 
-### ☁️ Cloudflare Workers
+### ☁️ Cloudflare Pages
 
 #### 1️⃣ Clone the Repository
 
@@ -146,25 +142,17 @@ pnpm install
 
 #### 3️⃣ Set Environmental Variables
 
-Create `.env.local` as shown above. For Cloudflare Workers, secrets should also be set via the Wrangler CLI:
-
-```bash
-wrangler secret put SMTP_HOST
-wrangler secret put SMTP_USERNAME
-wrangler secret put SMTP_PASSWORD
-wrangler secret put TURNSTILE_SECRET_KEY
-```
-
+Cloudflare Pages hosts this branch as a static site. No Worker secrets or runtime environment variables are required.
 #### 4️⃣ Build & Deploy
 
 ```bash
-pnpm deploy:cloudflare
+pnpm build
 ```
 
 #### 5️⃣ Verify Deployment
 
 ```bash
-curl -I https://your-worker.your-subdomain.workers.dev
+curl -I https://your-project.pages.dev
 ```
 
 ---

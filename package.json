@@ -7,8 +7,6 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "build:cloudflare": "astro check --config astro.config.cloudflare.mjs && astro build --config astro.config.cloudflare.mjs",
-    "deploy:cloudflare": "pnpm build:cloudflare && wrangler deploy --config wrangler.deploy.toml",
     "preview": "astro preview",
     "check": "astro check",
     "format": "prettier --write ."
@@ -25,7 +23,6 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@astrojs/cloudflare": "^14.3.0",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.4.1",
     "@types/nodemailer": "^8.0.1",
@@ -33,7 +30,6 @@
     "@types/react-dom": "^19.2.7",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3",
-    "wrangler": "^4.129.0"
+    "typescript": "^6.0.3"
   }
 }
