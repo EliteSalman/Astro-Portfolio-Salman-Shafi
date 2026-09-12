@@ -308,12 +308,12 @@ Salman Shafi - System Administrator & DNS Expert
       reply: email,
     };
 
-    // Node.js development uses Nodemailer; Cloudflare Workers use the
-    // Workers-compatible SMTP client backed by cloudflare:sockets.
-    const isNodeRuntime =
-      typeof process !== "undefined" && process.release?.name === "node";
+    // Astro dev runs in Node.js; the production Cloudflare build must use the
+    // Workers-compatible SMTP client backed by cloudflare:sockets. Do not use
+    // process.release here because nodejs_compat can expose it in Workers.
+    const isNodeDevelopment = import.meta.env.DEV;
 
-    if (isNodeRuntime) {
+    if (isNodeDevelopment) {
       const { default: nodemailer } = await import("nodemailer");
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
