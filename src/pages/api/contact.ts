@@ -338,6 +338,7 @@ Salman Shafi - System Administrator & DNS Expert
           port: smtpPort,
           secure: smtpSecure,
           startTls: !smtpSecure,
+          authType: ["plain", "login"],
           credentials: {
             username: process.env.SMTP_USERNAME || "",
             password: process.env.SMTP_PASSWORD || "",
