@@ -308,12 +308,12 @@ Salman Shafi - System Administrator & DNS Expert
       reply: email,
     };
 
-    // Node.js development uses Nodemailer; Cloudflare Workers use the
-    // Workers-compatible SMTP client backed by cloudflare:sockets.
-    const isNodeRuntime =
-      typeof process !== "undefined" && process.release?.name === "node";
+    // Select the transport explicitly because both Node.js and Cloudflare are
+    // production environments. Set MAIL_TRANSPORT=node on the Node host and
+    // MAIL_TRANSPORT=cloudflare on the Cloudflare Worker.
+    const mailTransport = process.env.MAIL_TRANSPORT?.toLowerCase();
 
-    if (isNodeRuntime) {
+    if (mailTransport === "node") {
       const { default: nodemailer } = await import("nodemailer");
       const transporter = nodemailer.createTransport({
         host: process.env.SMTP_HOST,
@@ -329,7 +329,7 @@ Salman Shafi - System Administrator & DNS Expert
         ...mailOptions,
         replyTo: email,
       });
-    } else {
+    } else if (mailTransport === "cloudflare") {
       const { WorkerMailer } = await import("worker-mailer");
 
       await WorkerMailer.send(
@@ -345,6 +345,8 @@ Salman Shafi - System Administrator & DNS Expert
         },
         mailOptions,
       );
+    } else {
+      throw new Error('MAIL_TRANSPORT must be set to "node" or "cloudflare"');
     }
 
     return Response.json(

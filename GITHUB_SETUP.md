@@ -51,30 +51,34 @@ git push -u origin main
 ## 🔐 Environment Variables Setup
 
 ### For Local Development
+
 1. Copy `.env.example` to `.env.local`
 2. Fill in your actual values:
    ```env
    # SMTP Configuration for AWS SES
+   MAIL_TRANSPORT=node
    SMTP_HOST=email-smtp.ap-southeast-1.amazonaws.com
    SMTP_USERNAME=your-actual-username
    SMTP_PASSWORD=your-actual-password
    SMTP_PORT=587
    SMTP_SECURE=false
-   
+
    # Email Configuration
    FROM_EMAIL_NAME=Your Name Contact
    FROM_EMAIL=no-reply@yourdomain.com
    TO_EMAIL=your-email@gmail.com
-   
+
    # Application Configuration
    NEXT_PUBLIC_SITE_URL=https://yourdomain.com
    ```
 
 ### For Production (Cloudflare)
+
 1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com)
 2. Import your GitHub repository
 3. Add environment variables in project settings
-4. Use the same values as your local `.env.local`
+4. Set `MAIL_TRANSPORT=cloudflare` for the Worker. Keep `MAIL_TRANSPORT=node` on any non-Cloudflare Node.js deployment.
+5. Use the same SMTP and email values as your local `.env.local`
 
 ## 🌐 Deploy to Cloudflare
 
@@ -177,6 +181,7 @@ git push origin main
 ### Automatic Deployment
 
 With Cloudflare GitHub integration:
+
 - Every push to `main` branch triggers automatic deployment
 - Preview deployments for pull requests
 - Automatic HTTPS and CDN
@@ -185,12 +190,14 @@ With Cloudflare GitHub integration:
 ## 🛡️ Security Best Practices
 
 ### Environment Variables
+
 - ✅ Never commit `.env.local` or `.env` files
 - ✅ Use `.env.example` for documentation
 - ✅ Set production variables in Cloudflare dashboard
 - ✅ Keep sensitive data out of client-side code
 
 ### Code Security
+
 - ✅ Review code before committing
 - ✅ Use TypeScript for type safety
 - ✅ Keep dependencies updated
@@ -199,6 +206,7 @@ With Cloudflare GitHub integration:
 ## 🎯 GitHub Repository Settings
 
 ### Repository Settings
+
 1. **General**:
    - Add description and tags
    - Add website URL
@@ -213,7 +221,9 @@ With Cloudflare GitHub integration:
    - Branch: `main` or `gh-pages`
 
 ### Repository Topics
+
 Add these topics to help others discover your project:
+
 - `portfolio`
 - `astro`
 - `typescript`
@@ -225,11 +235,13 @@ Add these topics to help others discover your project:
 ## 📊 Analytics Setup
 
 ### Cloudflare Analytics
+
 1. Go to Project Settings → Analytics
 2. Enable Web Analytics
 3. Add analytics code to your site
 
 ### Google Analytics (Optional)
+
 1. Create Google Analytics account
 2. Get tracking ID
 3. Add to your site in `layout.tsx`
@@ -262,6 +274,7 @@ Add these topics to help others discover your project:
 ## 🎉 Post-Upload Tasks
 
 ### 1. Test Everything
+
 - [ ] Website loads correctly
 - [ ] All links work
 - [ ] Contact form sends emails
@@ -269,12 +282,14 @@ Add these topics to help others discover your project:
 - [ ] SEO meta tags
 
 ### 2. Share Your Portfolio
+
 - [ ] Update LinkedIn profile
 - [ ] Share on social media
 - [ ] Add to your resume
 - [ ] Submit to portfolio showcases
 
 ### 3. Monitor Performance
+
 - [ ] Check Google PageSpeed Insights
 - [ ] Monitor Cloudflare analytics
 - [ ] Test on different devices
@@ -294,9 +309,10 @@ If you encounter any issues:
 🎊 **Congratulations!** Your portfolio is now live on GitHub and deployed to the web!
 
 **Next Steps:**
+
 - Share your portfolio URL
 - Keep your skills and experience updated
 - Monitor analytics and performance
 - Consider adding a blog or projects section
 
-Happy coding! 🚀 
+Happy coding! 🚀

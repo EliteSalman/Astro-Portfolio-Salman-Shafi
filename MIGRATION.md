@@ -10,17 +10,17 @@ Tailwind CSS is loaded from `src/styles/global.css` and integrated through `@tai
 
 ## Commands
 
-| Command | Purpose |
-|---|---|
+| Command        | Purpose                                            |
+| -------------- | -------------------------------------------------- |
 | `yarn install` | Install the project dependencies from `yarn.lock`. |
-| `yarn dev` | Start the Astro development server. |
-| `yarn check` | Run Astro and TypeScript diagnostics. |
-| `yarn build` | Create the production Astro Node build. |
-| `yarn preview` | Preview the production build. |
+| `yarn dev`     | Start the Astro development server.                |
+| `yarn check`   | Run Astro and TypeScript diagnostics.              |
+| `yarn build`   | Create the production Astro Node build.            |
+| `yarn preview` | Preview the production build.                      |
 
 ## Environment variables
 
-The contact endpoint retains the original server-side variables: `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_SECURE`, `FROM_EMAIL_NAME`, `FROM_EMAIL`, `TO_EMAIL`, `TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. `NEXT_PUBLIC_SITE_URL` remains accepted for compatibility and is used as the Astro `site` value and canonical URL source.
+The contact endpoint uses `MAIL_TRANSPORT` to select its SMTP implementation: set it to `node` on the non-Cloudflare Node.js host and to `cloudflare` on the Cloudflare Worker. The remaining server-side variables are `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_SECURE`, `FROM_EMAIL_NAME`, `FROM_EMAIL`, `TO_EMAIL`, `TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. `NEXT_PUBLIC_SITE_URL` remains accepted for compatibility and is used as the Astro `site` value and canonical URL source.
 
 Secrets are accessed only by server endpoints. The browser receives the Turnstile site key through `/api/turnstile`, matching the original runtime behavior; the Turnstile secret and SMTP credentials are never exposed to client code.
 
