@@ -35,6 +35,8 @@ export default function Contact() {
   }, [handleTurnstileCallback]);
 
   useEffect(() => {
+    let interval: ReturnType<typeof setInterval> | undefined;
+    let timeout: ReturnType<typeof setTimeout> | undefined;
     const renderTurnstile = () => {
       if ((window as any).turnstile && turnstileRef.current && publicSiteKey) {
         if (turnstileRef.current.innerHTML !== '') return;
@@ -55,17 +57,24 @@ export default function Contact() {
       }
     };
 
+    if (!publicSiteKey) return;
     if ((window as any).turnstile) {
       renderTurnstile();
     } else {
-      const checkTurnstile = setInterval(() => {
+      interval = setInterval(() => {
         if ((window as any).turnstile) {
           renderTurnstile();
-          clearInterval(checkTurnstile);
+          if (interval) clearInterval(interval);
         }
       }, 100);
-      setTimeout(() => clearInterval(checkTurnstile), 10000);
+      timeout = setTimeout(() => {
+        if (interval) clearInterval(interval);
+      }, 30000);
     }
+    return () => {
+      if (interval) clearInterval(interval);
+      if (timeout) clearTimeout(timeout);
+    };
   }, [publicSiteKey]);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {

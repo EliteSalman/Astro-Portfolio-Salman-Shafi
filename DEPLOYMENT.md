@@ -63,7 +63,9 @@ The Compose service reads environment variables from `.env`, publishes port `432
 2. Select the `astro-static` branch.
 3. Set the build command to `pnpm build`.
 4. Set the output directory to `dist`.
-5. Deploy. No environment variables are required for this static branch.
+5. Add `PUBLIC_TURNSTILE_SITE_KEY` as a Pages build variable using the public Turnstile site key. It must be available during the build so the widget can render in the static browser bundle.
+6. Add `TURNSTILE_SECRET_KEY` and the SMTP variables as Pages secrets/variables for the Pages Function. Keep the secret key and SMTP credentials private.
+7. Redeploy after saving the variables.
 
 ### 4. Domain Configuration
 1. In Cloudflare Dashboard → Workers & Pages → your Pages project → Custom domains
