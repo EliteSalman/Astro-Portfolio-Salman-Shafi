@@ -1,14 +1,13 @@
-import type { APIRoute } from 'astro';
-import nodemailer from 'nodemailer';
-import { validateContactForm } from '@/lib/validation';
+import type { APIRoute } from "astro";
+import { validateContactForm } from "@/lib/validation";
 
 function escapeHtml(unsafe: string) {
   return unsafe
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#039;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 export const POST: APIRoute = async ({ request }) => {
@@ -17,61 +16,58 @@ export const POST: APIRoute = async ({ request }) => {
     const { turnstileToken } = body;
 
     // Ensure inputs are strings to prevent type errors
-    const name = String(body.name || '');
-    const email = String(body.email || '');
-    const subject = String(body.subject || '');
-    const message = String(body.message || '');
+    const name = String(body.name || "");
+    const email = String(body.email || "");
+    const subject = String(body.subject || "");
+    const message = String(body.message || "");
 
     // Validate Turnstile token
     if (!turnstileToken) {
       return Response.json(
-        { error: 'Security verification required' },
-        { status: 400 }
+        { error: "Security verification required" },
+        { status: 400 },
       );
     }
 
     // Verify Turnstile token with Cloudflare
-    const turnstileResponse = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const turnstileResponse = await fetch(
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          secret: process.env.TURNSTILE_SECRET_KEY,
+          response: turnstileToken,
+          remoteip:
+            request.headers.get("x-forwarded-for") ||
+            request.headers.get("x-real-ip") ||
+            "unknown",
+        }),
       },
-      body: JSON.stringify({
-        secret: process.env.TURNSTILE_SECRET_KEY,
-        response: turnstileToken,
-        remoteip: request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown'
-      }),
-    });
+    );
 
     const turnstileResult = await turnstileResponse.json();
 
     if (!turnstileResult.success) {
-      console.error('Turnstile verification failed:', turnstileResult);
+      console.error("Turnstile verification failed:", turnstileResult);
       return Response.json(
-        { error: 'Security verification failed. Please try again.' },
-        { status: 400 }
+        { error: "Security verification failed. Please try again." },
+        { status: 400 },
       );
     }
 
     // Validate form data
-    const validationError = validateContactForm({ name, email, subject, message });
-    if (validationError) {
-      return Response.json(
-        { error: validationError },
-        { status: 400 }
-      );
-    }
-
-    // Create transporter
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USERNAME,
-        pass: process.env.SMTP_PASSWORD,
-      },
+    const validationError = validateContactForm({
+      name,
+      email,
+      subject,
+      message,
     });
+    if (validationError) {
+      return Response.json({ error: validationError }, { status: 400 });
+    }
 
     // Sanitize inputs for HTML template
     const escapedName = escapeHtml(name);
@@ -269,14 +265,14 @@ export const POST: APIRoute = async ({ request }) => {
                 <p class="brand">Salman Shafi</p>
                 <p>System Administrator</p>
                 <div class="timestamp">
-                    Received on ${new Date().toLocaleString('en-US', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      timeZoneName: 'short'
+                    Received on ${new Date().toLocaleString("en-US", {
+                      weekday: "long",
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      timeZoneName: "short",
                     })}
                 </div>
             </div>
@@ -301,27 +297,62 @@ Received on ${new Date().toLocaleString()}
 Salman Shafi - System Administrator & DNS Expert
     `;
 
-    // Send email
+    const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
+    const smtpSecure = process.env.SMTP_SECURE === "true";
     const mailOptions = {
       from: `"${process.env.FROM_EMAIL_NAME}" <${process.env.FROM_EMAIL}>`,
-      to: process.env.TO_EMAIL,
+      to: process.env.TO_EMAIL || "",
       subject: `Portfolio Contact: ${subject}`,
       text: textTemplate,
       html: htmlTemplate,
-      replyTo: email,
+      reply: email,
     };
 
-    await transporter.sendMail(mailOptions);
+    // Node.js development uses Nodemailer; Cloudflare Workers use the
+    // Workers-compatible SMTP client backed by cloudflare:sockets.
+    const isNodeRuntime =
+      typeof process !== "undefined" && process.release?.name === "node";
+
+    if (isNodeRuntime) {
+      const { default: nodemailer } = await import("nodemailer");
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: smtpPort,
+        secure: smtpSecure,
+        auth: {
+          user: process.env.SMTP_USERNAME,
+          pass: process.env.SMTP_PASSWORD,
+        },
+      });
+
+      await transporter.sendMail({
+        ...mailOptions,
+        replyTo: email,
+      });
+    } else {
+      const { WorkerMailer } = await import("worker-mailer");
+
+      await WorkerMailer.send(
+        {
+          host: process.env.SMTP_HOST || "",
+          port: smtpPort,
+          secure: smtpSecure,
+          startTls: !smtpSecure,
+          credentials: {
+            username: process.env.SMTP_USERNAME || "",
+            password: process.env.SMTP_PASSWORD || "",
+          },
+        },
+        mailOptions,
+      );
+    }
 
     return Response.json(
-      { message: 'Email sent successfully' },
-      { status: 200 }
+      { message: "Email sent successfully" },
+      { status: 200 },
     );
   } catch (error) {
-    console.error('Error sending email:', error);
-    return Response.json(
-      { error: 'Failed to send email' },
-      { status: 500 }
-    );
+    console.error("Error sending email:", error);
+    return Response.json({ error: "Failed to send email" }, { status: 500 });
   }
 };
