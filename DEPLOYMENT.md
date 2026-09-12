@@ -34,7 +34,7 @@ NEXT_PUBLIC_SITE_URL=https://yourdomain.com
 
 **Note:** Copy `.env.example` to `.env.local` and fill in your actual values for local development.
 
-**Cloudflare Pages note:** This branch is a static Astro build. Cloudflare Pages should publish the generated `dist/` directory directly; no Worker runtime or server secrets are required.
+**Cloudflare Pages note:** This branch is a static Astro build. Cloudflare Pages should publish the generated `dist/` directory directly. The only dynamic route is the independent `/functions/api/contact.js` Pages Function, which requires the Turnstile and SMTP variables below as Pages secrets/variables.
 
 #### Option B: Podman deployment
 
@@ -93,7 +93,7 @@ The Compose service reads environment variables from `.env`, publishes port `432
 - ✅ **MIME Sniffing**: Content type validation
 
 ### Performance Features
-- ✅ **Contact section**: Temporarily disabled for this static branch
+- ✅ **Contact section**: Static form UI backed by a Cloudflare Pages Function
 - ✅ **Responsive Design**: Mobile-first approach
 - ✅ **Loading States**: Smooth user experience
 - ✅ **Error Handling**: Graceful error management

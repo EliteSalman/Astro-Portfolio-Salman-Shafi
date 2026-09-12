@@ -4,7 +4,7 @@ This project migrates the Salman Shafi terminal-style portfolio to Astro while r
 
 ## Architecture
 
-Astro owns the document shell, route files, metadata, server output, sitemap endpoint, and API endpoints. React is used as a set of hydrated islands for the existing header, footer, home sections, animation behavior, and contact workflow. This keeps application behavior intact while allowing Astro to own routing and server rendering.
+Astro owns the document shell, route files, metadata, static output, and sitemap endpoint. The contact submission is handled independently by the Cloudflare Pages Function at `functions/api/contact.js`. React is used as a set of hydrated islands for the existing header, footer, home sections, animation behavior, and contact workflow. This keeps application behavior intact while allowing Astro to own routing and server rendering.
 
 Tailwind CSS is loaded from `src/styles/global.css` and integrated through `@tailwindcss/vite` in `astro.config.mjs`. The original AMOLED palette, monospace typography, sharp borders, glitch effects, animations, and form classes are preserved.
 
@@ -20,9 +20,9 @@ Tailwind CSS is loaded from `src/styles/global.css` and integrated through `@tai
 
 ## Environment variables
 
-The contact endpoint retains the original server-side variables: `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_SECURE`, `FROM_EMAIL_NAME`, `FROM_EMAIL`, `TO_EMAIL`, `TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. `NEXT_PUBLIC_SITE_URL` remains accepted for compatibility and is used as the Astro `site` value and canonical URL source.
+The contact endpoint retains the original server-side variables: `SMTP_HOST`, `SMTP_USERNAME`, `SMTP_PASSWORD`, `SMTP_PORT`, `SMTP_SECURE`, `FROM_EMAIL_NAME`, `FROM_EMAIL`, `TO_EMAIL`, `PUBLIC_TURNSTILE_SITE_KEY`, and `TURNSTILE_SECRET_KEY`. `NEXT_PUBLIC_SITE_URL` remains accepted for compatibility and is used as the Astro `site` value and canonical URL source.
 
-Secrets are accessed only by server endpoints. The browser receives the Turnstile site key through `/api/turnstile`, matching the original runtime behavior; the Turnstile secret and SMTP credentials are never exposed to client code.
+Secrets are accessed only by server endpoints. The browser receives the public Turnstile site key at build time; the Turnstile secret and SMTP credentials are never exposed to client code.
 
 ## Preserved behavior
 
@@ -30,4 +30,4 @@ The home route, anchored navigation, responsive mobile menu, scroll-aware header
 
 ## Validation
 
-The final migration was validated with `yarn check` and `yarn build`, both of which complete with zero diagnostics. Runtime smoke tests cover `/`, `/sitemap.xml`, `/api/turnstile`, `/api/contact`, and the preserved public assets.
+The final migration was validated with `yarn check` and `yarn build`, both of which complete with zero diagnostics. Static output validation covers `/`, `/sitemap.xml`, `/api/contact` routing, and the preserved public assets.

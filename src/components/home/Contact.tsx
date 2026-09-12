@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 
 export default function Contact() {
+  const publicSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '';
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,7 +12,6 @@ export default function Contact() {
     message: ''
   });
 
-  const [runtimeSiteKey, setRuntimeSiteKey] = useState<string | null>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [statusMessage, setStatusMessage] = useState('');
   const [turnstileToken, setTurnstileToken] = useState('');
@@ -35,27 +35,13 @@ export default function Contact() {
   }, [handleTurnstileCallback]);
 
   useEffect(() => {
-    const renderTurnstile = async () => {
-      let currentKey = runtimeSiteKey;
-
-      if (!currentKey) {
-        try {
-          const response = await fetch('/api/turnstile');
-          const data = await response.json();
-          currentKey = data.siteKey;
-          setRuntimeSiteKey(currentKey);
-        } catch (error) {
-          console.error('Failed to fetch runtime Turnstile key:', error);
-          return;
-        }
-      }
-
-      if ((window as any).turnstile && turnstileRef.current && currentKey) {
+    const renderTurnstile = () => {
+      if ((window as any).turnstile && turnstileRef.current && publicSiteKey) {
         if (turnstileRef.current.innerHTML !== '') return;
 
         try {
           (window as any).turnstile.render(turnstileRef.current, {
-            sitekey: currentKey,
+            sitekey: publicSiteKey,
             callback: (token: string) => {
               setTurnstileToken(token);
             },
@@ -80,7 +66,7 @@ export default function Contact() {
       }, 100);
       setTimeout(() => clearInterval(checkTurnstile), 10000);
     }
-  }, [runtimeSiteKey]);
+  }, [publicSiteKey]);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -222,10 +208,10 @@ export default function Contact() {
               <motion.div variants={item} className="cf-turnstile flex flex-col space-y-2">
                 {!turnstileLoaded && (
                    <span className="text-[#555] text-xs">
-                     {runtimeSiteKey ? "Loading verification module..." : "Fetching security keys..."}
+                     {publicSiteKey ? "Loading verification module..." : "Turnstile is not configured."}
                    </span>
                 )}
-                {runtimeSiteKey && (
+                {publicSiteKey && (
                   <div ref={turnstileRef} className="cf-turnstile mt-2" />
                 )}
               </motion.div>
