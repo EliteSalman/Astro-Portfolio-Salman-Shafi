@@ -12,17 +12,33 @@ function escapeHtml(unsafe: string) {
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    const body = await request.json();
+    let body: Record<string, unknown>;
+    try {
+      const parsedBody = await request.json();
+      if (!parsedBody || typeof parsedBody !== "object") {
+        return Response.json(
+          { error: "Invalid request body" },
+          { status: 400 },
+        );
+      }
+      body = parsedBody as Record<string, unknown>;
+    } catch {
+      return Response.json(
+        { error: "Invalid JSON request body" },
+        { status: 400 },
+      );
+    }
+
     const { turnstileToken } = body;
 
     // Ensure inputs are strings to prevent type errors
-    const name = String(body.name || "");
-    const email = String(body.email || "");
-    const subject = String(body.subject || "");
-    const message = String(body.message || "");
+    const name = typeof body.name === "string" ? body.name : "";
+    const email = typeof body.email === "string" ? body.email : "";
+    const subject = typeof body.subject === "string" ? body.subject : "";
+    const message = typeof body.message === "string" ? body.message : "";
 
     // Validate Turnstile token
-    if (!turnstileToken) {
+    if (typeof turnstileToken !== "string" || !turnstileToken) {
       return Response.json(
         { error: "Security verification required" },
         { status: 400 },
@@ -47,6 +63,17 @@ export const POST: APIRoute = async ({ request }) => {
         }),
       },
     );
+
+    if (!turnstileResponse.ok) {
+      console.error(
+        "Turnstile verification request failed:",
+        turnstileResponse.status,
+      );
+      return Response.json(
+        { error: "Security verification is temporarily unavailable." },
+        { status: 502 },
+      );
+    }
 
     const turnstileResult = await turnstileResponse.json();
 
@@ -299,8 +326,22 @@ Salman Shafi - System Administrator & DNS Expert
 
     const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
     const smtpSecure = process.env.SMTP_SECURE === "true";
+    const fromEmail = process.env.FROM_EMAIL || "";
+    const fromName = process.env.FROM_EMAIL_NAME || "Portfolio Contact";
+    if (
+      !process.env.SMTP_HOST ||
+      !process.env.SMTP_USERNAME ||
+      !process.env.SMTP_PASSWORD ||
+      !Number.isInteger(smtpPort) ||
+      smtpPort < 1 ||
+      smtpPort > 65535 ||
+      !fromEmail ||
+      !process.env.TO_EMAIL
+    ) {
+      throw new Error("Incomplete SMTP configuration");
+    }
     const mailOptions = {
-      from: `"${process.env.FROM_EMAIL_NAME}" <${process.env.FROM_EMAIL}>`,
+      from: `"${fromName}" <${fromEmail}>`,
       to: process.env.TO_EMAIL || "",
       subject: `Portfolio Contact: ${subject}`,
       text: textTemplate,
@@ -344,7 +385,10 @@ Salman Shafi - System Administrator & DNS Expert
             password: process.env.SMTP_PASSWORD || "",
           },
         },
-        mailOptions,
+        {
+          ...mailOptions,
+          from: { name: fromName, email: fromEmail },
+        },
       );
     } else {
       throw new Error('MAIL_TRANSPORT must be set to "node" or "cloudflare"');
