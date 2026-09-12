@@ -299,8 +299,10 @@ Salman Shafi - System Administrator & DNS Expert
 
     const smtpPort = parseInt(process.env.SMTP_PORT || "587", 10);
     const smtpSecure = process.env.SMTP_SECURE === "true";
+    const fromEmail = process.env.FROM_EMAIL || "";
+    const fromName = process.env.FROM_EMAIL_NAME || "Portfolio Contact";
     const mailOptions = {
-      from: `"${process.env.FROM_EMAIL_NAME}" <${process.env.FROM_EMAIL}>`,
+      from: `"${fromName}" <${fromEmail}>`,
       to: process.env.TO_EMAIL || "",
       subject: `Portfolio Contact: ${subject}`,
       text: textTemplate,
@@ -344,7 +346,10 @@ Salman Shafi - System Administrator & DNS Expert
             password: process.env.SMTP_PASSWORD || "",
           },
         },
-        mailOptions,
+        {
+          ...mailOptions,
+          from: { name: fromName, email: fromEmail },
+        },
       );
     } else {
       throw new Error('MAIL_TRANSPORT must be set to "node" or "cloudflare"');
