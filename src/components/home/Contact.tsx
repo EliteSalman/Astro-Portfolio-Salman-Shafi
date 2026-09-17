@@ -309,7 +309,7 @@ export default function Contact({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' 
                   }
                   rows={5}
                   required
-                  placeholder="{bn ? 'Configuration parameters লিখুন...' : 'Enter configuration parameters...'}"
+                  placeholder={bn ? 'Configuration parameters লিখুন...' : 'Enter configuration parameters...'}
                   className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] focus:ring-0 transition-colors rounded-none font-mono text-sm resize-none disabled:opacity-50 shadow-none appearance-none placeholder:text-[#333]"
                 ></textarea>
               </motion.div>

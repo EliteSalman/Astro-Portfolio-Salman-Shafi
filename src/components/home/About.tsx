@@ -64,11 +64,11 @@ export default function About({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' })
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
               <div className="col-span-3 text-[#555]">primary</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'Infrastructure ও Self-Hosting' : 'Infrastructure & Self-Hosting'}"</div>
+              <div className="col-span-9 text-[#e5e5e5]">= &quot;{bn ? 'Infrastructure ও Self-Hosting' : 'Infrastructure & Self-Hosting'}&quot;</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-1">
               <div className="col-span-3 text-[#555]">speciality</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'শূন্য থেকে অত্যন্ত নিরাপদ ও রক্ষণাবেক্ষণযোগ্য Linux system তৈরি করা।' : 'Building highly secure, maintainable Linux systems from scratch.'}"</div>
+              <div className="col-span-9 text-[#e5e5e5]">= &quot;{bn ? 'শূন্য থেকে অত্যন্ত নিরাপদ ও রক্ষণাবেক্ষণযোগ্য Linux system তৈরি করা।' : 'Building highly secure, maintainable Linux systems from scratch.'}&quot;</div>
             </div>
           </motion.div>
 
@@ -79,7 +79,7 @@ export default function About({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' })
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
               <div className="col-span-3 text-[#555]">community</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'সক্রিয় contributor। জ্ঞান ভাগ করলে জ্ঞান বৃদ্ধি পায়।' : 'Active contributor. Sharing knowledge increases knowledge.'}"</div>
+              <div className="col-span-9 text-[#e5e5e5]">= &quot;{bn ? 'সক্রিয় contributor। জ্ঞান ভাগ করলে জ্ঞান বৃদ্ধি পায়।' : 'Active contributor. Sharing knowledge increases knowledge.'}&quot;</div>
             </div>
           </motion.div>
         </motion.div>
