@@ -1,20 +1,19 @@
 'use client';
 
-export default function Skills({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' }) {
-  const bn = locale === 'bn';
+export default function Skills() {
   const skillUnits = [
-    { id: "os-core", name: bn ? 'Operating Systems' : 'Operating Systems', items: "Fedora/RHEL/AlmaLinux, Debian, Ubuntu, Alpine, FreeBSD" },
-    { id: "container-virt", name: bn ? 'Virtualisation' : 'Virtualisation', items: "KVM, QEMU, Hyper-V, Podman (Quadlets & Compose), Docker" },
+    { id: "os-core", name: "Operating Systems", items: "Fedora/RHEL/AlmaLinux, Debian, Ubuntu, Alpine, FreeBSD" },
+    { id: "container-virt", name: "Virtualisation", items: "KVM, QEMU, Hyper-V, Podman (Quadlets & Compose), Docker" },
     { id: "dns-dnssec", name: "DNS & DNSSEC", items: "BIND, Knot, PowerDNS, Technitium, dnsmasq, Unbound, Multi-signer (RFC 8901)" },
-    { id: "web-proxy", name: bn ? 'Web Servers' : 'Web Servers', items: "Caddy, NGINX, Apache, LiteSpeed, Traefik" },
-    { id: "mail-stack", name: bn ? 'Mail Stack' : 'Mail Stack', items: "Stalwart, Postfix, Dovecot, Mailcow, Mail-in-a-Box, Google Workspace, M365, Zoho" },
-    { id: "network-mesh", name: bn ? 'Networking' : 'Networking', items: "IPv4/IPv6, Routng, BGP, VLAN, CGNAT, WireGuard, Wi-Fi, Tailscale, ZeroTier, Cloudflare Networking (Zero Trust)" },
-    { id: "firewall-router", name: bn ? 'Firewalls ও Routers' : 'Firewalls & Routers', items: "firewalld, UFW, pf, OpenWrt, KeeneticOS, RouterOS (MikroTik)" },
-    { id: "storage-sec", name: bn ? 'Storage ও Security' : 'Storage & Security', items: "ZFS, Btrfs, XFS, LVM, LUKS, SELinux, ACME/certbot" },
-    { id: "monitor-db", name: bn ? 'Monitoring ও DBs' : 'Monitoring & DBs', items: "Grafana, Prometheus, Uptime Kuma, MariaDB, PostgreSQL, Redis, systemd, auditd" },
-    { id: "cloud-cdn", name: bn ? 'Cloud ও CDN' : 'Cloud & CDN', items: "Cloudflare (WAF, Tunnels), AWS, Hetzner, Fastly, CloudFront, G-Core, DigitalOcean, MetroVPS" },
-    { id: "self-hosted", name: bn ? 'Self-Hosted Apps' : 'Self-Hosted Apps', items: "Nextcloud, Vaultwarden, Immich, AdGuard Home, Ghost CMS, PBX" },
-    { id: "deploy-pkg", name: bn ? 'Deployment ও Panels' : 'Deployment & Panels', items: "Git, RPM/DEB Packaging, COPR, aaPanel, HestiaCP, cPanel, Webuzo" }
+    { id: "web-proxy", name: "Web Servers", items: "Caddy, NGINX, Apache, LiteSpeed, Traefik" },
+    { id: "mail-stack", name: "Mail Stack", items: "Stalwart, Postfix, Dovecot, Mailcow, Mail-in-a-Box, Google Workspace, M365, Zoho" },
+    { id: "network-mesh", name: "Networking", items: "IPv4/IPv6, Routng, BGP, VLAN, CGNAT, WireGuard, Wi-Fi, Tailscale, ZeroTier, Cloudflare Networking (Zero Trust)" },
+    { id: "firewall-router", name: "Firewalls & Routers", items: "firewalld, UFW, pf, OpenWrt, KeeneticOS, RouterOS (MikroTik)" },
+    { id: "storage-sec", name: "Storage & Security", items: "ZFS, Btrfs, XFS, LVM, LUKS, SELinux, ACME/certbot" },
+    { id: "monitor-db", name: "Monitoring & DBs", items: "Grafana, Prometheus, Uptime Kuma, MariaDB, PostgreSQL, Redis, systemd, auditd" },
+    { id: "cloud-cdn", name: "Cloud & CDN", items: "Cloudflare (WAF, Tunnels), AWS, Hetzner, Fastly, CloudFront, G-Core, DigitalOcean, MetroVPS" },
+    { id: "self-hosted", name: "Self-Hosted Apps", items: "Nextcloud, Vaultwarden, Immich, AdGuard Home, Ghost CMS, PBX" },
+    { id: "deploy-pkg", name: "Deployment & Panels", items: "Git, RPM/DEB Packaging, COPR, aaPanel, HestiaCP, cPanel, Webuzo" }
   ];
 
   return (
@@ -68,11 +67,11 @@ export default function Skills({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' }
              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-[#888] leading-relaxed">
                <div>
                  <h4 className="text-[#EE0000] font-bold mb-3 uppercase">DevOps & SRE</h4>
-                 <p>Deepening expertise in {bn ? 'Virtualisation' : 'Virtualisation'} (KVM/QEMU), automation, and monitoring (Prometheus/Grafana).</p>
+                 <p>Deepening expertise in Virtualisation (KVM/QEMU), automation, and monitoring (Prometheus/Grafana).</p>
                </div>
                <div>
                  <h4 className="text-[#EE0000] font-bold mb-3 uppercase">Exploration</h4>
-                 <p>{bn ? 'CCTV/Surveillance system, Backbone networking (MPLS) এবং advanced IaC (LXC, Kubernetes) নিয়ে কাজ করছি।' : 'Exploring CCTV/Surveillance systems, Backbone networking (MPLS), and advanced IaC (LXC, Kubernetes).'}</p>
+                 <p>Exploring CCTV/Surveillance systems, Backbone networking (MPLS), and advanced IaC (LXC, Kubernetes).</p>
                </div>
                <div>
                  <h4 className="text-[#EE0000] font-bold mb-3 uppercase">Certifications & Community</h4>

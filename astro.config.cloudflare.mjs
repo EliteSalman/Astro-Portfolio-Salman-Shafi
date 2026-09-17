@@ -8,14 +8,6 @@ export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
   integrations: [react()],
-  i18n: {
-    locales: ['en-gb', 'bn'],
-    defaultLocale: 'en-gb',
-    routing: {
-      prefixDefaultLocale: true,
-      redirectToDefaultLocale: true,
-    },
-  },
   vite: {
     plugins: [tailwindcss()],
   },
