@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+Astro.response.status = 404;
+---
+<Layout>
+  <section class="flex min-h-[calc(100vh-8rem)] items-center justify-center border-b border-[#1e1e1e] bg-black px-6 py-24 font-mono">
+    <div class="w-full max-w-3xl">
+      <div class="mb-8 flex items-center text-sm text-[#a1a1aa] md:text-base">
+        <span class="text-green-500">salman@infra</span>
+        <span class="text-white">:</span>
+        <span class="text-blue-500">~</span>
+        <span class="ml-2 text-white">$ cd requested-path</span>
+      </div>
+
+      <div class="border border-[#1e1e1e] bg-[#050505] p-6 shadow-[8px_8px_0_#111] md:p-10">
+        <div class="mb-8 flex items-start gap-5">
+          <span class="mt-2 inline-block h-10 w-3 shrink-0 animate-blink bg-[#EE0000]" aria-hidden="true"></span>
+          <div>
+            <p class="text-6xl font-bold leading-none tracking-tight text-[#e5e5e5] md:text-8xl">404</p>
+            <h1 class="mt-5 text-xl font-bold text-[#e5e5e5] md:text-2xl">PATH_NOT_FOUND</h1>
+          </div>
+        </div>
+
+        <div class="space-y-3 border-t border-[#1e1e1e] pt-6 text-sm leading-relaxed text-[#888] md:text-base">
+          <p><span class="text-[#EE0000]">[ERR]</span> The requested resource does not exist on this host.</p>
+          <p><span class="text-green-500">[INFO]</span> Check the path and try again, or return to the main system.</p>
+        </div>
+
+        <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+          <a href="/" class="inline-flex items-center justify-center border border-[#EE0000] bg-[#EE0000] px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-colors hover:border-white hover:bg-white hover:text-black focus:outline-none focus:ring-2 focus:ring-[#EE0000] focus:ring-offset-2 focus:ring-offset-black">
+            [ RETURN_HOME ]
+          </a>
+          <button type="button" onclick="history.back()" class="inline-flex items-center justify-center border border-[#333] bg-[#0a0a0a] px-6 py-3 text-sm font-bold uppercase tracking-wider text-[#a1a1aa] transition-colors hover:border-[#e5e5e5] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#EE0000] focus:ring-offset-2 focus:ring-offset-black">
+            [ GO_BACK ]
+          </button>
+        </div>
+      </div>
+
+      <p class="mt-6 text-xs text-[#555]">status: <span class="text-[#EE0000]">404</span> // connection remains active</p>
+    </div>
+  </section>
+</Layout>
