@@ -8,6 +8,14 @@ export default defineConfig({
   output: 'server',
   adapter: node({ mode: 'standalone' }),
   integrations: [react()],
+  i18n: {
+    locales: ['en-gb', 'bn'],
+    defaultLocale: 'en-gb',
+    routing: {
+      prefixDefaultLocale: true,
+      redirectToDefaultLocale: true,
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },

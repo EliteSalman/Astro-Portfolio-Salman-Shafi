@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
 
-export default function About() {
+export default function About({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' }) {
+  const bn = locale === 'bn';
   // Mechanical step-rendering variants typed for TypeScript
   const container: Variants = {
     hidden: { opacity: 0 },
@@ -38,7 +39,7 @@ export default function About() {
           className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-10 text-sm md:text-base leading-relaxed"
         >
           <motion.div variants={item} className="mb-6">
-            <span className="text-[#a1a1aa]"># Core Identity Configuration</span>
+            <span className="text-[#a1a1aa]">{bn ? '# মূল পরিচয় কনফিগারেশন' : '# Core Identity Configuration'}</span>
             <div className="mt-2">
               <span className="text-[#EE0000]">[profile]</span>
             </div>
@@ -57,28 +58,28 @@ export default function About() {
           </motion.div>
 
           <motion.div variants={item} className="mb-6">
-            <span className="text-[#a1a1aa]"># Operational Focus Areas</span>
+            <span className="text-[#a1a1aa]">{bn ? '# কাজের প্রধান ক্ষেত্র' : '# Operational Focus Areas'}</span>
             <div className="mt-2">
               <span className="text-[#EE0000]">[operations]</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
               <div className="col-span-3 text-[#555]">primary</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "Infrastructure & Self-Hosting"</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'Infrastructure ও Self-Hosting' : 'Infrastructure & Self-Hosting'}"</div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-1">
               <div className="col-span-3 text-[#555]">speciality</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "Building highly secure, maintainable Linux systems from scratch."</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'শূন্য থেকে অত্যন্ত নিরাপদ ও রক্ষণাবেক্ষণযোগ্য Linux system তৈরি করা।' : 'Building highly secure, maintainable Linux systems from scratch.'}"</div>
             </div>
           </motion.div>
 
           <motion.div variants={item}>
-            <span className="text-[#a1a1aa]"># Professional Philosophy</span>
+            <span className="text-[#a1a1aa]">{bn ? '# পেশাগত দর্শন' : '# Professional Philosophy'}</span>
             <div className="mt-2">
               <span className="text-[#EE0000]">[core_values]</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-12 gap-2 mt-2">
               <div className="col-span-3 text-[#555]">community</div>
-              <div className="col-span-9 text-[#e5e5e5]">= "Active contributor. Sharing knowledge increases knowledge."</div>
+              <div className="col-span-9 text-[#e5e5e5]">= "{bn ? 'সক্রিয় contributor। জ্ঞান ভাগ করলে জ্ঞান বৃদ্ধি পায়।' : 'Active contributor. Sharing knowledge increases knowledge.'}"</div>
             </div>
           </motion.div>
         </motion.div>

@@ -4,7 +4,7 @@ import Skills from './home/Skills';
 import Experience from './home/Experience';
 import Contact from './home/Contact';
 
-export default function Home() {
+export default function Home({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' }) {
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -30,10 +30,10 @@ export default function Home() {
 
   return <div className="min-h-screen bg-background text-foreground">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-    <Hero />
-    <About />
-    <Skills />
-    <Experience />
-    <Contact />
+    <Hero locale={locale} />
+    <About locale={locale} />
+    <Skills locale={locale} />
+    <Experience locale={locale} />
+    <Contact locale={locale} />
   </div>;
 }
