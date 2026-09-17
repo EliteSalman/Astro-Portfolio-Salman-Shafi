@@ -3,8 +3,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 
-export default function Contact({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' }) {
-  const bn = locale === 'bn';
+export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -309,7 +308,7 @@ export default function Contact({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' 
                   }
                   rows={5}
                   required
-                  placeholder={bn ? 'Configuration parameters লিখুন...' : 'Enter configuration parameters...'}
+                  placeholder="Enter configuration parameters..."
                   className="bg-[#0a0a0a] border border-[#1e1e1e] text-[#e5e5e5] p-3 focus:outline-none focus:border-[#EE0000] focus:ring-0 transition-colors rounded-none font-mono text-sm resize-none disabled:opacity-50 shadow-none appearance-none placeholder:text-[#333]"
                 ></textarea>
               </motion.div>
@@ -369,7 +368,7 @@ export default function Contact({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' 
               className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-8"
             >
               <span className="text-[#a1a1aa] text-sm block mb-6">
-                {bn ? '# যোগাযোগের ঠিকানা' : '# Contact Endpoints'}
+                # Contact Endpoints
               </span>
 
               <div className="space-y-4 text-sm">
@@ -427,11 +426,11 @@ export default function Contact({ locale = 'en-gb' }: { locale?: 'en-gb' | 'bn' 
               className="bg-[#050505] border border-[#1e1e1e] p-6 md:p-8"
             >
               <span className="text-[#a1a1aa] text-sm block mb-4">
-                {bn ? '# Status Check' : '# Status Check'}
+                # Status Check
               </span>
               <div className="flex items-center text-sm text-[#e5e5e5]">
                 <span className="text-green-500 mr-3 text-xs">●</span>
-                {bn ? 'System সক্রিয়। input-এর অপেক্ষায়।' : 'System active. Awaiting input.'}
+                System active. Awaiting input.
               </div>
             </motion.div>
           </motion.div>
